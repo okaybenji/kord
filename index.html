@@ -1,0 +1,17 @@
+<!doctype html>
+<html ng-app="chordOrganApp">
+  <head>
+    <title>Chord Organ</title>
+<!--    <link rel="stylesheet" href="styles.css">-->
+  </head>
+  <body ng-controller="chordCtrl">
+    <h1>Tiles</h1>
+    <main>
+        <button ng-mousedown="start()" ng-mouseup="stop()">Test</button>
+    </main>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="http://www.softsynth.com/webaudio/webaudio_tools.js"></script>
+  <script src="webSynth.js"></script>
+  <script src="chordCtrl.js"></script>
+</html>

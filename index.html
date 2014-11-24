@@ -6,11 +6,19 @@
   </head>
   <body ng-controller="chordCtrl">
     <main>
-        <button ng-mousedown="start()" ng-mouseup="stop()">Test</button>
+        <button ng-mousedown="start(1)" ng-mouseup="stop()">I</button>
+        <button ng-mousedown="start(2)" ng-mouseup="stop()">ii</button>
+        <button ng-mousedown="start(3)" ng-mouseup="stop()">iii</button>
+        <button ng-mousedown="start(4)" ng-mouseup="stop()">IV</button>
+        <button ng-mousedown="start(5)" ng-mouseup="stop()">V</button>
+        <button ng-mousedown="start(6)" ng-mouseup="stop()">vi</button>
+        <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
+        <button ng-click="invertMode=!invertMode">Major/Minor</button>
+        <button ng-click="invertChord=!invertChord">Invert</button>
+        <button ng-click="specialChord=!specialChord">Special</button>
     </main>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-  <script src="http://www.softsynth.com/webaudio/webaudio_tools.js"></script>
-  <script src="webSynth.js"></script>
+  <script src="monosynth.js"></script>
   <script src="chordCtrl.js"></script>
 </html>

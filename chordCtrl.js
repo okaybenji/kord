@@ -4,9 +4,24 @@ chordOrganApp.controller('chordCtrl', ['$scope',
     
     function chordCtrl($scope) {
         
+        //constants
+        var FLAT = '\u266D';
+        var SHARP = '\u266F';
+        var DIM = '\u00B0';
+        var INV = '\u2076';
+        
         //arrays
         var voices = [];
         var defaultChord = [];
+        var labels = [
+            {}, //start array at 1 to match chord numbers
+            { default: 'I', invertMode: 'i', specialChord: 'I+' },
+            { default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+            { default: 'iii', invertMode: 'III', specialChord: 'iii' + DIM },
+            { default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+            { default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+            { default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
+        ];
         
         //toggles
         $scope.invertMode = false;
@@ -34,6 +49,28 @@ chordOrganApp.controller('chordCtrl', ['$scope',
             { label: 'F', value: 5 },
             { label: 'F#', value: 6 }
         ];
+        
+        $scope.label = function getLabel(chordNumber) {
+            var chordLabels = labels[chordNumber];
+            var label = '';
+            
+            switch (true) {
+                case $scope.invertMode:
+                    label = chordLabels.invertMode;
+                    break;
+                case $scope.specialChord:
+                    label = chordLabels.specialChord;
+                    break;
+                default:
+                    label = chordLabels.default;
+            }
+            
+            if ($scope.invertChord) {
+                label += INV; //add 6 as superscript
+            }
+            
+            return(label);
+        }
         
         $scope.keyShift = $scope.keys[5]; //default to key of C
         

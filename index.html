@@ -1,21 +1,26 @@
 <!doctype html>
 <html ng-app="chordOrganApp">
-  <head>
-    <title>Chord Organ</title>
-<!--    <link rel="stylesheet" href="styles.css">-->
+    <head>
+        <title>Chord Organ</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
   </head>
   <body ng-controller="chordCtrl">
     <main>
-        <button ng-mousedown="start(1)" ng-mouseup="stop()">{{label(1)}}</button>
-        <button ng-mousedown="start(2)" ng-mouseup="stop()">{{label(2)}}</button>
-        <button ng-mousedown="start(3)" ng-mouseup="stop()">{{label(3)}}</button>
-        <button ng-mousedown="start(4)" ng-mouseup="stop()">{{label(4)}}</button>
-        <button ng-mousedown="start(5)" ng-mouseup="stop()">{{label(5)}}</button>
-        <button ng-mousedown="start(6)" ng-mouseup="stop()">{{label(6)}}</button>
-        <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
-        <button ng-click="invertMode=!invertMode">Major/Minor</button>
-        <button ng-click="invertChord=!invertChord">Invert</button>
-        <button ng-click="specialChord=!specialChord">Special</button>
+        <div id="modifierMenu">
+            <button ng-click="invertMode=!invertMode">Major/Minor</button>
+            <button ng-click="invertChord=!invertChord">Invert</button>
+            <button ng-click="specialChord=!specialChord">Special</button>
+            <span>Key: <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></span>
+        </div>
+        <div id="chordMenu">
+            <button ng-mousedown="start(1)" ng-mouseup="stop()">{{label(1)}}</button>
+            <button ng-mousedown="start(2)" ng-mouseup="stop()">{{label(2)}}</button>
+            <button ng-mousedown="start(3)" ng-mouseup="stop()">{{label(3)}}</button>
+            <button ng-mousedown="start(4)" ng-mouseup="stop()">{{label(4)}}</button>
+            <button ng-mousedown="start(5)" ng-mouseup="stop()">{{label(5)}}</button>
+            <button ng-mousedown="start(6)" ng-mouseup="stop()">{{label(6)}}</button>
+        </div>
     </main>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>

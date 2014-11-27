@@ -1,0 +1,31 @@
+main {
+
+    max-width: 1000px;
+    max-height: 700px;
+
+}
+
+button {
+    margin-bottom: 5%;
+}
+
+#modifierMenu {
+    float: left;
+    width: 20%;
+    padding-right: 5%;
+}
+
+#modifierMenu button {
+    width: 100%;
+    display: block;
+}
+
+#chordMenu {
+    float: right;
+    width: 75%;
+}
+
+#chordMenu button {
+    width: 25%;
+    display: inline-block;
+}

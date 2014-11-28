@@ -13,19 +13,24 @@
             <button ng-click="specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
             <div><select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></div>
         </div>
-        <div id="chordMenu">
-            <button class="i-button" ng-mousedown="start(1)" ng-mouseup="stop()">{{label(1)}}</button>
-            <button class="ii-button" ng-mousedown="start(2)" ng-mouseup="stop()">{{label(2)}}</button>
-            <button class="iii-button" ng-mousedown="start(3)" ng-mouseup="stop()">{{label(3)}}</button>
-            <button class="iv-button" ng-mousedown="start(4)" ng-mouseup="stop()">{{label(4)}}</button>
-            <button class="v-button" ng-mousedown="start(5)" ng-mouseup="stop()">{{label(5)}}</button>
-            <button class="vi-button" ng-mousedown="start(6)" ng-mouseup="stop()">{{label(6)}}</button>
+        <div id="chordMenu" ng-mouseup="stop()">
+            <button class="i-button" ng-mousedown="start(1)">{{label(1)}}</button>
+            <button class="ii-button" ng-mousedown="start(2)">{{label(2)}}</button>
+            <button class="iii-button" ng-mousedown="start(3)">{{label(3)}}</button>
+            <button class="iv-button" ng-mousedown="start(4)">{{label(4)}}</button>
+            <button class="v-button" ng-mousedown="start(5)">{{label(5)}}</button>
+            <button class="vi-button" ng-mousedown="start(6)">{{label(6)}}</button>
+        </div>
+        <div id="waveformMenu">
+            <button id="sine" ng-click="setWaveform('sine')"></button><button id="square" ng-click="setWaveform('square')"></button><button id="triangle" ng-click="setWaveform('triangle')"></button><button id="saw" ng-click="setWaveform('saw')"></button>
         </div>
     </main>
     <br><br><br><br>
     <ul>
         <li>add volume slider</li>
-        <li>add waveform button group</li>
+        <li>style waveform button group</li>
+        <li>add option to show chord letters instead of numbers</li>
+        <li>add settings panel for this hooplah! fade in/out</li>
         <li>change key selector to ul and style a la bootstrap</li>
         <li>MAKE APP STOP HANGING!!!</li>
     </ul>

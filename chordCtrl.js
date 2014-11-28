@@ -188,12 +188,18 @@ chordOrganApp.controller('chordCtrl', ['$scope',
                 voices[i].stop();
             }
         }
+        
+        //change waveform for all voices
+        $scope.setWaveform = function setWaveform(waveform) {
+            for (var i=0, ii=voices.length; i<ii; i++) {
+                voices[i].setWaveform(waveform);
+            }
+        }
 
         //initialize one monosynth per voice
         var init = function init() {
             for (var i=0, ii=defaultChord.length; i<ii; i++) {
                 voices[i] = new monosynth;
-                voices[i].setWaveform('square');
             }
         }
         

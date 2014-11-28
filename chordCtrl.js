@@ -193,6 +193,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         var init = function init() {
             for (var i=0, ii=defaultChord.length; i<ii; i++) {
                 voices[i] = new monosynth;
+                voices[i].setWaveform('square');
             }
         }
         

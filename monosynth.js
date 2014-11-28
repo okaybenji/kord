@@ -34,6 +34,10 @@ var monosynth = function() {
         amp.gain.setValueAtTime(amp.gain.value, now);
         amp.gain.linearRampToValueAtTime(0, audioCtx.currentTime + fadeOutLength);
     };
+    
+    Voice.setWaveform = function setWaveform(waveform) {
+        oscillator.type = waveform;
+    }
 
     //export synth
     return Voice;

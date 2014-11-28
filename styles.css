@@ -1,31 +1,103 @@
 main {
-
-    max-width: 1000px;
-    max-height: 700px;
-
+    margin: 1%;
+    font-family: Helvetica, sans-serif;
 }
 
 button {
-    margin-bottom: 5%;
+    color: white;
+    font-size: 150%;
+    border: none;
+    height: 46px;
+    margin-bottom: 1%;
+    border-radius: 3px;
+}
+
+button:active {
+    border: none;
+}
+
+select {
+    display: button;
+}
+
+.i-button {
+    background: hsl(23, 100%, 49%);
+}
+
+.i-button:active {
+    background: hsl(23, 100%, 39%);
+}
+
+.ii-button {
+    background: hsl(39, 100%, 49%);
+}
+
+.ii-button:active {
+    background: hsl(39, 100%, 39%);
+}
+
+.iii-button {
+    background: hsl(57, 100%, 50%);
+}
+
+.iii-button:active {
+    background: hsl(57, 100%, 40%)
+}
+
+.iv-button {
+    background: hsl(302, 58%, 36%);
+}
+
+.iv-button:active {
+    background: hsl(302, 58%, 26%)
+}
+
+.v-button {
+    background: hsl(324, 100%, 46%);
+}
+
+.v-button:active {
+    background: hsl(324, 100%, 36%)
+}
+
+.vi-button {
+    background: hsl(340, 86%, 50%);
+}
+
+.vi-button:active {
+    background: hsl(340, 86%, 40%)
 }
 
 #modifierMenu {
     float: left;
-    width: 20%;
-    padding-right: 5%;
+    width: 24%
 }
 
-#modifierMenu button {
-    width: 100%;
-    display: block;
+#modifierMenu button, #modifierMenu div {
+    width: 98%;
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+#modifierMenu button.on {
+    color: white;
+    background: hsl(196, 100%, 47%);
+    border: none;
+}
+
+#modifierMenu button:active.on {
+    background: hsl(196, 100%, 47%);
+}
+
+#modifierMenu button.on.special {
+    color: hsl(57, 100%, 50%);
 }
 
 #chordMenu {
-    float: right;
-    width: 75%;
+    width: 100%;
 }
 
 #chordMenu button {
-    width: 25%;
+    width: 23%;
     display: inline-block;
 }

@@ -8,20 +8,27 @@
   <body ng-controller="chordCtrl">
     <main>
         <div id="modifierMenu">
-            <button ng-click="invertMode=!invertMode">Major/Minor</button>
-            <button ng-click="invertChord=!invertChord">Invert</button>
-            <button ng-click="specialChord=!specialChord">Special</button>
-            <span>Key: <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></span>
+            <button ng-click="invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
+            <button ng-click="invertChord=!invertChord" ng-class="{on: invertChord}">x<sup>6</sup></button>
+            <button ng-click="specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
+            <div><select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></div>
         </div>
         <div id="chordMenu">
-            <button ng-mousedown="start(1)" ng-mouseup="stop()">{{label(1)}}</button>
-            <button ng-mousedown="start(2)" ng-mouseup="stop()">{{label(2)}}</button>
-            <button ng-mousedown="start(3)" ng-mouseup="stop()">{{label(3)}}</button>
-            <button ng-mousedown="start(4)" ng-mouseup="stop()">{{label(4)}}</button>
-            <button ng-mousedown="start(5)" ng-mouseup="stop()">{{label(5)}}</button>
-            <button ng-mousedown="start(6)" ng-mouseup="stop()">{{label(6)}}</button>
+            <button class="i-button" ng-mousedown="start(1)" ng-mouseup="stop()">{{label(1)}}</button>
+            <button class="ii-button" ng-mousedown="start(2)" ng-mouseup="stop()">{{label(2)}}</button>
+            <button class="iii-button" ng-mousedown="start(3)" ng-mouseup="stop()">{{label(3)}}</button>
+            <button class="iv-button" ng-mousedown="start(4)" ng-mouseup="stop()">{{label(4)}}</button>
+            <button class="v-button" ng-mousedown="start(5)" ng-mouseup="stop()">{{label(5)}}</button>
+            <button class="vi-button" ng-mousedown="start(6)" ng-mouseup="stop()">{{label(6)}}</button>
         </div>
     </main>
+    <br><br><br><br>
+    <ul>
+        <li>add volume slider</li>
+        <li>add waveform button group</li>
+        <li>change key selector to ul and style a la bootstrap</li>
+        <li>MAKE APP STOP HANGING!!!</li>
+    </ul>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
   <script src="monosynth.js"></script>

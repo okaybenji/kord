@@ -114,19 +114,19 @@ select {
 }
 
 #sine {
-    background-image: url('/img/sineWave.svg');
+    background-image: url('./img/sineWave.svg');
 }
 
 #square {
-    background-image: url('/img/squareWave.svg');
+    background-image: url('./img/squareWave.svg');
 }
 
 #triangle {
-    background-image: url('/img/triangleWave.svg');
+    background-image: url('./img/triangleWave.svg');
 }
 
 #saw {
-    background-image: url('/img/sawWave.svg');
+    background-image: url('./img/sawWave.svg');
 }
 
 #waveformMenu button:first-child {

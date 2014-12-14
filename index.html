@@ -5,21 +5,22 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles.css">
   </head>
-  <body ng-controller="chordCtrl" ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
-    <main>
-        <div id="modifierMenu">
-            <button ng-click="invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
-            <button ng-click="invertChord=!invertChord" ng-class="{on: invertChord}">x<sup>6</sup></button>
-            <button ng-click="specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
-            <div><select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></div>
+  <body ng-controller="chordCtrl">
+    <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
+        <div id="aspectContainer">
+            <div id="modifierMenu">
+                <button ng-click="invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
+                <button ng-click="invertChord=!invertChord" ng-class="{on: invertChord}">x<sup>6</sup></button>
+                <button ng-click="specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
+                <div><select ng-model="keyShift" ng-options="key as key.label for key in keys"></select></div>
+            </div>
+            <div id="chordMenu" ng-mouseup="stop()">
+                <button ng-repeat="num in chordNumbers" class="chord{{num}}" ng-mousedown="start(num)">{{label(num)}}</button>
+            </div>
+            <div id="waveformMenu">
+                <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
+        </main>
         </div>
-        <div id="chordMenu" ng-mouseup="stop()">
-            <button ng-repeat="num in chordNumbers" class="chord{{num}}" ng-mousedown="start(num)">{{label(num)}}</button>
-        </div>
-        <div id="waveformMenu">
-            <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
-    </main>
-    <br><br><br><br>
     <ul>
         <li>add volume slider</li>
         <li>add option to show chord letters instead of numbers</li>

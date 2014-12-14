@@ -1,36 +1,44 @@
-html {
-    margin: 1%;
-}
-
 body {
     font-family: Helvetica, sans-serif;
+    font-size: 2em;
 }
 
-body #chordMenu {
-    line-height: 120px;
+main {
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    position: relative;
+    background: hsl(302, 10%, 90%); /* temp; L should be 99% */
 }
 
-body.tall #chordMenu {
+main #chordMenu {
+    float: right;
+    width: 80%;
+    height: 80%;
+}
+
+main.tall #chordMenu {
     font-size: 35%;
 }
 
-body.grande #chordMenu {
-    font-size: 41%;
+main.grande #chordMenu {
+    font-size: 40%;
 }
 
-body.venti #chordMenu {
-    font-size: 69%;
+main.venti #chordMenu {
+    font-size: 70%;
 }
 
-body.trenta #chordMenu {
+main.trenta #chordMenu {
     font-size: 100%;
 }
 
+#aspectContainer {
+    position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+}
+
 button {
-    color: white;
-    font-size: 150%;
+    color: hsl(302, 10%, 99%);
     border: none;
-    margin-bottom: 1%;
     border-radius: 3px;
 }
 
@@ -38,14 +46,14 @@ button:active {
     border: none;
 }
 
-select {
-    display: button;
+#chordMenu button {
+    display: inline-block;
+    font-size: 500%;
+    margin: 2px 1px;
 }
 
-/*temporary fixed widths on these; make percentage-based*/
-
 .chord1 {
-    width: 32px;
+    width: 10%;
     background: hsl(23, 100%, 49%);
 }
 
@@ -54,7 +62,7 @@ select {
 }
 
 .chord2 {
-    width: 44px;
+    width: 13%;
     background: hsl(39, 100%, 49%);
 }
 
@@ -63,7 +71,7 @@ select {
 }
 
 .chord3 {
-    width: 59px;
+    width: 16%;
     background: hsl(57, 100%, 50%);
 }
 
@@ -72,7 +80,7 @@ select {
 }
 
 .chord4 {
-    width: 78px;
+    width: 22%;
     background: hsl(302, 58%, 36%);
 }
 
@@ -81,7 +89,7 @@ select {
 }
 
 .chord5 {
-    width: 58px;
+    width: 17%;
     background: hsl(324, 100%, 46%);
 }
 
@@ -90,7 +98,7 @@ select {
 }
 
 .chord6 {
-    width: 62px;
+    width: 20%;
     background: hsl(340, 86%, 50%);
 }
 
@@ -100,18 +108,19 @@ select {
 
 #modifierMenu {
     float: left;
-    width: 10%
+    width: 20%;
+    font-size: 300%;
 }
 
 #modifierMenu button, #modifierMenu div {
     width: 99%;
-    height: 40px;
-    margin-bottom: 4%;
+    margin-bottom: 2%;
     text-align: center;
+    height: 110px; /* need to find a way to set % height */
 }
 
 #modifierMenu button.on {
-    color: white;
+    color: hsl(302, 10%, 99%);
     background: hsl(196, 100%, 47%);
     border: none;
 }
@@ -124,20 +133,15 @@ select {
     color: hsl(57, 100%, 50%);
 }
 
-#chordMenu {
-    width: 100%;
-}
-
-#chordMenu button {
-    display: inline-block;
-    font-size: 500%;
-    margin: 2px 1px;
+#waveformMenu {
+    width: 80%;
+    float: right;
 }
 
 #waveformMenu button {
-    width: 86px;
-    height: 40px;
-    border-left: 2px solid white;
+    width: 25%;
+    height: 80px;  /* need to find a way to set % height */
+    border-left: 2px solid hsl(302, 10%, 99%);
     margin: none;
     padding:none;
     border-radius: 0;
@@ -155,6 +159,17 @@ select {
     background-color: hsl(358, 85%, 42%);
 }
 
+#waveformMenu button:first-child {
+    border-left: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#waveformMenu button:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
 #sine {
     background-image: url('./img/sineWave.svg');
 }
@@ -169,15 +184,4 @@ select {
 
 #sawtooth {
     background-image: url('./img/sawWave.svg');
-}
-
-#waveformMenu button:first-child {
-    border-left: none;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-#waveformMenu button:last-child {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
 }

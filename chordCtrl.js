@@ -50,6 +50,9 @@ chordOrganApp.controller('chordCtrl', ['$scope',
             { label: 'F#', value: 6 }
         ];
         
+        $scope.chordNumbers = [1,2,3,4,5,6]; //chord button numbers, defaulting to: I, ii, iii, IV, V, and vi respectively
+        $scope.waveforms = ['sine','square','triangle','sawtooth'];
+        
         $scope.label = function getLabel(chordNumber) {
             var chordLabels = labels[chordNumber];
             var label = '';
@@ -73,6 +76,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         }
         
         $scope.keyShift = $scope.keys[5]; //default to key of C
+        $scope.selectedWaveform = $scope.waveforms[0]; //default to sine wave
         
         //get the frequency in hertz of a given piano key
         function getFreq(key) {
@@ -188,12 +192,20 @@ chordOrganApp.controller('chordCtrl', ['$scope',
                 voices[i].stop();
             }
         }
+        
+        //change waveform for all voices
+        $scope.setWaveform = function setWaveform(waveform) {
+            for (var i=0, ii=voices.length; i<ii; i++) {
+                voices[i].setWaveform(waveform);
+            }
+            
+            $scope.selectedWaveform = waveform;
+        }
 
         //initialize one monosynth per voice
         var init = function init() {
             for (var i=0, ii=defaultChord.length; i<ii; i++) {
                 voices[i] = new monosynth;
-                voices[i].setWaveform('square');
             }
         }
         

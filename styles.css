@@ -1,13 +1,35 @@
 html {
     margin: 1%;
+}
+
+body {
     font-family: Helvetica, sans-serif;
+}
+
+body #chordMenu {
+    line-height: 120px;
+}
+
+body.tall #chordMenu {
+    font-size: 35%;
+}
+
+body.grande #chordMenu {
+    font-size: 41%;
+}
+
+body.venti #chordMenu {
+    font-size: 69%;
+}
+
+body.trenta #chordMenu {
+    font-size: 100%;
 }
 
 button {
     color: white;
     font-size: 150%;
     border: none;
-    height: 46px;
     margin-bottom: 1%;
     border-radius: 3px;
 }
@@ -20,61 +42,70 @@ select {
     display: button;
 }
 
-.i-button {
+/*temporary fixed widths on these; make percentage-based*/
+
+.chord1 {
+    width: 32px;
     background: hsl(23, 100%, 49%);
 }
 
-.i-button:active {
+.chord1:active {
     background: hsl(23, 100%, 39%);
 }
 
-.ii-button {
+.chord2 {
+    width: 44px;
     background: hsl(39, 100%, 49%);
 }
 
-.ii-button:active {
+.chord2:active {
     background: hsl(39, 100%, 39%);
 }
 
-.iii-button {
+.chord3 {
+    width: 59px;
     background: hsl(57, 100%, 50%);
 }
 
-.iii-button:active {
+.chord3:active {
     background: hsl(57, 100%, 40%)
 }
 
-.iv-button {
+.chord4 {
+    width: 78px;
     background: hsl(302, 58%, 36%);
 }
 
-.iv-button:active {
+.chord4:active {
     background: hsl(302, 58%, 26%)
 }
 
-.v-button {
+.chord5 {
+    width: 58px;
     background: hsl(324, 100%, 46%);
 }
 
-.v-button:active {
+.chord5:active {
     background: hsl(324, 100%, 36%)
 }
 
-.vi-button {
+.chord6 {
+    width: 62px;
     background: hsl(340, 86%, 50%);
 }
 
-.vi-button:active {
+.chord6:active {
     background: hsl(340, 86%, 40%)
 }
 
 #modifierMenu {
     float: left;
-    width: 24%
+    width: 10%
 }
 
 #modifierMenu button, #modifierMenu div {
-    width: 98%;
+    width: 99%;
+    height: 40px;
     margin-bottom: 4%;
     text-align: center;
 }
@@ -98,12 +129,14 @@ select {
 }
 
 #chordMenu button {
-    width: 23%;
     display: inline-block;
+    font-size: 500%;
+    margin: 2px 1px;
 }
 
 #waveformMenu button {
-    width: 50px;
+    width: 86px;
+    height: 40px;
     border-left: 2px solid white;
     margin: none;
     padding:none;
@@ -111,6 +144,15 @@ select {
     background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+
+#waveformMenu button.on {
+    background-color: hsl(358, 85%, 52%);
+}
+
+#waveformMenu button:active {
+    background-color: hsl(358, 85%, 42%);
 }
 
 #sine {
@@ -125,7 +167,7 @@ select {
     background-image: url('./img/triangleWave.svg');
 }
 
-#saw {
+#sawtooth {
     background-image: url('./img/sawWave.svg');
 }
 

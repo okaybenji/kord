@@ -4,13 +4,13 @@
     <g>
         <g id="Layer1">
             <g>
-                <path d="M55.9212,167.123L15.0726,167.123" style="fill:none;stroke-width:25px;stroke:white;"/>
+                <path d="M55.9212,167.123L15.0726,167.123" style="fill:none;stroke-width:25px;stroke:rgb(253,252,253);"/>
             </g>
             <g>
-                <path d="M192.083,167.123L151.234,167.123" style="fill:none;stroke-width:25px;stroke:white;"/>
+                <path d="M193.083,167.123L152.234,167.123" style="fill:none;stroke-width:25px;stroke:rgb(253,252,253);"/>
             </g>
             <g>
-                <path d="M55.9212,167.123L55.9212,57.2828L151.234,57.1089L151.234,167.123" style="fill:none;stroke-width:25px;stroke:white;"/>
+                <path d="M55.9212,167.123L55.9212,57.2828L151.234,57.1089L151.234,167.123" style="fill:none;stroke-width:25px;stroke:rgb(253,252,253);"/>
             </g>
         </g>
     </g>

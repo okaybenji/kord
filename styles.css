@@ -1,12 +1,13 @@
 body {
     font-family: Helvetica, sans-serif;
     font-size: 2em;
+    padding: 1%;
 }
 
 main {
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     position: relative;
-    background: hsl(302, 10%, 90%); /* temp; L should be 99% */
+    background: hsl(302, 10%, 99%)
 }
 
 main #chordMenu {
@@ -16,15 +17,15 @@ main #chordMenu {
 }
 
 main.tall #chordMenu {
-    font-size: 35%;
+    font-size: 50%;
 }
 
 main.grande #chordMenu {
-    font-size: 40%;
+    font-size: 60%;
 }
 
 main.venti #chordMenu {
-    font-size: 70%;
+    font-size: 85%;
 }
 
 main.trenta #chordMenu {
@@ -39,7 +40,7 @@ main.trenta #chordMenu {
 button {
     color: hsl(302, 10%, 99%);
     border: none;
-    border-radius: 3px;
+    border-radius: 3px; /* how to do this responsively? % looks funny */
 }
 
 button:active {
@@ -50,10 +51,11 @@ button:active {
     display: inline-block;
     font-size: 500%;
     margin: 2px 1px;
+    height: 166px; /* need to find a way to set % height */
 }
 
 .chord1 {
-    width: 10%;
+    width: 44%;
     background: hsl(23, 100%, 49%);
 }
 
@@ -62,7 +64,7 @@ button:active {
 }
 
 .chord2 {
-    width: 13%;
+    width: 15%;
     background: hsl(39, 100%, 49%);
 }
 
@@ -71,7 +73,7 @@ button:active {
 }
 
 .chord3 {
-    width: 16%;
+    width: 40%;
     background: hsl(57, 100%, 50%);
 }
 
@@ -80,7 +82,7 @@ button:active {
 }
 
 .chord4 {
-    width: 22%;
+    width: 35%;
     background: hsl(302, 58%, 36%);
 }
 
@@ -89,7 +91,7 @@ button:active {
 }
 
 .chord5 {
-    width: 17%;
+    width: 40%;
     background: hsl(324, 100%, 46%);
 }
 
@@ -98,7 +100,7 @@ button:active {
 }
 
 .chord6 {
-    width: 20%;
+    width: 24%;
     background: hsl(340, 86%, 50%);
 }
 
@@ -116,7 +118,7 @@ button:active {
     width: 99%;
     margin-bottom: 2%;
     text-align: center;
-    height: 110px; /* need to find a way to set % height */
+    height: 111px; /* need to find a way to set % height */
 }
 
 #modifierMenu button.on {
@@ -141,9 +143,8 @@ button:active {
 #waveformMenu button {
     width: 25%;
     height: 80px;  /* need to find a way to set % height */
-    border-left: 2px solid hsl(302, 10%, 99%);
-    margin: none;
-    padding:none;
+    border-left: 2px solid hsl(302, 10%, 99%); /* how do you do responsive border size? */
+    margin-top: 1%;
     border-radius: 0;
     background-size: 50%;
     background-position: center;

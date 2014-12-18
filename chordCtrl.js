@@ -77,6 +77,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         
         $scope.keyShift = $scope.keys[5]; //default to key of C
         $scope.selectedWaveform = $scope.waveforms[0]; //default to sine wave
+        $scope.showSettings = false; //default to instrument view
         
         //get the frequency in hertz of a given piano key
         function getFreq(key) {

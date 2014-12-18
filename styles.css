@@ -7,6 +7,7 @@ main {
     background: hsl(302, 10%, 99%);
     width: 100vw;
     height: 56.25vw; /* 16:9 aspect ratio */
+    margin: .5vw;
 }
 
 button {
@@ -21,8 +22,7 @@ button:active {
 
 main #chordMenu {
     float: right;
-    width: 80vw;
-    height: 80vw;
+    width: 85vw;
 }
 
 main.tall #chordMenu {
@@ -42,12 +42,13 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-    height: 20vw;
+    height: 28.125vw;
 }
 
 .chord1 {
     width: 44%;
     background: hsl(23, 100%, 49%);
+    border-bottom-right-radius: 0;
 }
 
 .chord1:active {
@@ -57,6 +58,8 @@ main.trenta #chordMenu {
 .chord2 {
     width: 15%;
     background: hsl(39, 100%, 49%);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .chord2:active {
@@ -66,6 +69,7 @@ main.trenta #chordMenu {
 .chord3 {
     width: 40%;
     background: hsl(57, 100%, 50%);
+    border-bottom-left-radius: 0;
 }
 
 .chord3:active {
@@ -75,6 +79,7 @@ main.trenta #chordMenu {
 .chord4 {
     width: 35%;
     background: hsl(302, 58%, 36%);
+    border-top-right-radius: 0;
 }
 
 .chord4:active {
@@ -84,6 +89,8 @@ main.trenta #chordMenu {
 .chord5 {
     width: 40%;
     background: hsl(324, 100%, 46%);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .chord5:active {
@@ -93,6 +100,7 @@ main.trenta #chordMenu {
 .chord6 {
     width: 24%;
     background: hsl(340, 86%, 50%);
+    border-top-left-radius: 0;
 }
 
 .chord6:active {
@@ -101,13 +109,16 @@ main.trenta #chordMenu {
 
 #modifierMenu {
     float: left;
-    width: 20vw;
+    width: 15vw;
     font-size: 5vw;
 }
 
-#modifierMenu button, #modifierMenu div {
-    width: 20vw;
-    height: 13vw;
+#modifierMenu button {
+    width: 15vw;
+    height: 14.0625vw;
+    border-radius: 0;
+    border-top: .5vw solid hsl(302, 10%, 99%);
+    border-right: .5vw solid hsl(302, 10%, 99%);
 }
 
 #modifierMenu button.on {
@@ -124,20 +135,32 @@ main.trenta #chordMenu {
     color: hsl(57, 100%, 50%);
 }
 
+#modifierMenu button:first-child {
+    border-radius: 1vw 1vw 0 0;
+    border-top: none;
+}
+
+#modifierMenu button:last-child {
+    border-radius: 0 0 1vw 1vw;
+}
+
+button.settings {
+    font-size: 150%;
+}
+
 #waveformMenu {
     float: right;
 }
 
 #waveformMenu button {
     width: 20vw;
-    height: 15vw;
+    height: 10vw;
     border-radius: 0;
-    background-size: 15vw;
+    background-size: 8vw;
     background-position: center;
     background-repeat: no-repeat;
     border-left: .5vw solid hsl(302, 10%, 99%);
 }
-
 
 #waveformMenu button.on {
     background-color: hsl(358, 85%, 52%);

@@ -35,6 +35,11 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         defaultChord[3] = 44; //E3
         defaultChord[4] = 47; //G3
         
+        //temp fix for safari (only allows 4 voices)
+        if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+            defaultChord.pop();
+        }
+        
         $scope.keys = [
             { label: 'G', value: -5 },
             { label: 'G#', value: -4 },

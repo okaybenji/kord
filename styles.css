@@ -1,62 +1,54 @@
 body {
     font-family: Helvetica, sans-serif;
-    font-size: 2em;
-    padding: 1%;
+    line-height: 2vw;
 }
 
 main {
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    position: relative;
-    background: hsl(302, 10%, 99%)
-}
-
-main #chordMenu {
-    float: right;
-    width: 80%;
-    height: 80%;
-}
-
-main.tall #chordMenu {
-    font-size: 50%;
-}
-
-main.grande #chordMenu {
-    font-size: 60%;
-}
-
-main.venti #chordMenu {
-    font-size: 85%;
-}
-
-main.trenta #chordMenu {
-    font-size: 100%;
-}
-
-#aspectContainer {
-    position: absolute;
-	top: 0; bottom: 0; left: 0; right: 0;
+    background: hsl(302, 10%, 99%);
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    margin: .5vw;
 }
 
 button {
-    color: hsl(302, 10%, 99%);
     border: none;
-    border-radius: 3px; /* how to do this responsively? % looks funny */
+    color: hsl(302, 10%, 99%);
+    border-radius: 1vw;
 }
 
 button:active {
     border: none;
 }
 
+main #chordMenu {
+    float: right;
+    width: 85vw;
+}
+
+main.tall #chordMenu {
+    font-size: 8vw;
+}
+
+main.grande #chordMenu {
+    font-size: 9vw;
+}
+
+main.venti #chordMenu {
+    font-size: 13vw;
+}
+
+main.trenta #chordMenu {
+    font-size: 15vw;
+}
+
 #chordMenu button {
-    display: inline-block;
-    font-size: 500%;
-    margin: 2px 1px;
-    height: 166px; /* need to find a way to set % height */
+    height: 28.125vw;
 }
 
 .chord1 {
     width: 44%;
     background: hsl(23, 100%, 49%);
+    border-bottom-right-radius: 0;
 }
 
 .chord1:active {
@@ -66,6 +58,8 @@ button:active {
 .chord2 {
     width: 15%;
     background: hsl(39, 100%, 49%);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .chord2:active {
@@ -75,6 +69,7 @@ button:active {
 .chord3 {
     width: 40%;
     background: hsl(57, 100%, 50%);
+    border-bottom-left-radius: 0;
 }
 
 .chord3:active {
@@ -84,6 +79,7 @@ button:active {
 .chord4 {
     width: 35%;
     background: hsl(302, 58%, 36%);
+    border-top-right-radius: 0;
 }
 
 .chord4:active {
@@ -93,6 +89,8 @@ button:active {
 .chord5 {
     width: 40%;
     background: hsl(324, 100%, 46%);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .chord5:active {
@@ -102,6 +100,7 @@ button:active {
 .chord6 {
     width: 24%;
     background: hsl(340, 86%, 50%);
+    border-top-left-radius: 0;
 }
 
 .chord6:active {
@@ -110,15 +109,16 @@ button:active {
 
 #modifierMenu {
     float: left;
-    width: 20%;
-    font-size: 300%;
+    width: 15vw;
+    font-size: 5vw;
 }
 
-#modifierMenu button, #modifierMenu div {
-    width: 99%;
-    margin-bottom: 2%;
-    text-align: center;
-    height: 111px; /* need to find a way to set % height */
+#modifierMenu button {
+    width: 15vw;
+    height: 14.0625vw;
+    border-radius: 0;
+    border-top: .5vw solid hsl(302, 10%, 99%);
+    border-right: .5vw solid hsl(302, 10%, 99%);
 }
 
 #modifierMenu button.on {
@@ -135,22 +135,32 @@ button:active {
     color: hsl(57, 100%, 50%);
 }
 
+#modifierMenu button:first-child {
+    border-radius: 1vw 1vw 0 0;
+    border-top: none;
+}
+
+#modifierMenu button:last-child {
+    border-radius: 0 0 1vw 1vw;
+}
+
+button.settings {
+    font-size: 150%;
+}
+
 #waveformMenu {
-    width: 80%;
     float: right;
 }
 
 #waveformMenu button {
-    width: 25%;
-    height: 80px;  /* need to find a way to set % height */
-    border-left: 2px solid hsl(302, 10%, 99%); /* how do you do responsive border size? */
-    margin-top: 1%;
+    width: 20vw;
+    height: 10vw;
     border-radius: 0;
-    background-size: 50%;
+    background-size: 8vw;
     background-position: center;
     background-repeat: no-repeat;
+    border-left: .5vw solid hsl(302, 10%, 99%);
 }
-
 
 #waveformMenu button.on {
     background-color: hsl(358, 85%, 52%);
@@ -161,14 +171,12 @@ button:active {
 }
 
 #waveformMenu button:first-child {
+    border-radius: 1vw 0 0 1vw;
     border-left: none;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
 }
 
 #waveformMenu button:last-child {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-radius: 0 1vw 1vw 0;
 }
 
 #sine {

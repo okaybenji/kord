@@ -114,11 +114,11 @@ main.trenta #chordMenu {
 }
 
 #modifierMenu button {
-    width: 15vw;
+    width: 14.5vw;
     height: 14.0625vw;
     border-radius: 0;
     border-top: .5vw solid hsl(302, 10%, 99%);
-    border-right: .5vw solid hsl(302, 10%, 99%);
+
 }
 
 #modifierMenu button.on {

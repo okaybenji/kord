@@ -1,6 +1,6 @@
 var monosynth = function() {
 
-    var audioCtx = new webkitAudioContext();
+    var audioCtx = new webkitAudioContext;
     var oscillator, amp;
     var maxGain = .9; //out of 1
     var fadeInLength = .1; //in seconds

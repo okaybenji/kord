@@ -185,8 +185,11 @@ chordOrganApp.controller('chordCtrl', ['$scope',
             //trigger one note per oscillator
             for (var i=0, ii=chord.length; i<ii; i++) {
                 var key = chord[i] + $scope.keyShift.value;
-                polysynth.start(getFreq(key));
+                polysynth.playNote(getFreq(key));
             }
+            
+            //apply attack gain envelope
+            polysynth.applyAttack();
         }
         
         //stop all oscillators

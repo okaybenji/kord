@@ -1,51 +1,52 @@
-var Polysynth = function() {
+var Polysynth = function(numVoices) {
 
     var audioCtx = new webkitAudioContext;
-    var osc = []; //oscillator array
+    var oscs = []; //oscillator array
     var amp = audioCtx.createGain();
     amp.connect(audioCtx.destination);
     amp.gain.value = 0;
     
     var synth = this;
-    synth.waveform = 'sine'; //default waveform
     synth.maxGain = .9; //default volume (out of 1)
     synth.attack = .1; //default attack (in seconds)
     synth.release = 1 //default release (in seconds)
-
-
-    //play note (inaudible without envelope)
-    synth.playNote = function start(frequency) {
-        var i = osc.length;
-        var now = audioCtx.currentTime;
-        osc[i] = audioCtx.createOscillator();
-        osc[i].type = synth.waveform;
-        osc[i].connect(amp);
-        osc[i].start(now);
-        osc[i].frequency.setValueAtTime(frequency, now);
-    };
     
-    //apply gain attack envelope
-    synth.applyAttack = function applyAttack() {
+    //populate osc array
+    for (var i=0; i<numVoices; i++) {
+        oscs[i] = audioCtx.createOscillator();
+        oscs[i].connect(amp);
+        oscs[i].start(0);
+    }
+    
+    //apply gain envelope
+    function applyEnvelope(env, gain) {
         var now = audioCtx.currentTime;
         amp.gain.cancelScheduledValues(now);
         amp.gain.setValueAtTime(amp.gain.value, now);
-        amp.gain.linearRampToValueAtTime(synth.maxGain, audioCtx.currentTime + synth.attack);
+        amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + env);
     };
     
-    //stop the note
+    //change waveform (default: sine)
+    synth.setWaveform = function setWaveform(waveform) {
+        for (var i=0; i<numVoices; i++) {
+            oscs[i].type = waveform;
+        }
+    }
+
+    //set note pitch for given oscillator
+    synth.setPitch = function setPitch(i, frequency) {
+        var now = audioCtx.currentTime;
+        oscs[i].frequency.setValueAtTime(frequency, now);
+    };
+    
+    //apply attack envelope
+    synth.start = function start() {
+        applyEnvelope(synth.attack, synth.maxGain);
+    }
+    
+    //apply release envelope
     synth.stop = function stop() {
-        var now = audioCtx.currentTime;
-        amp.gain.cancelScheduledValues(now);
-        amp.gain.setValueAtTime(amp.gain.value, now);
-        amp.gain.linearRampToValueAtTime(0, audioCtx.currentTime + synth.release);
-        //stop oscillators after release
-        setTimeout(function() {
-            for (var i=0, ii=osc.length; i<ii; i++) {
-                console.log('stopping oscillator:',osc[i]);
-                osc[i].stop(now);
-            }
-            osc = [];
-        }, synth.release * 1000);
+        applyEnvelope(synth.release, 0);
     };
 
     //export

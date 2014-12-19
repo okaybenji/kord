@@ -4,9 +4,6 @@ chordOrganApp.controller('chordCtrl', ['$scope',
     
     function chordCtrl($scope) {
         
-        //synth
-        var polysynth = new Polysynth;
-        
         //constants
         var FLAT = '\u266D';
         var SHARP = '\u266F';
@@ -36,6 +33,9 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         defaultChord[2] = 40; //C3
         defaultChord[3] = 44; //E3
         defaultChord[4] = 47; //G3
+        
+        //synth
+        var polysynth = new Polysynth(defaultChord.length);
         
         $scope.keys = [
             { label: 'G', value: -5 },
@@ -185,11 +185,11 @@ chordOrganApp.controller('chordCtrl', ['$scope',
             //trigger one note per oscillator
             for (var i=0, ii=chord.length; i<ii; i++) {
                 var key = chord[i] + $scope.keyShift.value;
-                polysynth.playNote(getFreq(key));
+                polysynth.setPitch(i, getFreq(key));
             }
             
             //apply attack gain envelope
-            polysynth.applyAttack();
+            polysynth.start();
         }
         
         //stop all oscillators
@@ -198,7 +198,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         }
         
         $scope.setWaveform = function setWaveform(waveform) {
-            polysynth.waveform = waveform;
+            polysynth.setWaveform(waveform);
             $scope.selectedWaveform = waveform;
         }
 

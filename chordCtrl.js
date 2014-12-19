@@ -4,6 +4,9 @@ chordOrganApp.controller('chordCtrl', ['$scope',
     
     function chordCtrl($scope) {
         
+        //synth
+        var polysynth = new Polysynth;
+        
         //constants
         var FLAT = '\u266D';
         var SHARP = '\u266F';
@@ -11,7 +14,6 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         var INV = '\u2076';
         
         //arrays
-        var voices = [];
         var defaultChord = [];
         var labels = [
             {}, //start array at 1 to match chord numbers
@@ -34,11 +36,6 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         defaultChord[2] = 40; //C3
         defaultChord[3] = 44; //E3
         defaultChord[4] = 47; //G3
-        
-        //temp fix for safari (only allows 4 voices)
-        if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
-            defaultChord.pop();
-        }
         
         $scope.keys = [
             { label: 'G', value: -5 },
@@ -188,32 +185,22 @@ chordOrganApp.controller('chordCtrl', ['$scope',
             //trigger one note per oscillator
             for (var i=0, ii=chord.length; i<ii; i++) {
                 var key = chord[i] + $scope.keyShift.value;
-                voices[i].start(getFreq(key));
+                polysynth.start(getFreq(key));
             }
         }
         
         //stop all oscillators
-        $scope.stop = function stop() {
-            for (var i=0, ii=defaultChord.length; i<ii; i++) {
-                voices[i].stop();
-            }
+        $scope.stop = function () {
+            polysynth.stop();
         }
         
-        //change waveform for all voices
         $scope.setWaveform = function setWaveform(waveform) {
-            for (var i=0, ii=voices.length; i<ii; i++) {
-                voices[i].setWaveform(waveform);
-            }
-            
+            polysynth.waveform = waveform;
             $scope.selectedWaveform = waveform;
         }
 
-        //initialize one monosynth per voice
+        //initialize polysynth
         var init = function init() {
-            for (var i=0, ii=defaultChord.length; i<ii; i++) {
-                voices[i] = new monosynth;
-            }
-            
             $scope.setWaveform($scope.waveforms[1]); //default to square wave
         }
         

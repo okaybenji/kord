@@ -20,17 +20,17 @@ var Polysynth = function(numVoices) {
     
     //apply gain envelope
     function applyEnvelope(env, gain) {
-        if(env==synth.attack){
-            console.log('attack',synth.attack)
-        } else if(env==synth.release){
-            console.log('release',synth.release)
+        if(env===synth.attack){
+            console.log('attack',env)
+        } else if(env===synth.release){
+            console.log('release',env)
         } else {
             console.log('attack/release ' + synth.attack + ' ' + synth.release);
         };
         var now = audioCtx.currentTime;
         amp.gain.cancelScheduledValues(now);
         amp.gain.setValueAtTime(amp.gain.value, now);
-        amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + env);
+        amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + parseFloat(env));
     };
     
     //change waveform (default: sine)

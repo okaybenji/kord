@@ -22,8 +22,8 @@
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
             <ul id="sliders">
             <li>vol<input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
-            <li>atk<input id="attackSlider" type="range" min="0" max="5" step="1" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
-            <li>rel<input id="releaseSlider" type="range" min="0" max="5" step="1" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+            <li>atk<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
+            <li>rel<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
             <div id="waveformMenu">
                 <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
             </div>

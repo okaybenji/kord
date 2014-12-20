@@ -36,11 +36,6 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         
         //synth
         var polysynth = new Polysynth(defaultChord.length);
-        
-        /*$scope.volume = polysynth.maxGain;
-        $scope.attack = polysynth.attack;
-        $scope.release = polysynth.release;*/
-        
         $scope.synth = polysynth;
         
         $scope.keys = [

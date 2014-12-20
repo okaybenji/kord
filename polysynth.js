@@ -11,13 +11,20 @@ var Polysynth = function(numVoices) {
     synth.attack = .1; //default attack (in seconds)
     synth.decay = 0; //default decay (in seconds)
     synth.sustain = 1; //default sustain (out of 1)
-    synth.release = 1 //default release (in seconds)
+    synth.release = .8 //default release (in seconds)
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {
         oscs[i] = audioCtx.createOscillator();
         oscs[i].connect(amp);
         oscs[i].start(0);
+    }
+    
+    function getNow() {
+        var now = audioCtx.currentTime;
+        amp.gain.cancelScheduledValues(now);
+        amp.gain.setValueAtTime(amp.gain.value, now);
+        return now;
     }
     
     //change waveform (default: sine)
@@ -33,12 +40,11 @@ var Polysynth = function(numVoices) {
         oscs[i].frequency.setValueAtTime(frequency, now);
     };
     
+    //apply attack, decay, sustain envelope
     synth.start = function start() {
         var atk = parseFloat(synth.attack);
         var dec = parseFloat(synth.decay);
-        var now = audioCtx.currentTime;
-        amp.gain.cancelScheduledValues(now);
-        amp.gain.setValueAtTime(amp.gain.value, now);
+        var now = getNow();
         amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
         amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
     }
@@ -46,9 +52,7 @@ var Polysynth = function(numVoices) {
     //apply release envelope
     synth.stop = function stop() {
         var rel = parseFloat(synth.release);
-        var now = audioCtx.currentTime;
-        amp.gain.cancelScheduledValues(now);
-        amp.gain.setValueAtTime(amp.gain.value, now);
+        var now = getNow();
         amp.gain.linearRampToValueAtTime(0, now + rel);
     };
 

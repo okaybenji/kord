@@ -20,6 +20,13 @@ var Polysynth = function(numVoices) {
     
     //apply gain envelope
     function applyEnvelope(env, gain) {
+        if(env==synth.attack){
+            console.log('attack',synth.attack)
+        } else if(env==synth.release){
+            console.log('release',synth.release)
+        } else {
+            console.log('attack/release ' + synth.attack + ' ' + synth.release);
+        };
         var now = audioCtx.currentTime;
         amp.gain.cancelScheduledValues(now);
         amp.gain.setValueAtTime(amp.gain.value, now);

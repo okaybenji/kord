@@ -20,20 +20,6 @@ var Polysynth = function(numVoices) {
         oscs[i].start(0);
     }
     
-    //apply gain envelope
-    function applyEnvelope(length, gain, delay) {
-        length = parseFloat(length);
-        delay = delay || 0;
-        var now = audioCtx.currentTime;
-        if (!delay) {
-            amp.gain.cancelScheduledValues(now);
-        }
-        setTimeout(function() {
-            amp.gain.setValueAtTime(amp.gain.value, now);
-            amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + length)}, delay * 1000);
-        return length; //return for setting delay
-    };
-    
     //change waveform (default: sine)
     synth.setWaveform = function setWaveform(waveform) {
         for (var i=0; i<numVoices; i++) {
@@ -47,15 +33,23 @@ var Polysynth = function(numVoices) {
         oscs[i].frequency.setValueAtTime(frequency, now);
     };
     
-    //apply attack, decay, sustain envelope
     synth.start = function start() {
-        var delay = applyEnvelope(synth.attack, synth.maxGain); //apply attack and capture delay for decay
-        applyEnvelope(synth.decay, synth.sustain * synth.maxGain, delay); //apply decay after delay
+        var atk = parseFloat(synth.attack);
+        var dec = parseFloat(synth.decay);
+        var now = audioCtx.currentTime;
+        amp.gain.cancelScheduledValues(now);
+        amp.gain.setValueAtTime(amp.gain.value, now);
+        amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
+        amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
     }
     
     //apply release envelope
     synth.stop = function stop() {
-        applyEnvelope(synth.release, 0);
+        var rel = parseFloat(synth.release);
+        var now = audioCtx.currentTime;
+        amp.gain.cancelScheduledValues(now);
+        amp.gain.setValueAtTime(amp.gain.value, now);
+        amp.gain.linearRampToValueAtTime(0, now + rel);
     };
 
     //export

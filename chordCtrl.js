@@ -36,6 +36,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
         
         //synth
         var polysynth = new Polysynth(defaultChord.length);
+        $scope.synth = polysynth;
         
         $scope.keys = [
             { label: 'G', value: -5 },

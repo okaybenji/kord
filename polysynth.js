@@ -9,6 +9,8 @@ var Polysynth = function(numVoices) {
     var synth = this;
     synth.maxGain = .9; //default volume (out of 1)
     synth.attack = .1; //default attack (in seconds)
+    synth.decay = 0; //default decay (in seconds)
+    synth.sustain = 1; //default sustain (out of 1)
     synth.release = 1 //default release (in seconds)
     
     //populate osc array
@@ -19,11 +21,17 @@ var Polysynth = function(numVoices) {
     }
     
     //apply gain envelope
-    function applyEnvelope(env, gain) {
+    function applyEnvelope(length, gain, delay) {
+        length = parseFloat(length);
+        delay = delay || 0;
         var now = audioCtx.currentTime;
-        amp.gain.cancelScheduledValues(now);
-        amp.gain.setValueAtTime(amp.gain.value, now);
-        amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + env);
+        if (!delay) {
+            amp.gain.cancelScheduledValues(now);
+        }
+        setTimeout(function() {
+            amp.gain.setValueAtTime(amp.gain.value, now);
+            amp.gain.linearRampToValueAtTime(gain, audioCtx.currentTime + length)}, delay * 1000);
+        return length; //return for setting delay
     };
     
     //change waveform (default: sine)
@@ -39,9 +47,10 @@ var Polysynth = function(numVoices) {
         oscs[i].frequency.setValueAtTime(frequency, now);
     };
     
-    //apply attack envelope
+    //apply attack, decay, sustain envelope
     synth.start = function start() {
-        applyEnvelope(synth.attack, synth.maxGain);
+        var delay = applyEnvelope(synth.attack, synth.maxGain); //apply attack and capture delay for decay
+        applyEnvelope(synth.decay, synth.sustain * synth.maxGain, delay); //apply decay after delay
     }
     
     //apply release envelope

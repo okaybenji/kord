@@ -20,6 +20,12 @@
         <div id="settingsPanel" ng-show="showSettings">
             <button ng-click="showSettings=!showSettings" class="settings">&#9881;</button>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
+            <ul id="sliders">
+            <li>vol<input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
+            <li>atk<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
+            <li>dcy<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
+            <li>sus<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
+            <li>rel<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
             <div id="waveformMenu">
                 <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
             </div>
@@ -28,16 +34,17 @@
     <ul>
         <h3>To do:</h3>
         <h4>Settings panel</h4>
-        <li>add volume slider</li>
-        <li>add configurable adsr</li>
-        <li>add transition (fade in/out)</li>
-        <li>change key selector to ul and style a la bootstrap</li>
+        <li>make volume & sustain sliders logarithmic</li>
+        <li>visualize adsr*vol</li>
+        <li>if decay is 0, sustain is ignored; investigate: good? bad? if good, disable sustain slider when decay=0</li>
+        <li>add transition when opening settings (fade in/out)</li>
+        <li>style settings panel</li>
+        <li>change key selector to ul and style a la Bootstrap</li>
         <h4>Misc</h4>
         <li>add touchStart=on, touchEnd=off to modifiers & chords</li>
         <li>prevent simultaneous activation of Mm and Special</li>
         <li>port to Phonegap</li>
-        <li>MAKE APP STOP HANGING!!!</li>
-        <li>figure out how to make safari work with 5 voices (and remove temp fix which removes 5th)</li>
+        <li>fix Safari sound distortion</li>
         <li>allow playing music with keystrokes</li>
         <h4>Eventually... (maybe)</h4>
         <li>make settings panel swipe up from bottom</li>

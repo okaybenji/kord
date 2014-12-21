@@ -1,8 +1,8 @@
-var chordOrganApp = angular.module('chordOrganApp', []);
+var kordApp = angular.module('kordApp', []);
 
-chordOrganApp.controller('chordCtrl', ['$scope',
+kordApp.controller('kordCtrl', ['$scope',
     
-    function chordCtrl($scope) {
+    function kordCtrl($scope) {
         
         //constants
         var FLAT = '\u266D';

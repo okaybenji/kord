@@ -205,7 +205,7 @@ chordOrganApp.controller('chordCtrl', ['$scope',
 
         //initialize polysynth
         var init = function init() {
-            $scope.setWaveform($scope.waveforms[1]); //default to square wave
+            $scope.setWaveform($scope.waveforms[3]); //default to sawtooth wave
         }
         
         init();

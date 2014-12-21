@@ -18,7 +18,7 @@ var Polysynth = function(numVoices) {
     synth.sustain = 1; //out of 1
     synth.release = .8 //in seconds
     synth.cutoff = filter.frequency;
-    synth.cutoff.value = 20000 //low-pass filter cut-off in hertz)
+    synth.cutoff.value = 7500 //low-pass filter cut-off in hertz)
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {

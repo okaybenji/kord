@@ -17,9 +17,8 @@ var Polysynth = function(numVoices) {
     synth.decay = 0; //in seconds
     synth.sustain = 1; //out of 1
     synth.release = .8 //in seconds
-    synth.glide = 0 //in seconds
     synth.cutoff = filter.frequency;
-    synth.cutoff.value = 20000 //low-pass filter cut-off in hertz
+    synth.cutoff.value = 20000 //low-pass filter cut-off in hertz)
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {
@@ -45,12 +44,7 @@ var Polysynth = function(numVoices) {
     //set note pitch for given oscillator
     synth.setPitch = function setPitch(i, frequency) {
         var now = audioCtx.currentTime;
-        if (synth.glide && amp.gain.value > 0) {
-            var glide = parseFloat(synth.glide);
-            oscs[i].frequency.linearRampToValueAtTime(frequency, now + glide);
-        } else {
-            oscs[i].frequency.setValueAtTime(frequency, now);
-        }
+        oscs[i].frequency.setValueAtTime(frequency, now);
     };
     
     //apply attack, decay, sustain envelope

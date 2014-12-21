@@ -11,14 +11,23 @@ var Polysynth = function(numVoices) {
     
     var synth = this;
     
-    //defaults
+    //synth defaults
     synth.maxGain = .9; //out of 1
     synth.attack = .1; //in seconds
     synth.decay = 0; //in seconds
     synth.sustain = 1; //out of 1
-    synth.release = .8 //in seconds
+    synth.release = .8; //in seconds
+    
+    //low-pass filter cutoff defaults
     synth.cutoff = filter.frequency;
-    synth.cutoff.value = 7500 //low-pass filter cut-off in hertz)
+    synth.cutoff.value = 7500; //in hertz
+    synth.cutoff.maxValue = 7500; //in hertz
+    synth.cutoff.minValue = 5000; //in hertz
+    synth.cutoff.contour = 1; //out of 1
+    synth.cutoff.attack = .1; //in seconds
+    synth.cutoff.decay = .1; //in seconds
+    synth.cutoff.sustain = .8; //out of 1
+    synth.cutoff.release = .8; //in seconds
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {
@@ -48,20 +57,37 @@ var Polysynth = function(numVoices) {
     };
     
     //apply attack, decay, sustain envelope
-    synth.start = function start() {
+    synth.start = function startSynth() {
         var atk = parseFloat(synth.attack);
         var dec = parseFloat(synth.decay);
         var now = getNow();
+        startCutoff(now);
         amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
         amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
     }
     
     //apply release envelope
-    synth.stop = function stop() {
+    synth.stop = function stopSynth() {
         var rel = parseFloat(synth.release);
         var now = getNow();
+        stopCutoff(now);
         amp.gain.linearRampToValueAtTime(0, now + rel);
     };
+    
+    function startCutoff(time) {
+        var atk = parseFloat(synth.cutoff.attack);
+        var dec = parseFloat(synth.cutoff.decay);
+        synth.cutoff.cancelScheduledValues(time);
+        synth.cutoff.linearRampToValueAtTime(synth.cutoff.value, time);
+        synth.cutoff.linearRampToValueAtTime(synth.cutoff.maxValue, time + atk);
+        synth.cutoff.linearRampToValueAtTime(synth.cutoff.sustain * synth.cutoff.maxValue, time + atk + dec);
+    }
+    
+    function stopCutoff(time) {
+        synth.cutoff.cancelScheduledValues(time);
+        synth.cutoff.linearRampToValueAtTime(synth.cutoff.value, time);
+        synth.cutoff.linearRampToValueAtTime(synth.cutoff.minValue, time);
+    }
 
     //export
     return synth;

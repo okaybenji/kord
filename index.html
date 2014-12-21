@@ -8,9 +8,9 @@
     <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
         <div id="instrument" ng-show="!showSettings">
             <div id="modifierMenu">
-                <button ng-click="invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
+                <button ng-click="specialChord=false; invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
                 <button ng-click="invertChord=!invertChord" ng-class="{on: invertChord}">x<sup>6</sup></button>
-                <button ng-click="specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
+                <button ng-click="invertMode=false; specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
                 <button ng-click="showSettings=!showSettings" class="settings">&#9881;</button>
             </div>
             <div id="chordMenu" ng-mouseup="stop()">
@@ -39,7 +39,6 @@
         <h4>Misc</h4>
         <li>allow playing music with keystrokes</li>
         <li>add touchStart=on, touchEnd=off to modifiers & chords</li>
-        <li>prevent simultaneous activation of Mm and Special</li>
         <li>fix Safari sound distortion</li>
         <li>port to Phonegap</li>
         

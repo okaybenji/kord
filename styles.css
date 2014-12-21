@@ -122,14 +122,22 @@ main.trenta #chordMenu {
 
 }
 
-#modifierMenu button.on {
+#modifierMenu button.on, button.settings.on {
     color: hsl(302, 10%, 99%);
     background: hsl(196, 100%, 47%);
     border: none;
 }
 
-#modifierMenu button:active.on {
+#modifierMenu button:active {
     background: hsl(196, 100%, 47%);
+}
+
+#modifierMenu button:active.on {
+    background: hsl(0, 0%, 75%);
+}
+
+button:active.settings.on {
+    background: hsl(196, 100%, 37%);
 }
 
 #modifierMenu button.on.special {
@@ -146,11 +154,9 @@ main.trenta #chordMenu {
 }
 
 button.settings {
-    font-size: 150%;
-}
-
-#waveformMenu {
-    float: right;
+    font-size: 8vw;
+    width: 15vw;
+    height: 15vw;
 }
 
 #waveformMenu button {
@@ -194,4 +200,8 @@ button.settings {
 
 #sawtooth {
     background-image: url('./img/sawWave.svg');
+}
+
+#settingsPanel ul {
+    list-style-type: none;
 }

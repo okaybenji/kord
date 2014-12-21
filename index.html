@@ -24,6 +24,7 @@
                 <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
                 <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
                 <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+                <li>glide<input id="glideSlider" type="range" min="0" max="2.5" step=".001" ng-model="synth.glide" />{{synth.glide * 1000}}ms</li>
                 <li>filter cutoff<input id="cutoffSlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.value" />{{synth.cutoff.value}}hz</li>
             </ul>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>

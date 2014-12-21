@@ -18,13 +18,22 @@
             </div>
         </div>
         <div id="settingsPanel" ng-show="showSettings">
-            <ul id="sliders">
+            <ul id="ampSliders">
+                <h3>amp</h3>
                 <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
                 <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
                 <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
                 <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
                 <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
-                <li>filter cutoff<input id="cutoffSlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.value" />{{synth.cutoff.value}}hz</li>
+            </ul>
+            <ul id="cutoffSliders">
+                <h3>cutoff</h3>
+                <li>min<input id="cutoffMinSlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.minValue" />{{synth.cutoff.minValue}}hz</li>
+                <li>max<input id="cutoffMaxSlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.maxValue" />{{synth.cutoff.maxValue}}hz</li>
+                <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.attack" />{{synth.cutoff.attack * 1000}}ms</li>
+                <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.decay" />{{synth.cutoff.decay * 1000}}ms</li>
+                <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.cutoff.sustain" />{{(synth.cutoff.sustain * 100).toFixed(0)}}%</li>
+                <li>release<input id="cutoffReleaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.release" />{{synth.cutoff.release * 1000}}ms</li>    
             </ul>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
             <div id="waveformMenu">
@@ -43,7 +52,6 @@
         <li>port to Phonegap</li>
         
         <h4>Settings panel</h4>
-        <li>add adjustable adsr to cutoff filter</li>
         <li>make volume & sustain sliders logarithmic</li>
         <li>visualize adsr*vol</li>
         <li>due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions</li>

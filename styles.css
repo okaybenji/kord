@@ -159,6 +159,10 @@ button.settings {
     height: 15vw;
 }
 
+#waveformMenu {
+    margin-bottom: 15px
+}
+
 #waveformMenu button {
     width: 20vw;
     height: 10vw;
@@ -204,4 +208,6 @@ button.settings {
 
 #settingsPanel ul {
     list-style-type: none;
+    display: inline-block;
+    background-color: lightGray;
 }

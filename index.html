@@ -24,6 +24,7 @@
                 <li>dcy<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
                 <li>sus<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
                 <li>rel<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+                <li>cut<input id="cutoffSlider" type="range" min="20" max="20000" step="1" ng-model="synth.filter.frequency.value" />{{synth.filter.frequency.value}}hz</li>
             </ul>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
             <div id="waveformMenu">
@@ -59,6 +60,7 @@
         <li>add option to show chord letters instead of numbers</li>
         <li>add option for minor mode (w/ sharp 7's)</li>
         <li>add support for sample instruments (piano, guitar, etc.)</li>
+        <li>research subjective loudness of different waveforms and auto-adjust volume to compensate</li>
     </ul>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>

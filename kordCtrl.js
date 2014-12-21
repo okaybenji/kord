@@ -55,6 +55,7 @@ kordApp.controller('kordCtrl', ['$scope',
         
         $scope.chordNumbers = [1,2,3,4,5,6]; //chord button numbers, defaulting to: I, ii, iii, IV, V, and vi respectively
         $scope.waveforms = ['sine','square','triangle','sawtooth'];
+        $scope.range = 0; //increment or decrement to change octave
         
         $scope.label = function getLabel(chordNumber) {
             var chordLabels = labels[chordNumber];
@@ -185,7 +186,7 @@ kordApp.controller('kordCtrl', ['$scope',
             
             //trigger one note per oscillator
             for (var i=0, ii=chord.length; i<ii; i++) {
-                var key = chord[i] + $scope.keyShift.value;
+                var key = chord[i] + $scope.keyShift.value + ($scope.range * 12);
                 polysynth.setPitch(i, getFreq(key));
             }
             

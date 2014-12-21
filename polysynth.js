@@ -24,8 +24,8 @@ var Polysynth = function(numVoices) {
     synth.cutoff.maxValue = 7500; //in hertz
     //synth.cutoff.contour = 1; //out of 1
     synth.cutoff.attack = .1; //in seconds
-    synth.cutoff.decay = .1; //in seconds
-    synth.cutoff.sustain = .8; //out of 1
+    synth.cutoff.decay = 2.5; //in seconds
+    synth.cutoff.sustain = .2; //out of 1
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {

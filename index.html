@@ -19,11 +19,12 @@
         </div>
         <div id="settingsPanel" ng-show="showSettings">
             <ul id="sliders">
-                <li>vol<input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
-                <li>atk<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
-                <li>dcy<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
-                <li>sus<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
-                <li>rel<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+                <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
+                <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
+                <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
+                <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".001" ng-model="synth.sustain" />{{(synth.sustain * 100).toFixed(0)}}%</li>
+                <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+                <li>filter cutoff<input id="cutoffSlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.value" />{{synth.cutoff.value}}hz</li>
             </ul>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
             <div id="waveformMenu">
@@ -39,6 +40,7 @@
         <li>allow playing music with keystrokes</li>
         <li>add touchStart=on, touchEnd=off to modifiers & chords</li>
         <li>prevent simultaneous activation of Mm and Special</li>
+        <li>add adjustable adsr to cutoff filter</li>
         <li>fix Safari sound distortion</li>
         <li>port to Phonegap</li>
         
@@ -51,14 +53,14 @@
         <li>change key selector to ul and style a la Bootstrap</li>
         
         <h4>Eventually... (maybe)</h4>
-        <li>add adjustable cutoff filter with adsr</li>
-        <li>add adjustable glide</li>
         <li>have polysynth equally space panning of each oscillator, with adjustable stereo width</li>
         <li>make settings panel swipe up from bottom</li>
         <li>replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly</li>
         <li>add option to show chord letters instead of numbers</li>
         <li>add option for minor mode (w/ sharp 7's)</li>
         <li>add support for sample instruments (piano, guitar, etc.)</li>
+        <li>research subjective loudness of different waveforms and auto-adjust volume to compensate</li>
+        <li>add range selector (adjust octave)</li>
     </ul>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>

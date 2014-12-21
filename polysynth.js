@@ -3,20 +3,27 @@ var Polysynth = function(numVoices) {
     var audioCtx = new webkitAudioContext;
     var oscs = []; //oscillator array
     var amp = audioCtx.createGain();
-    amp.connect(audioCtx.destination);
+    var filter = audioCtx.createBiquadFilter();
     amp.gain.value = 0;
+    filter.type = 'lowpass';
+    filter.connect(amp);
+    amp.connect(audioCtx.destination);
     
     var synth = this;
-    synth.maxGain = .9; //default volume (out of 1)
-    synth.attack = .1; //default attack (in seconds)
-    synth.decay = 0; //default decay (in seconds)
-    synth.sustain = 1; //default sustain (out of 1)
-    synth.release = .8 //default release (in seconds)
+    
+    //defaults
+    synth.maxGain = .9; //out of 1
+    synth.attack = .1; //in seconds
+    synth.decay = 0; //in seconds
+    synth.sustain = 1; //out of 1
+    synth.release = .8 //in seconds
+    synth.cutoff = filter.frequency;
+    synth.cutoff.value = 7500 //low-pass filter cut-off in hertz)
     
     //populate osc array
     for (var i=0; i<numVoices; i++) {
         oscs[i] = audioCtx.createOscillator();
-        oscs[i].connect(amp);
+        oscs[i].connect(filter);
         oscs[i].start(0);
     }
     

@@ -35,7 +35,7 @@
             </ul>
             <h3>oscillator</h3>
             <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
-            range<input id="range" type="range" min="-2" max="2" steps="1" ng-model="range"><span ng-show="range>0">+</span>{{range}}
+            octave<input id="octaveSlider" type="range" min="-2" max="2" steps="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
             <div id="waveformMenu">
                 <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
             </div>

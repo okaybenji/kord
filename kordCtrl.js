@@ -208,35 +208,43 @@ kordApp.controller('kordCtrl', ['$scope',
         //allow playing instrument with computer keyboard
         $scope.handleKeydown = function($event) {
 
-            //alert($event.keyCode);
             switch($event.keyCode) {
                 case 16: //shift
+                case 81: //Q
                     $scope.specialChord = false;
                     $scope.invertMode = true;
                     break;
                 case 17: //control
+                case 65: //A
                     $scope.invertChord = true;
                     break;
                 case 18: //alt
+                case 90: //Z
                     $scope.invertMode = false;
                     $scope.specialChord = true;
                     break;
                 case 49: //1
+                case 87: //W
                     $scope.start(1);
                     break;
                 case 50: //2
+                case 69: //E
                     $scope.start(2);
                     break;
                 case 51: //3
+                case 82: //R
                     $scope.start(3);
                     break;
                 case 52: //4
+                case 83: //S
                     $scope.start(4);
                     break;
                 case 53: //5
+                case 68: //D
                     $scope.start(5);
                     break;
                 case 54: //6
+                case 70: //F
                     $scope.start(6);
                     break;
             }
@@ -244,20 +252,21 @@ kordApp.controller('kordCtrl', ['$scope',
         
         $scope.handleKeyup = function($event) {
             
-            var key = $event.keyCode;
-            
-            switch(true) {
-                case (key >= 49 && key <= 54): //1-6
-                    $scope.stop();
-                    break;
-                case key == 16: //shift
+            switch($event.keyCode) {
+                case 16: //shift
+                case 81: //Q
                     $scope.invertMode = false;
                     break;
-                case key == 17: //control
+                case 17: //control
+                case 65: //A
                     $scope.invertChord = false;
                     break;
-                case key == 18: //alt
+                case 18: //alt
+                case 90: //Z
                     $scope.specialChord = false;
+                    break;
+                default: //any other key
+                    $scope.stop();
                     break;
             }
         }

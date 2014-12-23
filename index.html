@@ -4,8 +4,8 @@
         <title>Kord</title>
         <link rel="stylesheet" href="styles.css">
   </head>
-  <body ng-controller="kordCtrl">
-    <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}" ng-keypress="handleKeypress()">
+  <body ng-controller="kordCtrl" ng-keydown="handleKeydown($event)" ng-keyup="handleKeyup($event)">
+    <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
         <div id="instrument" ng-show="!showSettings">
             <div id="modifierMenu">
                 <button ng-click="specialChord=false; invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>

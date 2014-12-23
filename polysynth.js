@@ -1,15 +1,15 @@
 var Polysynth = function(numVoices) {
-
+    
+    var synth = this;
     var audioCtx = new webkitAudioContext;
-    var oscs = []; //oscillator array
+    var voices = []; //voice array
     var amp = audioCtx.createGain();
     var filter = audioCtx.createBiquadFilter();
+    
     amp.gain.value = 0;
     filter.type = 'lowpass';
     filter.connect(amp);
     amp.connect(audioCtx.destination);
-    
-    var synth = this;
     
     //synth defaults
     synth.maxGain = .9; //out of 1
@@ -17,6 +17,7 @@ var Polysynth = function(numVoices) {
     synth.decay = 0; //in seconds
     synth.sustain = 1; //out of 1
     synth.release = .8; //in seconds
+    synth.stereoWidth = .5; //out of 1
     
     //low-pass filter cutoff defaults
     synth.cutoff = filter.frequency;
@@ -27,11 +28,23 @@ var Polysynth = function(numVoices) {
     synth.cutoff.decay = 2.5; //in seconds
     synth.cutoff.sustain = .2; //out of 1
     
-    //populate osc array
+    numVoices = numVoices || 16; //default to 16 voices
+    
+    //create and connect oscillator and stereo panner for each voice
     for (var i=0; i<numVoices; i++) {
-        oscs[i] = audioCtx.createOscillator();
-        oscs[i].connect(filter);
-        oscs[i].start(0);
+        
+        var spread = 1/(numVoices-1);
+        var xPos = spread * i * synth.stereoWidth;
+        var zPos = 1 - Math.abs(xPos);
+        
+        voices[i] = {};
+        voices[i].osc = audioCtx.createOscillator();
+        voices[i].pan = audioCtx.createPanner();
+        voices[i].pan.panningModel = 'equalpower';
+        voices[i].pan.setPosition(xPos, 0, zPos);
+        voices[i].osc.connect(voices[i].pan);
+        voices[i].pan.connect(filter);
+        voices[i].osc.start(0);
     }
     
     function getNow() {
@@ -44,14 +57,14 @@ var Polysynth = function(numVoices) {
     //change waveform (default: sine)
     synth.setWaveform = function setWaveform(waveform) {
         for (var i=0; i<numVoices; i++) {
-            oscs[i].type = waveform;
+            voices[i].osc.type = waveform;
         }
     }
 
     //set note pitch for given oscillator
     synth.setPitch = function setPitch(i, frequency) {
         var now = audioCtx.currentTime;
-        oscs[i].frequency.setValueAtTime(frequency, now);
+        voices[i].osc.frequency.setValueAtTime(frequency, now);
     };
     
     //apply attack, decay, sustain envelope

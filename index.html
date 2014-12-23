@@ -33,9 +33,10 @@
                 <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.decay" />{{synth.cutoff.decay * 1000}}ms</li>
                 <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="synth.cutoff.sustain" />{{(synth.cutoff.sustain * 1).toFixed(1)}}x</li>  
             </ul>
-            <h3>oscillator</h3>
-            <select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
-            octave<input id="octaveSlider" type="range" min="-2" max="2" steps="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
+            <h3>oscillators</h3>
+            key<select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
+            octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
+            stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" ng-model="synth.stereoWidth">{{(synth.stereoWidth * 100).toFixed(0)}}%
             <div id="waveformMenu">
                 <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
             </div>
@@ -61,7 +62,6 @@
         <li>change key selector to ul and style a la Bootstrap</li>
         
         <h4>Eventually... (maybe)</h4>
-        <li>have polysynth equally space panning of each oscillator, with adjustable stereo width</li>
         <li>make settings panel swipe up from bottom</li>
         <li>replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly</li>
         <li>add option to show chord letters instead of numbers</li>

@@ -57,6 +57,9 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.waveforms = ['sine','square','triangle','sawtooth'];
         $scope.octave = 0; //increment or decrement to change octave
         
+        //watch for changes to stereo width value
+        $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth);
+        
         $scope.label = function getLabel(chordNumber) {
             var chordLabels = labels[chordNumber];
             var label = '';

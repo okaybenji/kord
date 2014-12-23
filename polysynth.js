@@ -33,15 +33,10 @@ var Polysynth = function(numVoices) {
     //create and connect oscillator and stereo panner for each voice
     for (var i=0; i<numVoices; i++) {
         
-        var spread = 1/(numVoices-1);
-        var xPos = spread * i * synth.stereoWidth;
-        var zPos = 1 - Math.abs(xPos);
-        
         voices[i] = {};
         voices[i].osc = audioCtx.createOscillator();
         voices[i].pan = audioCtx.createPanner();
         voices[i].pan.panningModel = 'equalpower';
-        voices[i].pan.setPosition(xPos, 0, zPos);
         voices[i].osc.connect(voices[i].pan);
         voices[i].pan.connect(filter);
         voices[i].osc.start(0);
@@ -54,10 +49,20 @@ var Polysynth = function(numVoices) {
         return now;
     }
     
-    //change waveform (default: sine)
+    //change synth waveform (default: sine)
     synth.setWaveform = function setWaveform(waveform) {
         for (var i=0; i<numVoices; i++) {
             voices[i].osc.type = waveform;
+        }
+    }
+    
+    //update synth stereo width
+    synth.updateWidth = function updateWidth() {
+        for (var i=0; i<numVoices; i++) {
+            var spread = 1/(numVoices-1);
+            var xPos = spread * i * synth.stereoWidth;
+            var zPos = 1 - Math.abs(xPos);
+            voices[i].pan.setPosition(xPos, 0, zPos);
         }
     }
 
@@ -92,8 +97,13 @@ var Polysynth = function(numVoices) {
         synth.cutoff.linearRampToValueAtTime(synth.cutoff.maxValue, time + atk);
         synth.cutoff.linearRampToValueAtTime(synth.cutoff.sustain * synth.cutoff.maxValue, time + atk + dec);
     }
+    
+    function init() {
+        synth.updateWidth();
+    }
 
-    //export
+    //initialize and export
+    init();
     return synth;
 
 };

@@ -10,29 +10,27 @@ kordApp.controller('kordCtrl', ['$scope',
         var DIM = '\u00B0';
         var INV = '\u2076';
         
-        //arrays
+        //C major
         var defaultChord = [];
-        var labels = [
-            {}, //start array at 1 to match chord numbers
-            { default: 'I', invertMode: 'i', specialChord: 'I+' },
-            { default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
-            { default: 'iii', invertMode: 'III', specialChord: 'iii' + DIM },
-            { default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
-            { default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
-            { default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
+        defaultChord[0] = 16; //C1
+        defaultChord[1] = 28; //C2
+        defaultChord[2] = 40; //C3
+        defaultChord[3] = 44; //E3
+        defaultChord[4] = 47; //G3
+        
+        $scope.labels = [
+            { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
+            { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+            { number: 3, default: 'iii', invertMode: 'III', specialChord: 'iii' + DIM },
+            { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+            { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+            { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
         ];
         
         //toggles
         $scope.invertMode = false;
         $scope.invertChord = false;
         $scope.specialChord = false;
-        
-        //C major
-        defaultChord[0] = 16; //C1
-        defaultChord[1] = 28; //C2
-        defaultChord[2] = 40; //C3
-        defaultChord[3] = 44; //E3
-        defaultChord[4] = 47; //G3
         
         //synth
         var polysynth = new Polysynth(defaultChord.length);
@@ -53,7 +51,6 @@ kordApp.controller('kordCtrl', ['$scope',
             { label: 'F#', value: 6 }
         ];
         
-        $scope.chordNumbers = [1,2,3,4,5,6]; //chord button numbers, defaulting to: I, ii, iii, IV, V, and vi respectively
         $scope.waveforms = ['sine','square','triangle','sawtooth'];
         $scope.octave = 0; //increment or decrement to change octave
         
@@ -61,7 +58,8 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth);
         
         $scope.label = function getLabel(chordNumber) {
-            var chordLabels = labels[chordNumber];
+            
+            var chordLabels = $scope.labels[chordNumber - 1];
             var label = '';
             
             switch (true) {
@@ -205,6 +203,74 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.setWaveform = function setWaveform(waveform) {
             polysynth.setWaveform(waveform);
             $scope.selectedWaveform = waveform;
+        }
+        
+        //allow playing instrument with computer keyboard
+        $scope.handleKeydown = function($event) {
+            
+            if (!$event.repeat) { //ignore repeat keystrokes when holding down keys
+                switch ($event.keyCode) {
+                    case 16: //shift
+                    case 81: //Q
+                        $scope.specialChord = false;
+                        $scope.invertMode = true;
+                        break;
+                    case 17: //control
+                    case 65: //A
+                        $scope.invertChord = true;
+                        break;
+                    case 18: //alt
+                    case 90: //Z
+                        $scope.invertMode = false;
+                        $scope.specialChord = true;
+                        break;
+                    case 49: //1
+                    case 87: //W
+                        $scope.start(1);
+                        break;
+                    case 50: //2
+                    case 69: //E
+                        $scope.start(2);
+                        break;
+                    case 51: //3
+                    case 82: //R
+                        $scope.start(3);
+                        break;
+                    case 52: //4
+                    case 83: //S
+                        $scope.start(4);
+                        break;
+                    case 53: //5
+                    case 68: //D
+                        $scope.start(5);
+                        break;
+                    case 54: //6
+                    case 70: //F
+                        $scope.start(6);
+                        break;
+                }
+            }
+        }
+        
+        $scope.handleKeyup = function($event) {
+            
+            switch ($event.keyCode) {
+                case 81: //Q
+                case 16: //shift
+                    $scope.invertMode = false;
+                    break;
+                case 17: //control
+                case 65: //A
+                    $scope.invertChord = false;
+                    break;
+                case 18: //alt
+                case 90: //Z
+                    $scope.specialChord = false;
+                    break;
+                default: //any other key
+                    $scope.stop();
+                    break;
+            }
         }
 
         //initialize polysynth

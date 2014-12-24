@@ -4,7 +4,7 @@
         <title>Kord</title>
         <link rel="stylesheet" href="styles.css">
   </head>
-  <body ng-controller="kordCtrl">
+  <body ng-controller="kordCtrl" ng-keydown="handleKeydown($event)" ng-keyup="handleKeyup($event)">
     <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
         <div id="instrument" ng-show="!showSettings">
             <div id="modifierMenu">
@@ -14,7 +14,7 @@
                 <button ng-click="showSettings=!showSettings" class="settings">&#9881;</button>
             </div>
             <div id="chordMenu" ng-mouseup="stop()">
-                <button ng-repeat="num in chordNumbers" class="chord{{num}}" ng-mousedown="start(num)">{{label(num)}}</button>
+                <button ng-repeat="chord in labels" class="chord{{chord.number}}" ng-mousedown="start(chord.number)">{{label(chord.number)}}</button>
             </div>
         </div>
         <div id="settingsPanel" ng-show="showSettings">

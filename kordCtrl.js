@@ -1,4 +1,4 @@
-var kordApp = angular.module('kordApp', []);
+var kordApp = angular.module('kordApp', ['ngTouch']);
 
 kordApp.controller('kordCtrl', ['$scope',
     
@@ -267,7 +267,7 @@ kordApp.controller('kordCtrl', ['$scope',
                 case 90: //Z
                     $scope.specialChord = false;
                     break;
-                default: //any other key
+                default: //any other key; really only want this to trigger is the chord playing is associated with the key (imagine user triggers V while holding down I and then lets go of I key -- V will stop, which is not what we want) fix this!
                     $scope.stop();
                     break;
             }

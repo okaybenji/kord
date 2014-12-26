@@ -34,7 +34,7 @@
                 <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="synth.cutoff.sustain" />{{(synth.cutoff.sustain * 1).toFixed(1)}}x</li>  
             </ul>
             <h3>oscillators</h3>
-            key<select ng-model="keyShift" ng-options="key as key.label for key in keys"></select>
+            key<select ng-model="key" ng-options="key as key.label for key in keys"></select>
             octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
             stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" ng-model="synth.stereoWidth">{{(synth.stereoWidth * 100).toFixed(0)}}%
             <div id="waveformMenu">
@@ -71,6 +71,7 @@
     </ul>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
   <script src="polysynth.js"></script>
   <script src="kordCtrl.js"></script>
 </html>

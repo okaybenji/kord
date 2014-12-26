@@ -1,4 +1,4 @@
-var kordApp = angular.module('kordApp', []);
+var kordApp = angular.module('kordApp', ['ngTouch']);
 
 kordApp.controller('kordCtrl', ['$scope',
     
@@ -9,14 +9,6 @@ kordApp.controller('kordCtrl', ['$scope',
         var SHARP = '\u266F';
         var DIM = '\u00B0';
         var INV = '\u2076';
-        
-        //C major
-        var defaultChord = [];
-        defaultChord[0] = 16; //C1
-        defaultChord[1] = 28; //C2
-        defaultChord[2] = 40; //C3
-        defaultChord[3] = 44; //E3
-        defaultChord[4] = 47; //G3
         
         $scope.labels = [
             { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
@@ -33,29 +25,29 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.specialChord = false;
         
         //synth
-        var polysynth = new Polysynth(defaultChord.length);
+        var polysynth = new Polysynth(5); //create a synth with 5 voices -- two octaves of bass plus a triad
         $scope.synth = polysynth;
         
         $scope.keys = [
-            { label: 'G', value: -5 },
-            { label: 'G#', value: -4 },
-            { label: 'A', value: -3 },
-            { label: 'A#', value: -2 },
-            { label: 'B', value: -1 },
-            { label: 'C', value: 0 },
-            { label: 'C#', value: 1 },
-            { label: 'D', value: 2 },
-            { label: 'D#', value: 3 },
-            { label: 'E', value: 4 },
-            { label: 'F', value: 5 },
-            { label: 'F#', value: 6 }
+            { label: 'G', value: 35 },
+            { label: 'G#', value: 36 },
+            { label: 'A', value: 37 },
+            { label: 'A#', value: 38 },
+            { label: 'B', value: 39 },
+            { label: 'C', value: 40 },
+            { label: 'C#', value: 41 },
+            { label: 'D', value: 42 },
+            { label: 'D#', value: 43 },
+            { label: 'E', value: 44 },
+            { label: 'F', value: 45 },
+            { label: 'F#', value: 46 }
         ];
         
         $scope.waveforms = ['sine','square','triangle','sawtooth'];
         $scope.octave = 0; //increment or decrement to change octave
+        var chord = []; //array to hold notes to play
         
-        //watch for changes to stereo width value
-        $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth);
+        $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth); //watch for changes to stereo width value
         
         $scope.label = function getLabel(chordNumber) {
             
@@ -80,7 +72,7 @@ kordApp.controller('kordCtrl', ['$scope',
             return(label);
         }
         
-        $scope.keyShift = $scope.keys[5]; //default to key of C
+        $scope.key = $scope.keys[5]; //default to key of C
         $scope.showSettings = false; //default to instrument view
         $scope.selectedWaveform = '';
         
@@ -89,20 +81,30 @@ kordApp.controller('kordCtrl', ['$scope',
             return Math.pow(2, (key-49)/12) * 440;
         }
         
-        function minor(chord) {
-            //lower third
-            chord[3] = chord[3] - 1;
-        }
-        
-        function augment(chord) {
-            //raise fifth
-            chord[4] = chord[4] + 1;
-        }
-        
-        function diminish(chord) {
-            //lower third and fifth
-            chord[3] = chord[3] - 1;
-            chord[4] = chord[4] - 1;
+        function setChord(root, quality) {
+            
+            chord[0] = root - 24;
+            chord[1] = root - 12;
+            chord[2] = root;
+            
+            switch (quality) {
+                case 'diminished':
+                    chord[3] = root + 3;
+                    chord[4] = root + 6;
+                    break;
+                case 'minor':
+                    chord[3] = root + 3;
+                    chord[4] = root + 7;
+                    break;
+                case 'augmented':
+                    chord[3] = root + 4;
+                    chord[4] = root + 8;
+                    break;
+                default: //default to major
+                    chord[3] = root + 4;
+                    chord[4] = root + 7;
+                    break;
+            }
         }
         
         function invert(chord) {
@@ -114,17 +116,10 @@ kordApp.controller('kordCtrl', ['$scope',
             chord[1] = chord[2] - 12;
         }
         
-        //shift all notes up (or down)
-        function shift(chord, halfSteps) {
-            for (var i=0, ii=chord.length; i<ii; i++) {
-                chord[i]+=halfSteps;
-            }
-        }
-        
         //determine chord to play and start playing it
         $scope.start = function start(chordNumber) {
-            
-            var chord = defaultChord.slice(); //build from default (C major) chord (slice copies by val rather than ref)
+        
+            var root = $scope.key.value;
             var invertMode = $scope.invertMode;
             var invertChord = $scope.invertChord;
             var specialChord = $scope.specialChord;
@@ -132,52 +127,65 @@ kordApp.controller('kordCtrl', ['$scope',
             switch(chordNumber) {
                 case 1:
                     if (specialChord) {
-                        augment(chord);
+                        setChord(root, 'augmented');
                     } else if (invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor');
+                    } else {
+                        setChord(root);
                     }
                     break;
                 case 2:
+                    root += 2;
                     if (specialChord) {
-                        diminish(chord);
+                        setChord(root, 'diminished');
                     } else if (!invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor');
+                    } else {
+                        setChord(root);
                     }
-                    shift(chord, 2);
                     break;
                 case 3:
+                    root += 4;
                     if (specialChord) {
-                        diminish(chord);
+                        setChord(root, 'diminished');
                     } else if (!invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor');
+                    } else {
+                        setChord(root);
                     }
-                    shift(chord, 4);
                     break;
                 case 4:
+                    root += 5;
                     if (specialChord) {
-                        diminish(chord);
-                        shift(chord, 1);
+                        root += 1;
+                        setChord(root, 'diminished');
                     } else if (invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor');
+                    } else {
+                        setChord(root);
                     }
-                    shift(chord, 5);
                     break;
                 case 5:
+                    root += 7;
                     if (specialChord) {
-                        diminish(chord);
-                        shift(chord, 1);
+                        root += 1;
+                        setChord(root, 'diminished');
                     } else if (invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor');
+                    } else {
+                        setChord(root);
                     }
-                    shift(chord, 7);
                     break;
                 case 6:
+                    root += 9;
                     if (specialChord) {
-                        shift(chord, 1);
+                        root += 1;
+                        setChord(root);
                     } else if (!invertMode) {
-                        minor(chord);
+                        setChord(root, 'minor')
+                    } else {
+                        setChord(root);
                     }
-                    shift(chord, 9);
                     break;
             }
             
@@ -187,7 +195,7 @@ kordApp.controller('kordCtrl', ['$scope',
             
             //trigger one note per oscillator
             for (var i=0, ii=chord.length; i<ii; i++) {
-                var key = chord[i] + $scope.keyShift.value + ($scope.octave * 12);
+                var key = chord[i] + ($scope.octave * 12);
                 polysynth.setPitch(i, getFreq(key));
             }
             
@@ -267,7 +275,7 @@ kordApp.controller('kordCtrl', ['$scope',
                 case 90: //Z
                     $scope.specialChord = false;
                     break;
-                default: //any other key
+                default: //any other key; really only want this to trigger is the chord playing is associated with the key (imagine user triggers V while holding down I and then lets go of I key -- V will stop, which is not what we want) fix this!
                     $scope.stop();
                     break;
             }

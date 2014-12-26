@@ -45,6 +45,7 @@ kordApp.controller('kordCtrl', ['$scope',
         
         $scope.waveforms = ['sine','square','triangle','sawtooth'];
         $scope.octave = 0; //increment or decrement to change octave
+        var chord = []; //array to hold notes to play
         
         //watch for changes to stereo width value
         $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth);
@@ -81,10 +82,9 @@ kordApp.controller('kordCtrl', ['$scope',
             return Math.pow(2, (key-49)/12) * 440;
         }
         
-        function getChord(root, quality) {
+        function setChord(root, quality) {
             root = root || 40; //default to C
             
-            var chord = [];
             chord[0] = root - 24;
             chord[1] = root - 12;
             chord[2] = root;
@@ -107,8 +107,6 @@ kordApp.controller('kordCtrl', ['$scope',
                     chord[4] = root + 7;
                     break;
             }
-            
-            return chord;
         }
         
         function invert(chord) {
@@ -124,7 +122,6 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.start = function start(chordNumber) {
         
             var root = $scope.key.value;
-            var chord = [];
             var invertMode = $scope.invertMode;
             var invertChord = $scope.invertChord;
             var specialChord = $scope.specialChord;
@@ -132,64 +129,64 @@ kordApp.controller('kordCtrl', ['$scope',
             switch(chordNumber) {
                 case 1:
                     if (specialChord) {
-                        chord = getChord(root, 'augmented');
+                        setChord(root, 'augmented');
                     } else if (invertMode) {
-                        chord = getChord(root, 'minor');
+                        setChord(root, 'minor');
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
                 case 2:
                     root += 2;
                     if (specialChord) {
-                        chord = getChord(root, 'diminished');
+                        setChord(root, 'diminished');
                     } else if (!invertMode) {
-                        chord = getChord(root, 'minor');
+                        setChord(root, 'minor');
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
                 case 3:
                     root += 4;
                     if (specialChord) {
-                        chord = getChord(root, 'diminished');
+                        setChord(root, 'diminished');
                     } else if (!invertMode) {
-                        chord = getChord(root, 'minor');
+                        setChord(root, 'minor');
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
                 case 4:
                     root += 5;
                     if (specialChord) {
                         root += 1;
-                        chord = getChord(root, 'diminished');
+                        setChord(root, 'diminished');
                     } else if (invertMode) {
-                        chord = getChord(root, 'minor');
+                        setChord(root, 'minor');
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
                 case 5:
                     root += 7;
                     if (specialChord) {
                         root += 1;
-                        chord = getChord(root, 'diminished');
+                        setChord(root, 'diminished');
                     } else if (invertMode) {
-                        chord = getChord(root, 'minor');
+                        setChord(root, 'minor');
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
                 case 6:
                     root += 9;
                     if (specialChord) {
                         root += 1;
-                        chord = getChord(root);
+                        setChord(root);
                     } else if (!invertMode) {
-                        chord = getChord(root, 'minor')
+                        setChord(root, 'minor')
                     } else {
-                        chord = getChord(root);
+                        setChord(root);
                     }
                     break;
             }

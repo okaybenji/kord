@@ -13,7 +13,7 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.labels = [
             { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
             { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
-            { number: 3, default: 'iii', invertMode: 'III', specialChord: 'iii' + DIM },
+            { number: 3, default: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
             { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
             { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
             { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
@@ -147,7 +147,7 @@ kordApp.controller('kordCtrl', ['$scope',
                 case 3:
                     root += 4;
                     if (specialChord) {
-                        setChord(root, 'diminished');
+                        setChord(root+4); //VI flat; weird, i know, but this chord is just more useful
                     } else if (!invertMode) {
                         setChord(root, 'minor');
                     } else {

@@ -47,8 +47,7 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.octave = 0; //increment or decrement to change octave
         var chord = []; //array to hold notes to play
         
-        //watch for changes to stereo width value
-        $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth);
+        $scope.$watch('synth.stereoWidth', $scope.synth.updateWidth); //watch for changes to stereo width value
         
         $scope.label = function getLabel(chordNumber) {
             
@@ -83,7 +82,6 @@ kordApp.controller('kordCtrl', ['$scope',
         }
         
         function setChord(root, quality) {
-            root = root || 40; //default to C
             
             chord[0] = root - 24;
             chord[1] = root - 12;

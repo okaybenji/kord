@@ -19,6 +19,8 @@ kordApp.controller('kordCtrl', ['$scope',
             { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
         ];
         
+        var lastChord = 1; //track last-pressed chord button
+        
         //toggles
         $scope.invertMode = false;
         $scope.invertChord = false;
@@ -124,6 +126,8 @@ kordApp.controller('kordCtrl', ['$scope',
             var invertChord = $scope.invertChord;
             var specialChord = $scope.specialChord;
             
+            lastChord = chordNumber; //capture last-pressed chord number
+            
             switch(chordNumber) {
                 case 1:
                     if (specialChord) {
@@ -203,9 +207,11 @@ kordApp.controller('kordCtrl', ['$scope',
             polysynth.start();
         }
         
-        //stop all oscillators
-        $scope.stop = function () {
-            polysynth.stop();
+        //stop all oscillators if stop command came from last-pressed chord button
+        $scope.stop = function stop(chordNumber) {
+            if (chordNumber === lastChord) {
+                polysynth.stop();
+            }
         }
         
         $scope.setWaveform = function setWaveform(waveform) {
@@ -275,8 +281,29 @@ kordApp.controller('kordCtrl', ['$scope',
                 case 90: //Z
                     $scope.specialChord = false;
                     break;
-                default: //any other key; really only want this to trigger is the chord playing is associated with the key (imagine user triggers V while holding down I and then lets go of I key -- V will stop, which is not what we want) fix this!
-                    $scope.stop();
+                case 49: //1
+                case 87: //W
+                    $scope.stop(1);
+                    break;
+                case 50: //2
+                case 69: //E
+                    $scope.stop(2);
+                    break;
+                case 51: //3
+                case 82: //R
+                    $scope.stop(3);
+                    break;
+                case 52: //4
+                case 83: //S
+                    $scope.stop(4);
+                    break;
+                case 53: //5
+                case 68: //D
+                    $scope.stop(5);
+                    break;
+                case 54: //6
+                case 70: //F
+                    $scope.stop(6);
                     break;
             }
         }

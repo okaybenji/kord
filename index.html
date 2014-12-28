@@ -13,8 +13,8 @@
                 <button ng-click="invertMode=false; specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
                 <button ng-click="showSettings=!showSettings" class="settings">&#9881;</button>
             </div>
-            <div id="chordMenu" ng-mouseup="stop()">
-                <button ng-repeat="chord in labels" class="chord{{chord.number}}" ng-mousedown="start(chord.number)">{{label(chord.number)}}</button>
+            <div id="chordMenu">
+                <button ng-repeat="chord in labels" class="chord{{chord.number}}" ng-mousedown="start(chord.number)" ng-mouseup="stop(chord.number)">{{label(chord.number)}}</button>
             </div>
         </div>
         <div id="settingsPanel" ng-show="showSettings">

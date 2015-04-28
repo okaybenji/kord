@@ -1,7 +1,7 @@
 var Polysynth = function(numVoices) {
     
     var synth = this;
-    var audioCtx = new webkitAudioContext;
+    var audioCtx = new AudioContext;
     var voices = []; //voice array
     var amp = audioCtx.createGain();
     var filter = audioCtx.createBiquadFilter();

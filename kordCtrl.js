@@ -27,7 +27,7 @@ kordApp.controller('kordCtrl', ['$scope',
         $scope.specialChord = false;
         
         //synth
-        var polysynth = new Polysynth(5); //create a synth with 5 voices -- two octaves of bass plus a triad
+        var polysynth = new Polysynth({numVoices: 5}); //create a synth with 5 voices -- two octaves of bass plus a triad
         $scope.synth = polysynth;
         
         $scope.keys = [
@@ -72,7 +72,7 @@ kordApp.controller('kordCtrl', ['$scope',
             }
             
             return(label);
-        }
+        };
         
         $scope.key = $scope.keys[5]; //default to key of C
         $scope.showSettings = false; //default to instrument view
@@ -186,7 +186,7 @@ kordApp.controller('kordCtrl', ['$scope',
                         root += 1;
                         setChord(root);
                     } else if (!invertMode) {
-                        setChord(root, 'minor')
+                        setChord(root, 'minor');
                     } else {
                         setChord(root);
                     }
@@ -198,26 +198,28 @@ kordApp.controller('kordCtrl', ['$scope',
             }
             
             //trigger one note per oscillator
-            for (var i=0, ii=chord.length; i<ii; i++) {
+            polysynth.voices.forEach(function(voice, i) {
                 var key = chord[i] + ($scope.octave * 12);
-                polysynth.setPitch(i, getFreq(key));
-            }
+                voice.pitch(getFreq(key));
+            });
             
             //apply attack gain envelope
             polysynth.start();
-        }
+        };
         
         //stop all oscillators if stop command came from last-pressed chord button
         $scope.stop = function stop(chordNumber) {
             if (chordNumber === lastChord) {
                 polysynth.stop();
             }
-        }
+        };
         
         $scope.setWaveform = function setWaveform(waveform) {
-            polysynth.setWaveform(waveform);
+            polysynth.voices.forEach(function(voice) {
+              voice.waveform(waveform);
+            });
             $scope.selectedWaveform = waveform;
-        }
+        };
         
         //allow playing instrument with computer keyboard
         $scope.handleKeydown = function($event) {
@@ -264,7 +266,7 @@ kordApp.controller('kordCtrl', ['$scope',
                         break;
                 }
             }
-        }
+        };
         
         $scope.handleKeyup = function($event) {
             
@@ -306,12 +308,12 @@ kordApp.controller('kordCtrl', ['$scope',
                     $scope.stop(6);
                     break;
             }
-        }
+        };
 
         //initialize polysynth
         var init = function init() {
             $scope.setWaveform($scope.waveforms[3]); //default to sawtooth wave
-        }
+        };
         
         init();
     }

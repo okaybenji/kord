@@ -5,10 +5,9 @@
  */
 
 /*
- * TODO:  Attach synth functions to its prototype.
- * TODO:  Accept configuration object for starting values
- *        including number of voices, max gain, attack, etc. 
- * TODO:  Explore synth.cutoff.contour.
+ * TODO: Attach synth functions to its prototype.
+ * TODO: Explore synth.cutoff.contour.
+ * TODO: Consider making synth.stereoWidth a getter/setter function which contains updateWidth.
  */
 
 var Polysynth = function(config) {
@@ -77,8 +76,8 @@ var Polysynth = function(config) {
     return this.osc.type;
   };
 
-  for (var i=0; i<numVoices; i++) {
-    synth.voices[i] = new Voice;
+  for (var i = 0; i < numVoices; i++) {
+    synth.voices.push(new Voice);
   }
 
   function getNow() {

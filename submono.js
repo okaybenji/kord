@@ -39,12 +39,12 @@ var Monosynth = function(audioCtx, config) {
   synth.cutoff.attack   = config.cutoff.attack    || 0.1; //in seconds
   synth.cutoff.decay    = config.cutoff.decay     || 2.5; //in seconds
   synth.cutoff.sustain  = config.cutoff.sustain   || 0.2; //out of 1
-  synth.cutoff.value    = config.cutoff.sustain * config.cutoff.maxValue;
   
   //create and connect oscillator and stereo panner
   synth.osc = audioCtx.createOscillator();
   synth.pan = audioCtx.createPanner();
   synth.pan.panningModel = 'equalpower';
+  synth.pan.setPosition(0, 0, 1); // start with stereo image centered
   synth.osc.connect(this.pan);
   synth.pan.connect(synth.filter);
   synth.osc.start(0);

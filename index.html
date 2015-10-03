@@ -20,25 +20,25 @@
         <div id="settingsPanel" ng-show="showSettings">
             <ul id="ampSliders">
                 <h3>amp</h3>
-                <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="synth.maxGain" />{{(synth.maxGain * 100).toFixed(0)}}%</li>
-                <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.attack" />{{synth.attack * 1000}}ms</li>
-                <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.decay" />{{synth.decay * 1000}}ms</li>
-                <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".005" ng-model="synth.sustain" />{{(synth.sustain * 1).toFixed(2)}}x</li>
-                <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="synth.release" />{{synth.release * 1000}}ms</li>
+                <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="maxGain" />{{(maxGain * 100).toFixed(0)}}%</li>
+                <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="attack" />{{attack * 1000}}ms</li>
+                <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="decay" />{{decay * 1000}}ms</li>
+                <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".005" ng-model="sustain" />{{(sustain * 1).toFixed(2)}}x</li>
+                <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="release" />{{release * 1000}}ms</li>
             </ul>
             <ul id="cutoffSliders">
                 <h3>cutoff</h3>
-                <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" ng-model="synth.cutoff.maxValue" />{{synth.cutoff.maxValue}}hz</li>
-                <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.attack" />{{synth.cutoff.attack * 1000}}ms</li>
-                <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="synth.cutoff.decay" />{{synth.cutoff.decay * 1000}}ms</li>
-                <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="synth.cutoff.sustain" />{{(synth.cutoff.sustain * 1).toFixed(1)}}x</li>  
+                <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" ng-model="cutoff.maxValue" />{{cutoff.maxValue}}hz</li>
+                <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.attack" />{{cutoff.attack * 1000}}ms</li>
+                <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.decay" />{{cutoff.decay * 1000}}ms</li>
+                <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="cutoff.sustain" />{{(cutoff.sustain * 1).toFixed(1)}}x</li>  
             </ul>
             <h3>oscillators</h3>
             key<select ng-model="key" ng-options="key as key.label for key in keys"></select>
             octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
-            stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" ng-model="synth.stereoWidth">{{(synth.stereoWidth * 100).toFixed(0)}}%
+            stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" ng-model="stereoWidth">{{(stereoWidth * 100).toFixed(0)}}%
             <div id="waveformMenu">
-                <button ng-repeat="waveform in waveforms" id="{{waveform}}" ng-click="setWaveform(waveform)" ng-class="{on: selectedWaveform==waveform}"></button>
+                <button ng-repeat="waveformName in waveforms" id="{{waveformName}}" ng-click="updateWaveform(waveformName)" ng-class="{on: waveform===waveformName}"></button>
             </div>
             <button ng-click="showSettings=!showSettings" class="settings on">&#9881;</button>
         </div>
@@ -71,6 +71,7 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
+  <script src="submono.js"></script>
   <script src="subpoly.js"></script>
   <script src="kordCtrl.js"></script>
 </html>

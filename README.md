@@ -1,5 +1,4 @@
-![kord](img/kordLogo.svg)
-
+# kord
 A multi-touch chord instrument for songwriting, performance and ear training.
 
 **Try it out!** [okaybenji.github.io/kord](http://okaybenji.github.io/kord/)

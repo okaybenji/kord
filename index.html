@@ -28,7 +28,7 @@
             </ul>
             <ul id="cutoffSliders">
                 <h3>cutoff</h3>
-                <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" ng-model="cutoff.maxValue" />{{cutoff.maxValue}}hz</li>
+                <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" ng-model="cutoff.maxFrequency" />{{cutoff.maxFrequency}}hz</li>
                 <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.attack" />{{cutoff.attack * 1000}}ms</li>
                 <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.decay" />{{cutoff.decay * 1000}}ms</li>
                 <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="cutoff.sustain" />{{(cutoff.sustain * 1).toFixed(1)}}x</li>  

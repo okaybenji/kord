@@ -66,7 +66,7 @@ Polysynth.prototype.width = function width(newWidth) {
 Polysynth.prototype.createSetters = function createSetters() {
   var synth = this;
   var monosynthProperties = ['maxGain', 'attack', 'decay', 'sustain', 'release'];
-  var monosynthCutoffProperties = ['maxValue', 'attack', 'decay', 'sustain'];
+  var monosynthCutoffProperties = ['maxFrequency', 'attack', 'decay', 'sustain'];
   
   monosynthProperties.forEach(function(property) {
     Polysynth.prototype[property] = function(newValue) {

@@ -34,11 +34,11 @@ var Monosynth = function(audioCtx, config) {
   synth.release       = config.release      || 0.8; //in seconds
   
   //low-pass filter cutoff defaults
-  synth.cutoff          = synth.filter.frequency;
-  synth.cutoff.maxValue = config.cutoff.maxValue  || 7500; //in hertz
-  synth.cutoff.attack   = config.cutoff.attack    || 0.1; //in seconds
-  synth.cutoff.decay    = config.cutoff.decay     || 2.5; //in seconds
-  synth.cutoff.sustain  = config.cutoff.sustain   || 0.2; //out of 1
+  synth.cutoff              = synth.filter.frequency;
+  synth.cutoff.maxFrequency = config.cutoff.maxFrequency || 7500; //in hertz
+  synth.cutoff.attack       = config.cutoff.attack       || 0.1; //in seconds
+  synth.cutoff.decay        = config.cutoff.decay        || 2.5; //in seconds
+  synth.cutoff.sustain      = config.cutoff.sustain      || 0.2; //out of 1
   
   //create and connect oscillator and stereo panner
   synth.osc = audioCtx.createOscillator();
@@ -89,8 +89,8 @@ Monosynth.prototype.start = function startSynth() {
   var now  = this.getNow();
   this.cutoff.cancelScheduledValues(now);
   this.cutoff.linearRampToValueAtTime(this.cutoff.value, now);
-  this.cutoff.linearRampToValueAtTime(this.cutoff.maxValue, now + cAtk);
-  this.cutoff.linearRampToValueAtTime(this.cutoff.sustain * this.cutoff.maxValue, now + cAtk + cDec);
+  this.cutoff.linearRampToValueAtTime(this.cutoff.maxFrequency, now + cAtk);
+  this.cutoff.linearRampToValueAtTime(this.cutoff.sustain * this.cutoff.maxFrequency, now + cAtk + cDec);
   this.amp.gain.linearRampToValueAtTime(this.maxGain, now + atk);
   this.amp.gain.linearRampToValueAtTime(this.sustain * this.maxGain, now + atk + dec);
 };

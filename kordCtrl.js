@@ -45,7 +45,7 @@ kordApp.controller('kordCtrl', ['$scope',
       stereoWidth: 0.5,
       numVoices: 5,
       cutoff: {
-        maxValue: 7500,
+        maxFrequency: 7500,
         attack: 0.1,
         decay: 2.5,
         sustain: 0.2
@@ -65,7 +65,7 @@ kordApp.controller('kordCtrl', ['$scope',
     $scope.sustain = synthConfig.sustain;
     $scope.release = synthConfig.release;
     $scope.cutoff = {};
-    $scope.cutoff.maxValue = synthConfig.cutoff.maxValue;
+    $scope.cutoff.maxFrequency = synthConfig.cutoff.maxFrequency;
     $scope.cutoff.attack = synthConfig.cutoff.attack;
     $scope.cutoff.decay = synthConfig.cutoff.decay;
     $scope.cutoff.sustain = synthConfig.cutoff.sustain;
@@ -78,7 +78,7 @@ kordApp.controller('kordCtrl', ['$scope',
     $scope.$watch('decay', $scope.synth.decay);
     $scope.$watch('sustain', $scope.synth.sustain);
     $scope.$watch('release', $scope.synth.release);
-    $scope.$watch('cutoff.maxValue', $scope.synth.cutoff.maxValue);
+    $scope.$watch('cutoff.maxFrequency', $scope.synth.cutoff.maxFrequency);
     $scope.$watch('cutoff.attack', $scope.synth.cutoff.attack);
     $scope.$watch('cutoff.decay', $scope.synth.cutoff.decay);
     $scope.$watch('cutoff.sustain', $scope.synth.cutoff.sustain);

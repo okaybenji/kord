@@ -52,8 +52,8 @@ kordApp.controller('kordCtrl', ['$scope',
       }
     };
 
-    $scope.synth = new Polysynth(audioCtx, synthConfig); // create a synth with 5 voices -- two octaves of bass plus a triad
-    $scope.synth.createSetters();
+    // create a synth with 5 voices -- two octaves of bass plus a triad
+    $scope.synth = new Polysynth(audioCtx, synthConfig); 
     
     /* TODO: If possible, find a way to share memory between synth and
     Angular so you don't have to set up and watch all these values. */

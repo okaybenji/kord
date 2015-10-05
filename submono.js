@@ -4,17 +4,12 @@
  *  MIT License
  */
 
-/*
- * TODO: Explore synth.cutoff.contour.
- */
-
 var Monosynth = function Monosynth(audioCtx, config) {
-
+  var synth;
   var Synth = function Synth() {
+    synth = this;
     config = config || {};
     config.cutoff = config.cutoff || {};
-
-    var synth = this;
 
     synth.audioCtx = audioCtx,
     synth.amp      = audioCtx.createGain(),
@@ -52,48 +47,48 @@ var Monosynth = function Monosynth(audioCtx, config) {
   };
 
   function getNow() {
-    var now = this.audioCtx.currentTime;
-    this.amp.gain.cancelScheduledValues(now);
-    this.amp.gain.setValueAtTime(this.amp.gain.value, now);
+    var now = synth.audioCtx.currentTime;
+    synth.amp.gain.cancelScheduledValues(now);
+    synth.amp.gain.setValueAtTime(synth.amp.gain.value, now);
     return now;
   };
   
   Synth.prototype.pitch = function pitch(newPitch) {
     if (newPitch) {
-      var now = this.audioCtx.currentTime;
-      this.osc.frequency.setValueAtTime(newPitch, now);
+      var now = synth.audioCtx.currentTime;
+      synth.osc.frequency.setValueAtTime(newPitch, now);
     }
-    return this.osc.frequency.value;
+    return synth.osc.frequency.value;
   };
 
   Synth.prototype.waveform = function waveform(newWaveform) {
     if (newWaveform) {
-      this.osc.type = newWaveform;
+      synth.osc.type = newWaveform;
     }
-    return this.osc.type;
+    return synth.osc.type;
   };
 
   //apply attack, decay, sustain envelope
   Synth.prototype.start = function startSynth() {
-    var atk  = parseFloat(this.attack);
-    var dec  = parseFloat(this.decay);
-    var cAtk = parseFloat(this.cutoff.attack);
-    var cDec = parseFloat(this.cutoff.decay);
-    var now  = getNow.bind(this)();
-    this.cutoff.cancelScheduledValues(now);
-    this.cutoff.linearRampToValueAtTime(this.cutoff.value, now);
-    this.cutoff.linearRampToValueAtTime(this.cutoff.maxFrequency, now + cAtk);
-    this.cutoff.linearRampToValueAtTime(this.cutoff.sustain * this.cutoff.maxFrequency, now + cAtk + cDec);
-    this.amp.gain.linearRampToValueAtTime(this.maxGain, now + atk);
-    this.amp.gain.linearRampToValueAtTime(this.sustain * this.maxGain, now + atk + dec);
+    var atk  = parseFloat(synth.attack);
+    var dec  = parseFloat(synth.decay);
+    var cAtk = parseFloat(synth.cutoff.attack);
+    var cDec = parseFloat(synth.cutoff.decay);
+    var now  = getNow();
+    synth.cutoff.cancelScheduledValues(now);
+    synth.cutoff.linearRampToValueAtTime(synth.cutoff.value, now);
+    synth.cutoff.linearRampToValueAtTime(synth.cutoff.maxFrequency, now + cAtk);
+    synth.cutoff.linearRampToValueAtTime(synth.cutoff.sustain * synth.cutoff.maxFrequency, now + cAtk + cDec);
+    synth.amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
+    synth.amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
   };
 
   //apply release envelope
   Synth.prototype.stop = function stopSynth() {
-    var rel = parseFloat(this.release);
-    var now = getNow.bind(this)();
-    this.amp.gain.linearRampToValueAtTime(0, now + rel);
+    var rel = parseFloat(synth.release);
+    var now = getNow();
+    synth.amp.gain.linearRampToValueAtTime(0, now + rel);
   };
 
-  return new Synth;
+  return new Synth();
 };

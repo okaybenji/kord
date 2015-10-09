@@ -8,22 +8,21 @@ var invertMode = false;
 var invertChord = false;
 var specialChord = false;
 
-
 var FLAT = '\u266D';
 var SHARP = '\u266F';
 var DIM = '\u00B0';
 var INV = '\u2076';
 
 var labels = [
-  { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
-  { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
-  { number: 3, default: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
-  { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
-  { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
-  { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
+  { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I+' },
+  { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+  { number: 3, basic: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
+  { number: 4, basic: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+  { number: 5, basic: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+  { number: 6, basic: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT }
 ];
 
-var waveforms = ['sine','square','triangle','sawtooth'];
+var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // initialize synth and control panel
 var init = function init() {
@@ -34,8 +33,8 @@ var init = function init() {
     audioCtx = new webkitAudioContext();
   }
 
-  polysynth = new Polysynth(audioCtx, { numVoices: 5} );
-  
+  polysynth = new Polysynth(audioCtx, { numVoices: 5 });
+
   // update controls to display initial synth values
   var voice = polysynth.voices[0];
   $('#volumeSlider').val(voice.maxGain);
@@ -48,27 +47,27 @@ var init = function init() {
   $('#cutoffDecaySlider').val(voice.cutoff.decay);
   $('#cutoffSustainSlider').val(voice.cutoff.sustain);
   $('#waveformSelect').val(voice.waveform());
-  
+
   // update labels to display initial synth values
   $('#settingsPanel input').change();
   $('#settingsPanel select').change();
-  
+
   (function buildChordMenu() {
     var chordMenu = $('#chordMenu');
     labels.forEach(function(chord) {
       $('<button/>', {
         id: 'chord' + chord.number,
-        text: chord.default,
+        text: chord.basic,
         mousedown: function() {
-          start(chord.number)
+          start(chord.number);
         },
         mouseup: function() {
-          stop(chord.number)
-        },
+          stop(chord.number);
+        }
       }).appendTo(chordMenu);
     });
-  })();
-  
+  }());
+
   (function buildKeyMenu() {
     var keys = [
       { label: 'G', value: 35 },
@@ -84,33 +83,33 @@ var init = function init() {
       { label: 'F', value: 45 },
       { label: 'F#', value: 46 }
     ];
-    
+
     var keyMenu = $('#keyMenu');
     keys.forEach(function(key) {
       keyMenu.append(new Option(key.label, key.value));
     });
-    
+
     keyMenu.val(40); // default to key of C
-  })();
-  
+  }());
+
   (function buildWaveformMenu() {
     var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
       $('<button/>', {
         id: waveform + 'Button',
         click: function() {
-          setWaveform(waveform)
+          setWaveform(waveform);
         }
       }).appendTo(waveformMenu);
     });
     $('#sawtoothButton').click(); // default to sawtooth
-  })();
-}
+  }());
+};
 
 // get the frequency in hertz of a given piano key
 var getFreq = function getFreq(key) {
   return Math.pow(2, (key-49)/12) * 440;
-}
+};
 
 // get label for the button for a given chord number
 var getLabel = function getLabel(chordNumber) {
@@ -118,21 +117,21 @@ var getLabel = function getLabel(chordNumber) {
   var label = '';
 
   switch (true) {
-      case invertMode:
-          label = chordLabels.invertMode;
-          break;
-      case specialChord:
-          label = chordLabels.specialChord;
-          break;
-      default:
-          label = chordLabels.default;
+    case invertMode:
+      label = chordLabels.invertMode;
+      break;
+    case specialChord:
+      label = chordLabels.specialChord;
+      break;
+    default:
+      label = chordLabels.basic;
   }
 
   if (invertChord) {
-      label += INV; // add 6 as superscript
+    label += INV; // add 6 as superscript
   }
 
-  return(label);
+  return label;
 };
 
 var setChord = function setChord(root, quality) {
@@ -144,25 +143,25 @@ var setChord = function setChord(root, quality) {
 
   var applyQuality = {
     major: function() {
-          chord[3] = root + 4;
-          chord[4] = root + 7;
+      chord[3] = root + 4;
+      chord[4] = root + 7;
     },
     minor: function() {
-          chord[3] = root + 3;
-          chord[4] = root + 7;
+      chord[3] = root + 3;
+      chord[4] = root + 7;
     },
     diminished: function() {
-          chord[3] = root + 3;
-          chord[4] = root + 6;
+      chord[3] = root + 3;
+      chord[4] = root + 6;
     },
     augmented: function() {
-          chord[3] = root + 4;
-          chord[4] = root + 8;
+      chord[3] = root + 4;
+      chord[4] = root + 8;
     }
   };
 
   applyQuality[quality]();
-}
+};
 
 // shift all notes to first inversion
 var invert = function invert(chord) {
@@ -171,7 +170,7 @@ var invert = function invert(chord) {
   chord[4] = chord[1] + 24;
   chord[0] = chord[2] - 24;
   chord[1] = chord[2] - 12;
-}
+};
 
 // determine chord to play and start playing it
 start = function start(chordNumber) {
@@ -241,20 +240,20 @@ start = function start(chordNumber) {
         setChord(root);
       }
       break;
-    }
+  }
 
-    if (invertChord) {
-        invert(chord);
-    }
+  if (invertChord) {
+    invert(chord);
+  }
 
-    // trigger one note per oscillator
-    polysynth.voices.forEach(function(voice, i) {
-      var key = chord[i] + (octave * 12);
-      voice.pitch(getFreq(key));
-    });
+  // trigger one note per oscillator
+  polysynth.voices.forEach(function(voice, i) {
+    var key = chord[i] + (octave * 12);
+    voice.pitch(getFreq(key));
+  });
 
-    // apply attack gain envelope
-    polysynth.start();
+  // apply attack gain envelope
+  polysynth.start();
 };
 
 // stop all oscillators if stop command came from last-pressed chord button
@@ -266,35 +265,38 @@ stop = function stop(chordNumber) {
 
 
 // ui handlers
+var updateModifier = function updateModifier(modifier) {
+};
+
 var setVolume = function setVolume(newVolume) {
   polysynth.maxGain(newVolume);
   var volumeText = (newVolume * 100).toFixed(0) + '%';
   $('#volumeLabel').text(volumeText);
-}
+};
 
 var setAttack = function setAttack(newAttack) {
   polysynth.attack(newAttack);
   var attackText = newAttack * 1000 + 'ms';
   $('#attackLabel').text(attackText);
-}
+};
 
 var setDecay = function setDecay(newDecay) {
   polysynth.decay(newDecay);
   var decayText = newDecay * 1000 + 'ms';
   $('#decayLabel').text(decayText);
-}
+};
 
 var setSustain = function setSustain(newSustain) {
   polysynth.sustain(newSustain);
   var sustainText = (newSustain * 1).toFixed(2) + 'x';
   $('#sustainLabel').text(sustainText);
-}
+};
 
 var setRelease = function setRelease(newRelease) {
   polysynth.release(newRelease);
   var releaseText = newRelease * 1000 + 'ms';
   $('#releaseLabel').text(releaseText);
-}
+};
 
 var cutoff = {
   setMaxFrequency: function setMaxFrequency(newMaxFrequency) {

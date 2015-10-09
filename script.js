@@ -1,33 +1,169 @@
 var $ = $; // get linter to shut up about '$'
-
 var polysynth;
 var octave = 0;
-var chord = [];
-var lastChord = 1; // track last-pressed chord button
 
 // toggles
 var invertMode = false;
 var invertChord = false;
 var specialChord = false;
 
-var FLAT = '\u266D';
-var SHARP = '\u266F';
-var DIM = '\u00B0';
-var INV = '\u2076';
-
-var labels = [
-  { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I+' },
-  { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
-  { number: 3, basic: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
-  { number: 4, basic: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
-  { number: 5, basic: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
-  { number: 6, basic: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT }
-];
+var labels = (function() {
+  var FLAT = '\u266D';
+  var SHARP = '\u266F';
+  var DIM = '\u00B0';
+  var INV = '\u2076';
+  
+  var labels = [
+    { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I+' },
+    { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+    { number: 3, basic: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
+    { number: 4, basic: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+    { number: 5, basic: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+    { number: 6, basic: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT }
+  ];
+  
+  return labels;
+}());
 
 var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
+// ui handlers
+var updateModifier = function updateModifier(modifier) {
+  var INV = '\u2076';
+  
+  // get label for the button for a given chord number
+  var getLabel = function getLabel(chordNumber) {
+    var chordLabels = labels[chordNumber - 1];
+    var label = '';
+
+    switch (true) {
+      case invertMode:
+        label = chordLabels.invertMode;
+        break;
+      case specialChord:
+        label = chordLabels.specialChord;
+        break;
+      default:
+        label = chordLabels.basic;
+    }
+
+    if (invertChord) {
+      label += INV; // add 6 as superscript
+    }
+
+    return label;
+  };
+  
+  var modifiers = {
+    Mm: function() {
+      specialChord = false;
+      $('#special').removeClass('on');
+      invertMode = !invertMode;
+    },
+    x6: function() {
+      invertChord = !invertChord;
+    },
+    special: function() {
+      invertMode = false;
+      $('#Mm').removeClass('on');
+      specialChord = !specialChord;
+    }
+  };
+  modifiers[modifier]();
+  
+  $('#' + modifier).toggleClass('on');
+  
+  // update chord labels
+  labels.forEach(function(chord) {
+    $('#chord' + chord.number).text(getLabel(chord.number));
+  });
+  
+  // resize chord labels to fit inside buttons
+  var newClass = (function getNewClass() {
+    switch (true) {
+      case !specialChord && !invertChord:
+        return 'trenta';
+      case invertChord && !specialChord:
+        return 'venti';
+      case specialChord && !invertChord:
+        return 'grande';
+      case specialChord && invertChord:
+        return 'tall';
+    }
+  }());
+  
+  $('main').attr('class', newClass);
+};
+
+var setVolume = function setVolume(newVolume) {
+  polysynth.maxGain(newVolume);
+  var volumeText = (newVolume * 100).toFixed(0) + '%';
+  $('#volumeLabel').text(volumeText);
+};
+
+var setAttack = function setAttack(newAttack) {
+  polysynth.attack(newAttack);
+  var attackText = newAttack * 1000 + 'ms';
+  $('#attackLabel').text(attackText);
+};
+
+var setDecay = function setDecay(newDecay) {
+  polysynth.decay(newDecay);
+  var decayText = newDecay * 1000 + 'ms';
+  $('#decayLabel').text(decayText);
+};
+
+var setSustain = function setSustain(newSustain) {
+  polysynth.sustain(newSustain);
+  var sustainText = (newSustain * 1).toFixed(2) + 'x';
+  $('#sustainLabel').text(sustainText);
+};
+
+var setRelease = function setRelease(newRelease) {
+  polysynth.release(newRelease);
+  var releaseText = newRelease * 1000 + 'ms';
+  $('#releaseLabel').text(releaseText);
+};
+
+var cutoff = {
+  setMaxFrequency: function setMaxFrequency(newMaxFrequency) {
+    polysynth.cutoff.maxFrequency(newMaxFrequency);
+    var maxFrequencyText = newMaxFrequency + 'hz';
+    $('#cutoffMaxFrequencyLabel').text(maxFrequencyText);
+  },
+  setAttack: function setAttack(newAttack) {
+    polysynth.cutoff.attack(newAttack);
+    var attackText = newAttack * 1000 + 'ms';
+    $('#cutoffAttackLabel').text(attackText);
+  },
+  setDecay: function setDecay(newDecay) {
+    polysynth.cutoff.decay(newDecay);
+    var decayText = newDecay + 'ms';
+    $('#cutoffDecayLabel').text(decayText);
+  },
+  setSustain: function setSustain(newSustain) {
+    polysynth.cutoff.sustain(newSustain);
+    var sustainText = (newSustain * 1).toFixed(2) + 'x';
+    $('#cutoffSustainLabel').text(sustainText);
+  }
+};
+
+var setWidth = function setWidth(newWidth) {
+  polysynth.width(newWidth);
+  var widthText = (newWidth * 100).toFixed(0) + '%';
+  $('#widthLabel').text(widthText);
+};
+
+var setWaveform = function setWaveform(newWaveform) {
+  polysynth.waveform(newWaveform);
+  waveforms.forEach(function(waveform) {
+    $('#' + waveform + 'Button').removeClass('on');
+  });
+  $('#' + newWaveform + 'Button').addClass('on');
+};
+
 // initialize synth and control panel
-var init = function init() {
+(function init() {
   var audioCtx;
   if (typeof AudioContext !== "undefined") {
     audioCtx = new AudioContext();
@@ -55,12 +191,14 @@ var init = function init() {
   $('#settingsPanel select').change();
 
   (function buildChordMenu() {
+    var lastChord = 1; // track last-pressed chord button
     
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
       
       var root = parseInt($('#keyMenu').val(), 10);
       lastChord = chordNumber; // capture last-pressed chord number
+      var chord = [];
       
       var setChord = function setChord(root, quality) {
         quality = quality || 'major';
@@ -242,140 +380,4 @@ var init = function init() {
     });
     $('#sawtoothButton').click(); // default to sawtooth
   }());
-};
-
-// ui handlers
-var updateModifier = function updateModifier(modifier) {
-  
-  // get label for the button for a given chord number
-  var getLabel = function getLabel(chordNumber) {
-    var chordLabels = labels[chordNumber - 1];
-    var label = '';
-
-    switch (true) {
-      case invertMode:
-        label = chordLabels.invertMode;
-        break;
-      case specialChord:
-        label = chordLabels.specialChord;
-        break;
-      default:
-        label = chordLabels.basic;
-    }
-
-    if (invertChord) {
-      label += INV; // add 6 as superscript
-    }
-
-    return label;
-  };
-  
-  var modifiers = {
-    Mm: function() {
-      specialChord = false;
-      $('#special').removeClass('on');
-      invertMode = !invertMode;
-    },
-    x6: function() {
-      invertChord = !invertChord;
-    },
-    special: function() {
-      invertMode = false;
-      $('#Mm').removeClass('on');
-      specialChord = !specialChord;
-    }
-  };
-  modifiers[modifier]();
-  
-  $('#' + modifier).toggleClass('on');
-  
-  // update chord labels
-  labels.forEach(function(chord) {
-    $('#chord' + chord.number).text(getLabel(chord.number));
-  });
-  
-  // resize chord labels to fit inside buttons
-  var newClass = (function getNewClass() {
-    switch (true) {
-      case !specialChord && !invertChord:
-        return 'trenta';
-      case invertChord && !specialChord:
-        return 'venti';
-      case specialChord && !invertChord:
-        return 'grande';
-      case specialChord && invertChord:
-        return 'tall';
-    }
-  }());
-  
-  $('main').attr('class', newClass);
-};
-
-var setVolume = function setVolume(newVolume) {
-  polysynth.maxGain(newVolume);
-  var volumeText = (newVolume * 100).toFixed(0) + '%';
-  $('#volumeLabel').text(volumeText);
-};
-
-var setAttack = function setAttack(newAttack) {
-  polysynth.attack(newAttack);
-  var attackText = newAttack * 1000 + 'ms';
-  $('#attackLabel').text(attackText);
-};
-
-var setDecay = function setDecay(newDecay) {
-  polysynth.decay(newDecay);
-  var decayText = newDecay * 1000 + 'ms';
-  $('#decayLabel').text(decayText);
-};
-
-var setSustain = function setSustain(newSustain) {
-  polysynth.sustain(newSustain);
-  var sustainText = (newSustain * 1).toFixed(2) + 'x';
-  $('#sustainLabel').text(sustainText);
-};
-
-var setRelease = function setRelease(newRelease) {
-  polysynth.release(newRelease);
-  var releaseText = newRelease * 1000 + 'ms';
-  $('#releaseLabel').text(releaseText);
-};
-
-var cutoff = {
-  setMaxFrequency: function setMaxFrequency(newMaxFrequency) {
-    polysynth.cutoff.maxFrequency(newMaxFrequency);
-    var maxFrequencyText = newMaxFrequency + 'hz';
-    $('#cutoffMaxFrequencyLabel').text(maxFrequencyText);
-  },
-  setAttack: function setAttack(newAttack) {
-    polysynth.cutoff.attack(newAttack);
-    var attackText = newAttack * 1000 + 'ms';
-    $('#cutoffAttackLabel').text(attackText);
-  },
-  setDecay: function setDecay(newDecay) {
-    polysynth.cutoff.decay(newDecay);
-    var decayText = newDecay + 'ms';
-    $('#cutoffDecayLabel').text(decayText);
-  },
-  setSustain: function setSustain(newSustain) {
-    polysynth.cutoff.sustain(newSustain);
-    var sustainText = (newSustain * 1).toFixed(2) + 'x';
-    $('#cutoffSustainLabel').text(sustainText);
-  }
-};
-
-var setWidth = function setWidth(newWidth) {
-  polysynth.width(newWidth);
-  var widthText = (newWidth * 100).toFixed(0) + '%';
-  $('#widthLabel').text(widthText);
-};
-
-var setWaveform = function setWaveform(newWaveform) {
-  polysynth.waveform(newWaveform);
-  waveforms.forEach(function(waveform) {
-    $('#' + waveform + 'Button').removeClass('on');
-  });
-  $('#' + newWaveform + 'Button').addClass('on');
-};
-
-init();
+}());

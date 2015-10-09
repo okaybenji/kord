@@ -26,12 +26,12 @@ kordApp.controller('kordCtrl', ['$scope',
     $scope.invertChord = false;
     $scope.specialChord = false;
 
-    var audioCtx;
-    if (typeof AudioContext !== "undefined") {
-      audioCtx = new AudioContext();
-    } else {
-      audioCtx = new webkitAudioContext();
-    }
+//    var audioCtx;
+//    if (typeof AudioContext !== "undefined") {
+//      audioCtx = new AudioContext();
+//    } else {
+//      audioCtx = new webkitAudioContext();
+//    }
     
     // synth
     var synthConfig = {
@@ -43,7 +43,7 @@ kordApp.controller('kordCtrl', ['$scope',
       sustain: 1.0,
       release: 0.8,
       stereoWidth: 0.5,
-      numVoices: 5,
+//      numVoices: 5,
       cutoff: {
         maxFrequency: 7500,
         attack: 0.1,
@@ -52,36 +52,36 @@ kordApp.controller('kordCtrl', ['$scope',
       }
     };
 
-    // create a synth with 5 voices -- two octaves of bass plus a triad
-    $scope.synth = new Polysynth(audioCtx, synthConfig); 
-    
-    /* TODO: If possible, find a way to share memory between synth and
-    Angular so you don't have to set up and watch all these values. */
-    $scope.stereoWidth = synthConfig.stereoWidth;
-    $scope.waveform = synthConfig.waveform;
-    $scope.maxGain = synthConfig.maxGain;
-    $scope.attack = synthConfig.attack;
-    $scope.decay = synthConfig.decay;
-    $scope.sustain = synthConfig.sustain;
-    $scope.release = synthConfig.release;
-    $scope.cutoff = {};
-    $scope.cutoff.maxFrequency = synthConfig.cutoff.maxFrequency;
-    $scope.cutoff.attack = synthConfig.cutoff.attack;
-    $scope.cutoff.decay = synthConfig.cutoff.decay;
-    $scope.cutoff.sustain = synthConfig.cutoff.sustain;
-
-    // propagate value changes to synthesizer
-    $scope.$watch('stereoWidth', $scope.synth.width.bind($scope.synth));
-    $scope.$watch('waveform', $scope.synth.waveform);
-    $scope.$watch('maxGain', $scope.synth.maxGain);
-    $scope.$watch('attack', $scope.synth.attack);
-    $scope.$watch('decay', $scope.synth.decay);
-    $scope.$watch('sustain', $scope.synth.sustain);
-    $scope.$watch('release', $scope.synth.release);
-    $scope.$watch('cutoff.maxFrequency', $scope.synth.cutoff.maxFrequency);
-    $scope.$watch('cutoff.attack', $scope.synth.cutoff.attack);
-    $scope.$watch('cutoff.decay', $scope.synth.cutoff.decay);
-    $scope.$watch('cutoff.sustain', $scope.synth.cutoff.sustain);
+//    // create a synth with 5 voices -- two octaves of bass plus a triad
+//    $scope.synth = new Polysynth(audioCtx, synthConfig); 
+//    
+//    /* TODO: If possible, find a way to share memory between synth and
+//    Angular so you don't have to set up and watch all these values. */
+//    $scope.stereoWidth = synthConfig.stereoWidth;
+//    $scope.waveform = synthConfig.waveform;
+//    $scope.maxGain = synthConfig.maxGain;
+//    $scope.attack = synthConfig.attack;
+//    $scope.decay = synthConfig.decay;
+//    $scope.sustain = synthConfig.sustain;
+//    $scope.release = synthConfig.release;
+//    $scope.cutoff = {};
+//    $scope.cutoff.maxFrequency = synthConfig.cutoff.maxFrequency;
+//    $scope.cutoff.attack = synthConfig.cutoff.attack;
+//    $scope.cutoff.decay = synthConfig.cutoff.decay;
+//    $scope.cutoff.sustain = synthConfig.cutoff.sustain;
+//
+//    // propagate value changes to synthesizer
+//    $scope.$watch('stereoWidth', $scope.synth.width.bind($scope.synth));
+//    $scope.$watch('waveform', $scope.synth.waveform);
+//    $scope.$watch('maxGain', $scope.synth.maxGain);
+//    $scope.$watch('attack', $scope.synth.attack);
+//    $scope.$watch('decay', $scope.synth.decay);
+//    $scope.$watch('sustain', $scope.synth.sustain);
+//    $scope.$watch('release', $scope.synth.release);
+//    $scope.$watch('cutoff.maxFrequency', $scope.synth.cutoff.maxFrequency);
+//    $scope.$watch('cutoff.attack', $scope.synth.cutoff.attack);
+//    $scope.$watch('cutoff.decay', $scope.synth.cutoff.decay);
+//    $scope.$watch('cutoff.sustain', $scope.synth.cutoff.sustain);
     
 //    $scope.keys = [
 //      { label: 'G', value: 35 },

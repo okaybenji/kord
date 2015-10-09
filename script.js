@@ -59,13 +59,13 @@ function init() {
     var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
       $('<button/>', {
-        text: waveform,
         id: waveform + 'Button',
         click: function() {
           setWaveform(waveform)
         }
       }).appendTo(waveformMenu);
     });
+    $('#sawtoothButton').click(); // default to sawtooth
   })();
 }
 
@@ -132,9 +132,9 @@ var setWidth = function setWidth(newWidth) {
 var setWaveform = function setWaveform(newWaveform) {
   polysynth.waveform(newWaveform);
   waveforms.forEach(function(waveform) {
-    $(waveform + 'Button').removeClass('on');
+    $('#' + waveform + 'Button').removeClass('on');
   });
-  $(newWaveform + 'Button').addClass('on');
+  $('#' + newWaveform + 'Button').addClass('on');
 };
 
 init();

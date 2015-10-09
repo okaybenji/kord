@@ -190,19 +190,19 @@ button.settings {
     border-radius: 0 1vw 1vw 0;
 }
 
-#sine {
+#sineButton {
     background-image: url('./img/sineWave.svg');
 }
 
-#square {
+#squareButton {
     background-image: url('./img/squareWave.svg');
 }
 
-#triangle {
+#triangleButton {
     background-image: url('./img/triangleWave.svg');
 }
 
-#sawtooth {
+#sawtoothButton {
     background-image: url('./img/sawWave.svg');
 }
 

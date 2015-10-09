@@ -1,3 +1,5 @@
+var $ = $; // get linter to shut up about '$'
+
 var polysynth;
 var octave = 0;
 var chord = [];
@@ -173,7 +175,7 @@ var invert = function invert(chord) {
 };
 
 // determine chord to play and start playing it
-start = function start(chordNumber) {
+var start = function start(chordNumber) {
   var root = parseInt($('#keyMenu').val(), 10);
   lastChord = chordNumber; // capture last-pressed chord number
 
@@ -257,15 +259,53 @@ start = function start(chordNumber) {
 };
 
 // stop all oscillators if stop command came from last-pressed chord button
-stop = function stop(chordNumber) {
+var stop = function stop(chordNumber) {
   if (chordNumber === lastChord) {
     polysynth.stop();
   }
 };
 
-
 // ui handlers
 var updateModifier = function updateModifier(modifier) {
+  var modifiers = {
+    Mm: function() {
+      specialChord = false;
+      $('#special').removeClass('on');
+      invertMode = !invertMode;
+    },
+    x6: function() {
+      invertChord = !invertChord;
+    },
+    special: function() {
+      invertMode = false;
+      $('#Mm').removeClass('on');
+      specialChord = !specialChord;
+    }
+  };
+  modifiers[modifier]();
+  
+  $('#' + modifier).toggleClass('on');
+  
+  // update chord labels
+  labels.forEach(function(chord) {
+    $('#chord' + chord.number).text(getLabel(chord.number));
+  });
+  
+  // resize chord labels to fit inside buttons
+  var newClass = (function getNewClass() {
+    switch (true) {
+      case !specialChord && !invertChord:
+        return 'trenta';
+      case invertChord && !specialChord:
+        return 'venti';
+      case specialChord && !invertChord:
+        return 'grande';
+      case specialChord && invertChord:
+        return 'tall';
+    }
+  }());
+  
+  $('main').attr('class', newClass);
 };
 
 var setVolume = function setVolume(newVolume) {

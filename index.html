@@ -8,9 +8,9 @@
     <main class="trenta">
       <div id="instrument">
         <div id="modifierMenu">
-          <button onclick="updateModifier('Mm')">Mm</button>
-          <button onclick="updateModifier('x6')">x<sup>6</sup></button>
-          <button onclick="updateModifier('special')" class="special">&#9733;</button>
+          <button id="Mm" onclick="updateModifier(this.id)">Mm</button>
+          <button id="x6" onclick="updateModifier(this.id)">x<sup>6</sup></button>
+          <button id="special" onclick="updateModifier(this.id)">&#9733;</button>
           <button onclick="showSettings()" class="settings" >&#9881;</button>
         </div>
         <div id="chordMenu">

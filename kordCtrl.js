@@ -83,24 +83,24 @@ kordApp.controller('kordCtrl', ['$scope',
     $scope.$watch('cutoff.decay', $scope.synth.cutoff.decay);
     $scope.$watch('cutoff.sustain', $scope.synth.cutoff.sustain);
     
-    $scope.keys = [
-      { label: 'G', value: 35 },
-      { label: 'G#', value: 36 },
-      { label: 'A', value: 37 },
-      { label: 'A#', value: 38 },
-      { label: 'B', value: 39 },
-      { label: 'C', value: 40 },
-      { label: 'C#', value: 41 },
-      { label: 'D', value: 42 },
-      { label: 'D#', value: 43 },
-      { label: 'E', value: 44 },
-      { label: 'F', value: 45 },
-      { label: 'F#', value: 46 }
-    ];
+//    $scope.keys = [
+//      { label: 'G', value: 35 },
+//      { label: 'G#', value: 36 },
+//      { label: 'A', value: 37 },
+//      { label: 'A#', value: 38 },
+//      { label: 'B', value: 39 },
+//      { label: 'C', value: 40 },
+//      { label: 'C#', value: 41 },
+//      { label: 'D', value: 42 },
+//      { label: 'D#', value: 43 },
+//      { label: 'E', value: 44 },
+//      { label: 'F', value: 45 },
+//      { label: 'F#', value: 46 }
+//    ];
 
-    $scope.waveforms = ['sine','square','triangle','sawtooth'];
-    $scope.octave = 0; // increment or decrement to change octave
-    var chord = []; // array to hold notes to play
+//    $scope.waveforms = ['sine','square','triangle','sawtooth'];
+//    $scope.octave = 0; // increment or decrement to change octave
+//    var chord = []; // array to hold notes to play
     
     $scope.updateWaveform = function updateWaveform(newWaveform) {
       $scope.waveform = newWaveform;

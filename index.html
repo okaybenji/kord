@@ -1,77 +1,75 @@
 <!doctype html>
-<html ng-app="kordApp">
-    <head>
-        <title>Kord</title>
-        <link rel="stylesheet" href="styles.css">
+<html>
+  <head>
+    <title>Kord</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
-  <body ng-controller="kordCtrl" ng-keydown="handleKeydown($event)" ng-keyup="handleKeyup($event)">
-    <main ng-class="{trenta: !specialChord && !invertChord, venti: invertChord && !specialChord, grande: specialChord && !invertChord, tall: specialChord && invertChord}">
-        <div id="instrument" ng-show="!showSettings">
-            <div id="modifierMenu">
-                <button ng-click="specialChord=false; invertMode=!invertMode" ng-class="{on: invertMode}">Mm</button>
-                <button ng-click="invertChord=!invertChord" ng-class="{on: invertChord}">x<sup>6</sup></button>
-                <button ng-click="invertMode=false; specialChord=!specialChord" ng-class="{on: specialChord}" class="special">&#9733;</button>
-                <button ng-click="showSettings=!showSettings" class="settings">&#9881;</button>
-            </div>
-            <div id="chordMenu">
-                <button ng-repeat="chord in labels" class="chord{{chord.number}}" ng-mousedown="start(chord.number)" ng-mouseup="stop(chord.number)">{{label(chord.number)}}</button>
-            </div>
+  <body>
+    <main class="trenta">
+      <div id="instrument">
+        <div id="modifierMenu">
+          <button>Mm</button>
+          <button>x<sup>6</sup></button>
+          <button class="special">&#9733;</button>
+          <button class="settings">&#9881;</button>
         </div>
-        <div id="settingsPanel" ng-show="showSettings">
-            <ul id="ampSliders">
-                <h3>amp</h3>
-                <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" ng-model="maxGain" />{{(maxGain * 100).toFixed(0)}}%</li>
-                <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" ng-model="attack" />{{attack * 1000}}ms</li>
-                <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" ng-model="decay" />{{decay * 1000}}ms</li>
-                <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".005" ng-model="sustain" />{{(sustain * 1).toFixed(2)}}x</li>
-                <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" ng-model="release" />{{release * 1000}}ms</li>
-            </ul>
-            <ul id="cutoffSliders">
-                <h3>cutoff</h3>
-                <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" ng-model="cutoff.maxFrequency" />{{cutoff.maxFrequency}}hz</li>
-                <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.attack" />{{cutoff.attack * 1000}}ms</li>
-                <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" ng-model="cutoff.decay" />{{cutoff.decay * 1000}}ms</li>
-                <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" ng-model="cutoff.sustain" />{{(cutoff.sustain * 1).toFixed(1)}}x</li>  
-            </ul>
-            <h3>oscillators</h3>
-            key<select ng-model="key" ng-options="key as key.label for key in keys"></select>
-            octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" ng-model="octave"><span ng-show="octave>0">+</span>{{octave}}
-            stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" ng-model="stereoWidth">{{(stereoWidth * 100).toFixed(0)}}%
-            <div id="waveformMenu">
-                <button ng-repeat="waveformName in waveforms" id="{{waveformName}}" ng-click="updateWaveform(waveformName)" ng-class="{on: waveform===waveformName}"></button>
-            </div>
-            <button ng-click="showSettings=!showSettings" class="settings on">&#9881;</button>
+        <div id="chordMenu">
+          
         </div>
+      </div>
+      <div id="settingsPanel" class="hidden">
+        <ul id="ampSliders">
+          <h3>amp</h3>
+          <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" onchange="setVolume(this.value)"/><span id="volumeLabel"></span></li>
+          <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" onchange="setAttack(this.value)"/><span id="attackLabel"></span></li>
+          <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" onchange="setDecay(this.value)"/><span id="decayLabel"></span></li>
+          <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".005" onchange="setSustain(this.value)"/><span id="sustainLabel"></span></li>
+          <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" onchange="setRelease(this.value)"/><span id="releaseLabel"></span></li>
+        </ul>
+        <ul id="cutoffSliders">
+          <h3>cutoff</h3>
+          <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" onchange="cutoff.setMaxFrequency(this.value)"/><span id="cutoffMaxFrequencyLabel"></span></li>
+          <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setAttack(this.value)"/><span id="cutoffAttackLabel"></span></li>
+          <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setDecay(this.value)"/><span id="cutoffDecayLabel"></span></li>
+          <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" onchange="cutoff.setSustain(this.value)"/><span id="cutoffSustainLabel"></span></li>  
+        </ul>
+        <h3>oscillators</h3>
+        key<select id="keyMenu"></select>
+        octave<input id="octaveSlider" type="range" min="-2" max="2" step="1"><span class="hidden">+</span>{{octave}}
+        stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
+        <div id="waveformMenu">
+        </div>
+        <button onclick="showSettings()">&#9881;</button>
+      </div>
     </main>
     <ul>
-        <h3>To do:</h3>
-        
-        <h4>Misc</h4>
-        <li>add touchStart=on, touchEnd=off to modifiers & chords</li>
-        <li>fix Safari sound distortion</li>
-        <li>port to Phonegap</li>
-        
-        <h4>Settings panel</h4>
-        <li>make volume & sustain sliders logarithmic</li>
-        <li>visualize amp's adsr * vol and cutoff's ads * freq</li>
-        <li>due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions</li>
-        <li>add transition when opening settings (fade in/out)</li>
-        <li>style settings panel</li>
-        <li>change key selector to ul and style a la Bootstrap</li>
-        
-        <h4>Eventually... (maybe)</h4>
-        <li>make settings panel swipe up from bottom</li>
-        <li>replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly</li>
-        <li>add option to show chord letters instead of numbers</li>
-        <li>add option for minor mode (w/ sharp 7's)</li>
-        <li>add support for sample instruments (piano, guitar, etc.)</li>
-        <li>research subjective loudness of different waveforms and auto-adjust volume to compensate</li>
-        <li>allow modulation of filter cutoff and/or introduction of vibrato while chord playing with drag along x/y axes</li>
+      <h3>To do:</h3>
+
+      <h4>Misc</h4>
+      <li>add touchStart=on, touchEnd=off to modifiers & chords</li>
+      <li>fix Safari sound distortion</li>
+      <li>port to Phonegap</li>
+
+      <h4>Settings panel</h4>
+      <li>make volume & sustain sliders logarithmic</li>
+      <li>visualize amp's adsr * vol and cutoff's ads * freq</li>
+      <li>due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions</li>
+      <li>add transition when opening settings (fade in/out)</li>
+      <li>style settings panel</li>
+      <li>change key selector to ul and style a la Bootstrap</li>
+
+      <h4>Eventually... (maybe)</h4>
+      <li>make settings panel swipe up from bottom</li>
+      <li>replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly</li>
+      <li>add option to show chord letters instead of numbers</li>
+      <li>add option for minor mode (w/ sharp 7's)</li>
+      <li>add support for sample instruments (piano, guitar, etc.)</li>
+      <li>research subjective loudness of different waveforms and auto-adjust volume to compensate</li>
+      <li>allow modulation of filter cutoff and/or introduction of vibrato while chord playing with drag along x/y axes</li>
     </ul>
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="submono.js"></script>
   <script src="subpoly.js"></script>
-  <script src="kordCtrl.js"></script>
+  <script src="script.js"></script>
 </html>

@@ -211,3 +211,7 @@ button.settings {
     display: inline-block;
     background-color: lightGray;
 }
+
+hidden {
+  display: none;
+}

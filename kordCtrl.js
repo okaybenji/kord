@@ -4,27 +4,27 @@ kordApp.controller('kordCtrl', ['$scope',
     
   function kordCtrl($scope) {
 
-    // constants
-    var FLAT = '\u266D';
-    var SHARP = '\u266F';
-    var DIM = '\u00B0';
-    var INV = '\u2076';
+//    // constants
+//    var FLAT = '\u266D';
+//    var SHARP = '\u266F';
+//    var DIM = '\u00B0';
+//    var INV = '\u2076';
+//
+//    $scope.labels = [
+//      { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
+//      { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+//      { number: 3, default: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
+//      { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+//      { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+//      { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
+//    ];
 
-    $scope.labels = [
-      { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
-      { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
-      { number: 3, default: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
-      { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
-      { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
-      { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
-    ];
-
-    var lastChord = 1; // track last-pressed chord button
-
-    // toggles
-    $scope.invertMode = false;
-    $scope.invertChord = false;
-    $scope.specialChord = false;
+//    var lastChord = 1; // track last-pressed chord button
+//
+//    // toggles
+//    $scope.invertMode = false;
+//    $scope.invertChord = false;
+//    $scope.specialChord = false;
 
 //    var audioCtx;
 //    if (typeof AudioContext !== "undefined") {
@@ -102,40 +102,40 @@ kordApp.controller('kordCtrl', ['$scope',
 //    $scope.octave = 0; // increment or decrement to change octave
 //    var chord = []; // array to hold notes to play
     
-    $scope.updateWaveform = function updateWaveform(newWaveform) {
-      $scope.waveform = newWaveform;
-    };
+//    $scope.updateWaveform = function updateWaveform(newWaveform) {
+//      $scope.waveform = newWaveform;
+//    };
 
-    $scope.label = function getLabel(chordNumber) {
+//    $scope.label = function getLabel(chordNumber) {
+//
+//      var chordLabels = $scope.labels[chordNumber - 1];
+//      var label = '';
+//
+//      switch (true) {
+//          case $scope.invertMode:
+//              label = chordLabels.invertMode;
+//              break;
+//          case $scope.specialChord:
+//              label = chordLabels.specialChord;
+//              break;
+//          default:
+//              label = chordLabels.default;
+//      }
+//
+//      if ($scope.invertChord) {
+//          label += INV; // add 6 as superscript
+//      }
+//
+//      return(label);
+//    };
 
-      var chordLabels = $scope.labels[chordNumber - 1];
-      var label = '';
-
-      switch (true) {
-          case $scope.invertMode:
-              label = chordLabels.invertMode;
-              break;
-          case $scope.specialChord:
-              label = chordLabels.specialChord;
-              break;
-          default:
-              label = chordLabels.default;
-      }
-
-      if ($scope.invertChord) {
-          label += INV; // add 6 as superscript
-      }
-
-      return(label);
-    };
-
-    $scope.key = $scope.keys[5]; // default to key of C
+//    $scope.key = $scope.keys[5]; // default to key of C
     $scope.showSettings = false; // default to instrument view
 
-    // get the frequency in hertz of a given piano key
-    function getFreq(key) {
-      return Math.pow(2, (key-49)/12) * 440;
-    }
+//    // get the frequency in hertz of a given piano key
+//    function getFreq(key) {
+//      return Math.pow(2, (key-49)/12) * 440;
+//    }
 
     function setChord(root, quality) {
       

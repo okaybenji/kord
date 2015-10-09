@@ -1,6 +1,28 @@
 var polysynth;
 var octave = 0;
 var chord = [];
+var lastChord = 1; // track last-pressed chord button
+
+// toggles
+var invertMode = false;
+var invertChord = false;
+var specialChord = false;
+
+
+var FLAT = '\u266D';
+var SHARP = '\u266F';
+var DIM = '\u00B0';
+var INV = '\u2076';
+
+var labels = [
+  { number: 1, default: 'I', invertMode: 'i', specialChord: 'I+' },
+  { number: 2, default: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
+  { number: 3, default: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
+  { number: 4, default: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
+  { number: 5, default: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
+  { number: 6, default: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT },
+];
+
 var waveforms = ['sine','square','triangle','sawtooth'];
 
 // initialize synth and control panel
@@ -30,6 +52,19 @@ function init() {
   // update labels to display initial synth values
   $('#settingsPanel input').change();
   $('#settingsPanel select').change();
+  
+  (function buildChordMenu() {
+    var chordMenu = $('#chordMenu');
+    labels.forEach(function(chord) {
+      $('<button/>', {
+        id: 'chord' + chord.number,
+        text: chord.default,
+        mousedown: function() {
+          start(chord.number)
+        }
+      }).appendTo(chordMenu);
+    });
+  })();
   
   (function buildKeyMenu() {
     var keys = [
@@ -68,6 +103,34 @@ function init() {
     $('#sawtoothButton').click(); // default to sawtooth
   })();
 }
+
+// get the frequency in hertz of a given piano key
+function getFreq(key) {
+  return Math.pow(2, (key-49)/12) * 440;
+}
+
+// get label for the button for a given chord number
+function getLabel(chordNumber) {
+  var chordLabels = labels[chordNumber - 1];
+  var label = '';
+
+  switch (true) {
+      case invertMode:
+          label = chordLabels.invertMode;
+          break;
+      case specialChord:
+          label = chordLabels.specialChord;
+          break;
+      default:
+          label = chordLabels.default;
+  }
+
+  if (invertChord) {
+      label += INV; // add 6 as superscript
+  }
+
+  return(label);
+};
 
 // ui handlers
 var setVolume = function setVolume(newVolume) {

@@ -137,140 +137,140 @@ kordApp.controller('kordCtrl', ['$scope',
 //      return Math.pow(2, (key-49)/12) * 440;
 //    }
 
-    function setChord(root, quality) {
-      
-      quality = quality || 'major';
+//    function setChord(root, quality) {
+//      
+//      quality = quality || 'major';
+//
+//      chord[0] = root - 24;
+//      chord[1] = root - 12;
+//      chord[2] = root;
+//      
+//      var applyQuality = {
+//        major: function() {
+//              chord[3] = root + 4;
+//              chord[4] = root + 7;
+//        },
+//        minor: function() {
+//              chord[3] = root + 3;
+//              chord[4] = root + 7;
+//        },
+//        diminished: function() {
+//              chord[3] = root + 3;
+//              chord[4] = root + 6;
+//        },
+//        augmented: function() {
+//              chord[3] = root + 4;
+//              chord[4] = root + 8;
+//        }
+//      };
+//
+//      applyQuality[quality]();
+//    }
 
-      chord[0] = root - 24;
-      chord[1] = root - 12;
-      chord[2] = root;
-      
-      var applyQuality = {
-        major: function() {
-              chord[3] = root + 4;
-              chord[4] = root + 7;
-        },
-        minor: function() {
-              chord[3] = root + 3;
-              chord[4] = root + 7;
-        },
-        diminished: function() {
-              chord[3] = root + 3;
-              chord[4] = root + 6;
-        },
-        augmented: function() {
-              chord[3] = root + 4;
-              chord[4] = root + 8;
-        }
-      };
+//    function invert(chord) {
+//      // shift all notes to first inversion
+//      chord[2] = chord[3];
+//      chord[3] = chord[4];
+//      chord[4] = chord[1] + 24;
+//      chord[0] = chord[2] - 24;
+//      chord[1] = chord[2] - 12;
+//    }
 
-      applyQuality[quality]();
-    }
-
-    function invert(chord) {
-      // shift all notes to first inversion
-      chord[2] = chord[3];
-      chord[3] = chord[4];
-      chord[4] = chord[1] + 24;
-      chord[0] = chord[2] - 24;
-      chord[1] = chord[2] - 12;
-    }
-
-    // determine chord to play and start playing it
-    $scope.start = function start(chordNumber) {
-
-      var root = $scope.key.value;
-      var invertMode = $scope.invertMode;
-      var invertChord = $scope.invertChord;
-      var specialChord = $scope.specialChord;
-
-      lastChord = chordNumber; // capture last-pressed chord number
-
-      switch(chordNumber) {
-        case 1:
-          if (specialChord) {
-            setChord(root, 'augmented');
-          } else if (invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        case 2:
-          root += 2;
-          if (specialChord) {
-            setChord(root, 'diminished');
-          } else if (!invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        case 3:
-          root += 4;
-          if (specialChord) {
-            setChord(root+4); // VI flat; weird, i know, but this chord is just more useful
-          } else if (!invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        case 4:
-          root += 5;
-          if (specialChord) {
-            root += 1;
-            setChord(root, 'diminished');
-          } else if (invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        case 5:
-          root += 7;
-          if (specialChord) {
-            root += 1;
-            setChord(root, 'diminished');
-          } else if (invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        case 6:
-          root += 9;
-          if (specialChord) {
-            root += 1;
-            setChord(root);
-          } else if (!invertMode) {
-            setChord(root, 'minor');
-          } else {
-            setChord(root);
-          }
-          break;
-        }
-
-        if (invertChord) {
-            invert(chord);
-        }
-
-        // trigger one note per oscillator
-        $scope.synth.voices.forEach(function(voice, i) {
-          var key = chord[i] + ($scope.octave * 12);
-          voice.pitch(getFreq(key));
-        });
-
-        // apply attack gain envelope
-        $scope.synth.start();
-    };
-
-    // stop all oscillators if stop command came from last-pressed chord button
-    $scope.stop = function stop(chordNumber) {
-      if (chordNumber === lastChord) {
-        $scope.synth.stop();
-      }
-    };
+//    // determine chord to play and start playing it
+//    $scope.start = function start(chordNumber) {
+//
+//      var root = $scope.key.value;
+//      var invertMode = $scope.invertMode;
+//      var invertChord = $scope.invertChord;
+//      var specialChord = $scope.specialChord;
+//
+//      lastChord = chordNumber; // capture last-pressed chord number
+//
+//      switch(chordNumber) {
+//        case 1:
+//          if (specialChord) {
+//            setChord(root, 'augmented');
+//          } else if (invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        case 2:
+//          root += 2;
+//          if (specialChord) {
+//            setChord(root, 'diminished');
+//          } else if (!invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        case 3:
+//          root += 4;
+//          if (specialChord) {
+//            setChord(root+4); // VI flat; weird, i know, but this chord is just more useful
+//          } else if (!invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        case 4:
+//          root += 5;
+//          if (specialChord) {
+//            root += 1;
+//            setChord(root, 'diminished');
+//          } else if (invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        case 5:
+//          root += 7;
+//          if (specialChord) {
+//            root += 1;
+//            setChord(root, 'diminished');
+//          } else if (invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        case 6:
+//          root += 9;
+//          if (specialChord) {
+//            root += 1;
+//            setChord(root);
+//          } else if (!invertMode) {
+//            setChord(root, 'minor');
+//          } else {
+//            setChord(root);
+//          }
+//          break;
+//        }
+//
+//        if (invertChord) {
+//            invert(chord);
+//        }
+//
+//        // trigger one note per oscillator
+//        $scope.synth.voices.forEach(function(voice, i) {
+//          var key = chord[i] + ($scope.octave * 12);
+//          voice.pitch(getFreq(key));
+//        });
+//
+//        // apply attack gain envelope
+//        $scope.synth.start();
+//    };
+//
+//    // stop all oscillators if stop command came from last-pressed chord button
+//    $scope.stop = function stop(chordNumber) {
+//      if (chordNumber === lastChord) {
+//        $scope.synth.stop();
+//      }
+//    };
 
     // allow playing instrument with computer keyboard
     $scope.handleKeydown = function($event) {
@@ -361,11 +361,11 @@ kordApp.controller('kordCtrl', ['$scope',
       }
     };
 
-    // initialize polysynth
-    var init = function init() {
-      $scope.waveform = $scope.waveforms[3]; // default to sawtooth wave
-    };
-
-    init();
+//    // initialize polysynth
+//    var init = function init() {
+//      $scope.waveform = $scope.waveforms[3]; // default to sawtooth wave
+//    };
+//
+//    init();
   }
 ]);

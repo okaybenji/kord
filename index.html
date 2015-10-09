@@ -11,10 +11,9 @@
           <button>Mm</button>
           <button>x<sup>6</sup></button>
           <button class="special">&#9733;</button>
-          <button class="settings">&#9881;</button>
+          <button class="settings" onclick="showSettings()">&#9881;</button>
         </div>
         <div id="chordMenu">
-          
         </div>
       </div>
       <div id="settingsPanel" class="hidden">
@@ -39,7 +38,7 @@
         stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
         <div id="waveformMenu">
         </div>
-        <button onclick="showSettings()">&#9881;</button>
+        <button onclick="hideSettings()">&#9881;</button>
       </div>
     </main>
   </body>

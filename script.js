@@ -28,6 +28,11 @@ var labels = (function() {
 var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // ui handlers
+var toggleSettings = function() {
+  $('#settingsPanel').toggleClass('hidden');
+  $('#instrument').toggleClass('hidden');
+};
+
 var updateModifier = function updateModifier(modifier) {
   var INV = '\u2076';
   

@@ -211,6 +211,6 @@ button.settings {
     background-color: lightGray;
 }
 
-hidden {
+.hidden {
   display: none;
 }

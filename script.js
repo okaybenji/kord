@@ -351,7 +351,13 @@ var setWaveform = function setWaveform(newWaveform) {
         mousedown: function() {
           start(chord.number);
         },
+        touchstart: function() {
+          start(chord.number);
+        },
         mouseup: function() {
+          stop(chord.number);
+        },
+        touchend: function() {
           stop(chord.number);
         }
       }).appendTo(chordMenu);

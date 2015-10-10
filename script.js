@@ -352,6 +352,14 @@ var setWaveform = function setWaveform(newWaveform) {
       };
 
       var interactionEnd = function interactionEnd(e) {
+        // let there be sound (on iOS)
+        // create & play empty buffer
+        var buffer = audioCtx.createBuffer(1, 1, 22050);
+        var source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioCtx.destination);
+        source.noteOn(0);
+        
         e.preventDefault();
         stop(chord.number);
       };

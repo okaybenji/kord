@@ -42,20 +42,6 @@
       </div>
     </main>
   </body>
-  <script>
-    var tempAC = new webkitAudioContext();
-    document.addEventListener('touchstart', function(e) {
-      // let there be sound (on iOS)
-      // create empty buffer
-      var buffer = tempAC.createBuffer(1, 1, 22050);
-      var source = tempAC.createBufferSource();
-      source.buffer = buffer;
-      // connect to output (your speakers)
-      source.connect(tempAC.destination);
-      // play the file
-      source.noteOn(0);
-    }, false);
-  </script>
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="submono.js"></script>
   <script src="subpoly.js"></script>

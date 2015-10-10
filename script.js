@@ -12,7 +12,7 @@ var labels = (function() {
   var SHARP = '\u266F';
   var DIM = '\u00B0';
   var INV = '\u2076';
-  
+
   var labels = [
     { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I+' },
     { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
@@ -21,7 +21,7 @@ var labels = (function() {
     { number: 5, basic: 'V', invertMode: 'v', specialChord: 'v' + SHARP + DIM },
     { number: 6, basic: 'vi', invertMode: 'VI', specialChord: 'VII' + FLAT }
   ];
-  
+
   return labels;
 }());
 
@@ -35,7 +35,7 @@ var toggleSettings = function() {
 
 var updateModifier = function updateModifier(modifier) {
   var INV = '\u2076';
-  
+
   // get label for the button for a given chord number
   var getLabel = function getLabel(chordNumber) {
     var chordLabels = labels[chordNumber - 1];
@@ -58,7 +58,7 @@ var updateModifier = function updateModifier(modifier) {
 
     return label;
   };
-  
+
   var modifiers = {
     Mm: function() {
       specialChord = false;
@@ -75,14 +75,14 @@ var updateModifier = function updateModifier(modifier) {
     }
   };
   modifiers[modifier]();
-  
+
   $('#' + modifier).toggleClass('on');
-  
+
   // update chord labels
   labels.forEach(function(chord) {
     $('#chord' + chord.number).text(getLabel(chord.number));
   });
-  
+
   // resize chord labels to fit inside buttons
   var newClass = (function getNewClass() {
     switch (true) {
@@ -96,7 +96,7 @@ var updateModifier = function updateModifier(modifier) {
         return 'tall';
     }
   }());
-  
+
   $('main').attr('class', newClass);
 };
 
@@ -173,7 +173,7 @@ var setWaveform = function setWaveform(newWaveform) {
   $('#' + newWaveform + 'Button').addClass('on');
 };
 
-// initialize synth and control panel
+// initialize synth, controls and control panel
 (function init() {
   var audioCtx;
   if (typeof AudioContext !== "undefined") {
@@ -203,14 +203,14 @@ var setWaveform = function setWaveform(newWaveform) {
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button
-    
+
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
-      
+
       var root = parseInt($('#keyMenu').val(), 10);
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
-      
+
       var setChord = function setChord(root, quality) {
         quality = quality || 'major';
 
@@ -239,7 +239,7 @@ var setWaveform = function setWaveform(newWaveform) {
 
         applyQuality[quality]();
       };
-      
+
       // shift all notes to first inversion
       var invert = function invert(chord) {
         chord[2] = chord[3];
@@ -324,7 +324,7 @@ var setWaveform = function setWaveform(newWaveform) {
         var getFreq = function getFreq(key) {
           return Math.pow(2, (key-49)/12) * 440;
         };
-        
+
         var key = chord[i] + (octave * 12);
         voice.pitch(getFreq(key));
       });
@@ -339,7 +339,7 @@ var setWaveform = function setWaveform(newWaveform) {
         polysynth.stop();
       }
     };
-    
+
     var chordMenu = $('#chordMenu');
     labels.forEach(function(chord) {
       $('<button/>', {
@@ -353,6 +353,95 @@ var setWaveform = function setWaveform(newWaveform) {
         }
       }).appendTo(chordMenu);
     });
+
+    (function setUpKeyboardListeners() {
+      var keyDown = function keyDown(event) {
+        if (!event.repeat) { // ignore repeat keystrokes when holding down keys
+          switch (event.keyCode) {
+            case 16: // shift
+            case 81: // Q
+              updateModifier('Mm');
+              break;
+            case 17: // control
+            case 65: // A
+              updateModifier('x6');
+              break;
+            case 18: // alt
+            case 90: // Z
+              updateModifier('special');
+              break;
+            case 49: // 1
+            case 87: // W
+              start(1);
+              break;
+            case 50: // 2
+            case 69: // E
+              start(2);
+              break;
+            case 51: // 3
+            case 82: // R
+              start(3);
+              break;
+            case 52: // 4
+            case 83: // S
+              start(4);
+              break;
+            case 53: // 5
+            case 68: // D
+              start(5);
+              break;
+            case 54: // 6
+            case 70: // F
+              start(6);
+              break;
+          }
+        }
+      };
+
+      var keyUp = function keyUp(event) {
+        switch (event.keyCode) {
+          case 81: // Q
+          case 16: // shift
+            updateModifier('Mm');
+            break;
+          case 17: // control
+          case 65: // A
+            updateModifier('x6');
+            break;
+          case 18: // alt
+          case 90: // Z
+            updateModifier('special');
+            break;
+          case 49: // 1
+          case 87: // W
+            stop(1);
+            break;
+          case 50: // 2
+          case 69: // E
+            stop(2);
+            break;
+          case 51: // 3
+          case 82: // R
+            stop(3);
+            break;
+          case 52: // 4
+          case 83: // S
+            stop(4);
+            break;
+          case 53: // 5
+          case 68: // D
+            stop(5);
+            break;
+          case 54: // 6
+          case 70: // F
+            stop(6);
+            break;
+        }
+      };
+
+      document.addEventListener('keydown', keyDown); 
+      document.addEventListener('keyup', keyUp);
+    })();
   }());
 
   (function buildKeyMenu() {

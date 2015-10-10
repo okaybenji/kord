@@ -355,7 +355,7 @@ var setWaveform = function setWaveform(newWaveform) {
     });
 
     (function setUpKeyboardListeners() {
-      var keyDown = function keyDown(event) {
+      var keyHandler = function keyHandler(event) {
         if (!event.repeat) { // ignore repeat keystrokes when holding down keys
           switch (event.keyCode) {
             case 16: // shift
@@ -372,75 +372,34 @@ var setWaveform = function setWaveform(newWaveform) {
               break;
             case 49: // 1
             case 87: // W
-              start(1);
+              event.type === 'keydown' ? start(1) : stop(1);
               break;
             case 50: // 2
             case 69: // E
-              start(2);
+              event.type === 'keydown' ? start(2) : stop(2);
               break;
             case 51: // 3
             case 82: // R
-              start(3);
+              event.type === 'keydown' ? start(3) : stop(3);
               break;
             case 52: // 4
             case 83: // S
-              start(4);
+              event.type === 'keydown' ? start(4) : stop(4);
               break;
             case 53: // 5
             case 68: // D
-              start(5);
+              event.type === 'keydown' ? start(5) : stop(5);
               break;
             case 54: // 6
             case 70: // F
-              start(6);
+              event.type === 'keydown' ? start(6) : stop(6);
               break;
           }
         }
       };
 
-      var keyUp = function keyUp(event) {
-        switch (event.keyCode) {
-          case 81: // Q
-          case 16: // shift
-            updateModifier('Mm');
-            break;
-          case 17: // control
-          case 65: // A
-            updateModifier('x6');
-            break;
-          case 18: // alt
-          case 90: // Z
-            updateModifier('special');
-            break;
-          case 49: // 1
-          case 87: // W
-            stop(1);
-            break;
-          case 50: // 2
-          case 69: // E
-            stop(2);
-            break;
-          case 51: // 3
-          case 82: // R
-            stop(3);
-            break;
-          case 52: // 4
-          case 83: // S
-            stop(4);
-            break;
-          case 53: // 5
-          case 68: // D
-            stop(5);
-            break;
-          case 54: // 6
-          case 70: // F
-            stop(6);
-            break;
-        }
-      };
-
-      document.addEventListener('keydown', keyDown); 
-      document.addEventListener('keyup', keyUp);
+      document.addEventListener('keydown', keyHandler); 
+      document.addEventListener('keyup', keyHandler);
     })();
   }());
 

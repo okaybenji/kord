@@ -347,18 +347,22 @@ var setWaveform = function setWaveform(newWaveform) {
     var chordMenu = $('#chordMenu');
     labels.forEach(function(chord) {
       var interactionStart = function interactionStart(e) {
-        console.log(e);
-        if (e) {
-          e.preventDefault();
-        }
+        // let there be sound (on iOS)
+        // create empty buffer
+        var buffer = myContext.createBuffer(1, 1, 22050);
+        var source = myContext.createBufferSource();
+        source.buffer = buffer;
+        // connect to output (your speakers)
+        source.connect(myContext.destination);
+        // play the file
+        source.noteOn(0);
+        
+        e.preventDefault();
         start(chord.number);
       };
 
       var interactionEnd = function interactionEnd(e) {
-        console.log(e);
-        if (e) {
-          e.preventDefault();
-        }
+        e.preventDefault();
         stop(chord.number);
       };
       

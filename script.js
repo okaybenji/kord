@@ -366,10 +366,11 @@ var setWaveform = function setWaveform(newWaveform) {
         id: 'chord' + chord.number,
         text: chord.basic,
         mousedown: interactionStart,
-        touchstart: interactionStart,
-        mouseup: interactionEnd,
-        touchend: interactionEnd
-      }).appendTo(chordMenu);
+        mouseup: interactionEnd })
+        .bind('touchstart', interactionStart)
+        .bind('touchend', interactionEnd)
+        .appendTo(chordMenu)
+      ;
     });
 
     (function setUpKeyboardListeners() {

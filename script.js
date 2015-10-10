@@ -33,73 +33,6 @@ var toggleSettings = function() {
   $('#instrument').toggleClass('hidden');
 };
 
-var updateModifier = function updateModifier(modifier) {
-  var INV = '\u2076';
-
-  // get label for the button for a given chord number
-  var getLabel = function getLabel(chordNumber) {
-    var chordLabels = labels[chordNumber - 1];
-    var label = '';
-
-    switch (true) {
-      case invertMode:
-        label = chordLabels.invertMode;
-        break;
-      case specialChord:
-        label = chordLabels.specialChord;
-        break;
-      default:
-        label = chordLabels.basic;
-    }
-
-    if (invertChord) {
-      label += INV; // add 6 as superscript
-    }
-
-    return label;
-  };
-
-  var modifiers = {
-    Mm: function() {
-      specialChord = false;
-      $('#special').removeClass('on');
-      invertMode = !invertMode;
-    },
-    x6: function() {
-      invertChord = !invertChord;
-    },
-    special: function() {
-      invertMode = false;
-      $('#Mm').removeClass('on');
-      specialChord = !specialChord;
-    }
-  };
-  modifiers[modifier]();
-
-  $('#' + modifier).toggleClass('on');
-
-  // update chord labels
-  labels.forEach(function(chord) {
-    $('#chord' + chord.number).text(getLabel(chord.number));
-  });
-
-  // resize chord labels to fit inside buttons
-  var newClass = (function getNewClass() {
-    switch (true) {
-      case !specialChord && !invertChord:
-        return 'trenta';
-      case invertChord && !specialChord:
-        return 'venti';
-      case specialChord && !invertChord:
-        return 'grande';
-      case specialChord && invertChord:
-        return 'tall';
-    }
-  }());
-
-  $('main').attr('class', newClass);
-};
-
 var setVolume = function setVolume(newVolume) {
   polysynth.maxGain(newVolume);
   var volumeText = (newVolume * 100).toFixed(0) + '%';
@@ -201,6 +134,109 @@ var setWaveform = function setWaveform(newWaveform) {
   $('#settingsPanel input').change();
   $('#settingsPanel select').change();
 
+  var updateModifier = function updateModifier(modifier) {
+    var INV = '\u2076';
+
+    // get label for the button for a given chord number
+    var getLabel = function getLabel(chordNumber) {
+      var chordLabels = labels[chordNumber - 1];
+      var label = '';
+
+      switch (true) {
+        case invertMode:
+          label = chordLabels.invertMode;
+          break;
+        case specialChord:
+          label = chordLabels.specialChord;
+          break;
+        default:
+          label = chordLabels.basic;
+      }
+
+      if (invertChord) {
+        label += INV; // add 6 as superscript
+      }
+
+      return label;
+    };
+
+    var modifiers = {
+      Mm: function() {
+        specialChord = false;
+        $('#special').removeClass('on');
+        invertMode = !invertMode;
+      },
+      x6: function() {
+        invertChord = !invertChord;
+      },
+      special: function() {
+        invertMode = false;
+        $('#Mm').removeClass('on');
+        specialChord = !specialChord;
+      }
+    };
+    modifiers[modifier]();
+
+    $('#' + modifier).toggleClass('on');
+
+    // update chord labels
+    labels.forEach(function(chord) {
+      $('#chord' + chord.number).text(getLabel(chord.number));
+    });
+
+    // resize chord labels to fit inside buttons
+    var newClass = (function getNewClass() {
+      switch (true) {
+        case !specialChord && !invertChord:
+          return 'trenta';
+        case invertChord && !specialChord:
+          return 'venti';
+        case specialChord && !invertChord:
+          return 'grande';
+        case specialChord && invertChord:
+          return 'tall';
+      }
+    }());
+
+    $('main').attr('class', newClass);
+  };
+
+  (function buildModifierMenu() {
+    var modifiers = [ {id: 'Mm', html: 'Mm' }, { id: 'x6', html: 'x<sup>6</sup>' }, { id: 'special', html: '&#9733;' } ];
+    var modifierMenu = $('#modifierMenu');
+
+    modifiers.forEach(function(modifier) {
+      var mouseInteraction = function mouseInteraction(e) {
+        e.preventDefault();
+        updateModifier(modifier.id);
+      };
+      
+      var touchInteraction = function touchInteraction(e) {
+        e.preventDefault();
+        $(modifier.id).toggleClass('on');
+        updateModifier(modifier.id);
+      };
+
+      $('<button/>', {
+        id: modifier.id,
+        html: modifier.html,
+        mousedown: mouseInteraction })
+        .bind('touchstart', touchInteraction)
+        .bind('touchend', touchInteraction)
+        .appendTo(modifierMenu)
+      ;
+    });
+
+    $('<button/>', {
+      class: 'settings',
+      html: '&#9881;',
+      mousedown: toggleSettings })
+      .bind('touchstart', toggleSettings)
+      .appendTo(modifierMenu)
+      ;
+
+  }());
+
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button
 
@@ -210,7 +246,7 @@ var setWaveform = function setWaveform(newWaveform) {
       var root = parseInt($('#keyMenu').val(), 10);
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
-      
+
       $('#chord' + chordNumber).addClass('on');
 
       var setChord = function setChord(root, quality) {
@@ -342,8 +378,8 @@ var setWaveform = function setWaveform(newWaveform) {
         polysynth.stop();
       }
     };
-    
-    var isFirstInteraction = true;
+
+    var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
       var chordMenu = $('#chordMenu');
       var interactionStart = function interactionStart(e) {
@@ -362,11 +398,11 @@ var setWaveform = function setWaveform(newWaveform) {
           source.noteOn(0);
           isFirstInteraction = false;
         }
-        
+
         e.preventDefault();
         stop(chord.number);
       };
-      
+
       $('<button/>', {
         id: 'chord' + chord.number,
         text: chord.basic,

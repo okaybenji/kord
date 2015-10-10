@@ -143,7 +143,7 @@ var cutoff = {
   },
   setDecay: function setDecay(newDecay) {
     polysynth.cutoff.decay(newDecay);
-    var decayText = newDecay + 'ms';
+    var decayText = newDecay * 1000 + 'ms';
     $('#cutoffDecayLabel').text(decayText);
   },
   setSustain: function setSustain(newSustain) {

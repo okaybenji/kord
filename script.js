@@ -349,11 +349,11 @@ var setWaveform = function setWaveform(newWaveform) {
       var interactionStart = function interactionStart(e) {
         // let there be sound (on iOS)
         // create empty buffer
-        var buffer = myContext.createBuffer(1, 1, 22050);
-        var source = myContext.createBufferSource();
+        var buffer = audioCtx.createBuffer(1, 1, 22050);
+        var source = audioCtx.createBufferSource();
         source.buffer = buffer;
         // connect to output (your speakers)
-        source.connect(myContext.destination);
+        source.connect(audioCtx.destination);
         // play the file
         source.noteOn(0);
         

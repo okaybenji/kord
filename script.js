@@ -342,28 +342,29 @@ var setWaveform = function setWaveform(newWaveform) {
         polysynth.stop();
       }
     };
+    
 
     var chordMenu = $('#chordMenu');
     labels.forEach(function(chord) {
+      var interactionStart = function interactionStart(e) {
+        console.log(e);
+        //e.preventDefault();
+        start(chord.number);
+      };
+
+      var interactionEnd = function interactionEnd(e) {
+        console.log(e);
+        //e.preventDefault();
+        stop(chord.number);
+      };
+      
       $('<button/>', {
         id: 'chord' + chord.number,
         text: chord.basic,
-        mousedown: function(e) {
-          start(chord.number);
-          alert(e.detail);
-        },
-        touchstart: function(e) {
-          start(chord.number);
-          alert(e.detail);
-        },
-        mouseup: function(e) {
-          stop(chord.number);
-          alert(e.detail);
-        },
-        touchend: function(e) {
-          stop(chord.number);
-          alert(e.detail);
-        }
+        mousedown: interactionStart,
+        touchstart: interactionStart,
+        mouseup: interactionEnd,
+        touchend: interactionEnd
       }).appendTo(chordMenu);
     });
 

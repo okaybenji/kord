@@ -348,13 +348,17 @@ var setWaveform = function setWaveform(newWaveform) {
     labels.forEach(function(chord) {
       var interactionStart = function interactionStart(e) {
         console.log(e);
-        //e.preventDefault();
+        if (e) {
+          e.preventDefault();
+        }
         start(chord.number);
       };
 
       var interactionEnd = function interactionEnd(e) {
         console.log(e);
-        //e.preventDefault();
+        if (e) {
+          e.preventDefault();
+        }
         stop(chord.number);
       };
       

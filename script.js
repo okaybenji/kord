@@ -213,7 +213,7 @@ var setWaveform = function setWaveform(newWaveform) {
       
       var touchInteraction = function touchInteraction(e) {
         e.preventDefault();
-        $(modifier.id).toggleClass('on');
+        $('#' + modifier.id).toggleClass('on');
         updateModifier(modifier.id);
       };
 

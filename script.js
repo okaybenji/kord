@@ -343,22 +343,25 @@ var setWaveform = function setWaveform(newWaveform) {
       }
     };
     
-
-    var chordMenu = $('#chordMenu');
+    var isFirstInteraction = true;
     labels.forEach(function(chord) {
+      var chordMenu = $('#chordMenu');
       var interactionStart = function interactionStart(e) {
         e.preventDefault();
         start(chord.number);
       };
 
       var interactionEnd = function interactionEnd(e) {
-        // let there be sound (on iOS)
-        // create & play empty buffer
-        var buffer = audioCtx.createBuffer(1, 1, 22050);
-        var source = audioCtx.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioCtx.destination);
-        source.noteOn(0);
+        if (isFirstInteraction) {
+          // let there be sound (on iOS)
+          // create & play empty buffer
+          var buffer = audioCtx.createBuffer(1, 1, 22050);
+          var source = audioCtx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(audioCtx.destination);
+          source.noteOn(0);
+          isFirstInteraction = false;
+        }
         
         e.preventDefault();
         stop(chord.number);

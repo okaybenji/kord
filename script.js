@@ -348,17 +348,21 @@ var setWaveform = function setWaveform(newWaveform) {
       $('<button/>', {
         id: 'chord' + chord.number,
         text: chord.basic,
-        mousedown: function() {
+        mousedown: function(e) {
           start(chord.number);
+          alert(e.detail);
         },
-        ontouchstart: function() {
+        touchstart: function(e) {
           start(chord.number);
+          alert(e.detail);
         },
-        mouseup: function() {
+        mouseup: function(e) {
           stop(chord.number);
+          alert(e.detail);
         },
-        ontouchend: function() {
+        touchend: function(e) {
           stop(chord.number);
+          alert(e.detail);
         }
       }).appendTo(chordMenu);
     });

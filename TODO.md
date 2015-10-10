@@ -2,7 +2,7 @@
 
 ### Misc
 * get octave shift working again
-* make settings/main show/hide when appropriate again
+* fix gap appearing under chords 1 & 2 when special is triggered
 * re-add ability to play chords with computer keyboard
 * add touchStart=on, touchEnd=off to modifiers & chords
 * fix Safari sound distortion

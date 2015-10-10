@@ -7,7 +7,6 @@ main {
     background: hsl(302, 10%, 99%);
     width: 100vw;
     height: 56.25vw; /* 16:9 aspect ratio */
-    margin: .5vw;
 }
 
 button {
@@ -24,6 +23,7 @@ button:active {
 main #chordMenu {
     float: right;
     width: 85vw;
+    padding: 0;
 }
 
 main.tall #chordMenu {
@@ -31,7 +31,7 @@ main.tall #chordMenu {
 }
 
 main.grande #chordMenu {
-    font-size: 9vw;
+    font-size: 8vw;
 }
 
 main.venti #chordMenu {
@@ -119,7 +119,6 @@ main.trenta #chordMenu {
     height: 14.0625vw;
     border-radius: 0;
     border-top: .5vw solid hsl(302, 10%, 99%);
-
 }
 
 #modifierMenu button.on, button.settings.on {

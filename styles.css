@@ -68,7 +68,7 @@ main.trenta #chordMenu {
 }
 
 #chord3 {
-    width: 40%;
+    width: 39%;
     background: hsl(57, 100%, 50%);
     border-bottom-left-radius: 0;
 }
@@ -88,7 +88,7 @@ main.trenta #chordMenu {
 }
 
 #chord5 {
-    width: 40%;
+    width: 39%;
     background: hsl(324, 100%, 46%);
     border-top-left-radius: 0;
     border-top-right-radius: 0;

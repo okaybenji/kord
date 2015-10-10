@@ -48,7 +48,8 @@ main.trenta #chordMenu {
 }
 
 #chord1 {
-  width: 30%;
+/*  width: 44%;*/
+  width: 22%;
   background: hsl(23, 100%, 49%);
   border-bottom-right-radius: 0;
 }
@@ -58,7 +59,8 @@ main.trenta #chordMenu {
 }
 
 #chord2 {
-  width: 10%;
+/*  width: 15%;*/
+  width: 8%;
   background: hsl(39, 100%, 49%);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -69,7 +71,8 @@ main.trenta #chordMenu {
 }
 
 #chord3 {
-  width: 26%;
+/*  width: 39%;*/
+  width: 20%;
   background: hsl(57, 100%, 50%);
   border-bottom-left-radius: 0;
 }
@@ -79,7 +82,8 @@ main.trenta #chordMenu {
 }
 
 #chord4 {
-  width: 23%;
+/*  width: 35%;*/
+  width: 18%;
   background: hsl(302, 58%, 36%);
   border-top-right-radius: 0;
 }
@@ -89,7 +93,8 @@ main.trenta #chordMenu {
 }
 
 #chord5 {
-  width: 27%;
+/*  width: 39%;*/
+  width: 20%;
   background: hsl(324, 100%, 46%);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -100,7 +105,8 @@ main.trenta #chordMenu {
 }
 
 #chord6 {
-  width: 16%;
+/*  width: 24%;*/
+  width: 12%;
   background: hsl(340, 86%, 50%);
   border-top-left-radius: 0;
 }

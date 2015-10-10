@@ -154,8 +154,8 @@ button:active.settings.on {
 
 button.settings {
   font-size: 8vw;
-  width: 15vw;
-  height: 15vw;
+  width: 14.5vw;
+  height: 14.0625vw;
 }
 
 #waveformMenu {

@@ -153,6 +153,12 @@ var cutoff = {
   }
 };
 
+var setOctave = function setOctave(newOctave) {
+  octave = newOctave;
+  var octaveText = octave > 0 ? '+' + octave : octave;
+  $('#octaveLabel').text(octaveText);
+};
+
 var setWidth = function setWidth(newWidth) {
   polysynth.width(newWidth);
   var widthText = (newWidth * 100).toFixed(0) + '%';

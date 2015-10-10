@@ -34,7 +34,7 @@
         </ul>
         <h3>oscillators</h3>
         key<select id="keyMenu"></select>
-        octave<input id="octaveSlider" type="range" min="-2" max="2" step="1"><span class="hidden">+</span>{{octave}}
+        octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"><span id="octaveLabel"></span>
         stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
         <div id="waveformMenu">
         </div>

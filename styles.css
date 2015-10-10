@@ -7,7 +7,6 @@ main {
     background: hsl(302, 10%, 99%);
     width: 100vw;
     height: 56.25vw; /* 16:9 aspect ratio */
-    margin: .5vw;
 }
 
 button {
@@ -24,6 +23,7 @@ button:active {
 main #chordMenu {
     float: right;
     width: 85vw;
+    padding: 0;
 }
 
 main.tall #chordMenu {
@@ -31,7 +31,7 @@ main.tall #chordMenu {
 }
 
 main.grande #chordMenu {
-    font-size: 9vw;
+    font-size: 8vw;
 }
 
 main.venti #chordMenu {
@@ -46,65 +46,65 @@ main.trenta #chordMenu {
     height: 28.125vw;
 }
 
-.chord1 {
+#chord1 {
     width: 44%;
     background: hsl(23, 100%, 49%);
     border-bottom-right-radius: 0;
 }
 
-.chord1:active {
+#chord1.on {
     background: hsl(23, 100%, 39%);
 }
 
-.chord2 {
+#chord2 {
     width: 15%;
     background: hsl(39, 100%, 49%);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.chord2:active {
+#chord2.on {
     background: hsl(39, 100%, 39%);
 }
 
-.chord3 {
-    width: 40%;
+#chord3 {
+    width: 39%;
     background: hsl(57, 100%, 50%);
     border-bottom-left-radius: 0;
 }
 
-.chord3:active {
+#chord3.on {
     background: hsl(57, 100%, 40%)
 }
 
-.chord4 {
+#chord4 {
     width: 35%;
     background: hsl(302, 58%, 36%);
     border-top-right-radius: 0;
 }
 
-.chord4:active {
+#chord4.on {
     background: hsl(302, 58%, 26%)
 }
 
-.chord5 {
-    width: 40%;
+#chord5 {
+    width: 39%;
     background: hsl(324, 100%, 46%);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-.chord5:active {
+#chord5.on {
     background: hsl(324, 100%, 36%)
 }
 
-.chord6 {
+#chord6 {
     width: 24%;
     background: hsl(340, 86%, 50%);
     border-top-left-radius: 0;
 }
 
-.chord6:active {
+#chord6.on {
     background: hsl(340, 86%, 40%)
 }
 
@@ -119,11 +119,9 @@ main.trenta #chordMenu {
     height: 14.0625vw;
     border-radius: 0;
     border-top: .5vw solid hsl(302, 10%, 99%);
-
 }
 
 #modifierMenu button.on, button.settings.on {
-    color: hsl(302, 10%, 99%);
     background: hsl(196, 100%, 47%);
     border: none;
 }
@@ -140,7 +138,7 @@ button:active.settings.on {
     background: hsl(196, 100%, 37%);
 }
 
-#modifierMenu button.on.special {
+#special.on {
     color: hsl(57, 100%, 50%);
 }
 
@@ -190,19 +188,19 @@ button.settings {
     border-radius: 0 1vw 1vw 0;
 }
 
-#sine {
+#sineButton {
     background-image: url('./img/sineWave.svg');
 }
 
-#square {
+#squareButton {
     background-image: url('./img/squareWave.svg');
 }
 
-#triangle {
+#triangleButton {
     background-image: url('./img/triangleWave.svg');
 }
 
-#sawtooth {
+#sawtoothButton {
     background-image: url('./img/sawWave.svg');
 }
 
@@ -210,4 +208,8 @@ button.settings {
     list-style-type: none;
     display: inline-block;
     background-color: lightGray;
+}
+
+.hidden {
+  display: none;
 }

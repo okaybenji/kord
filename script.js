@@ -28,7 +28,8 @@ var labels = (function() {
 var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // ui handlers
-var toggleSettings = function() {
+var toggleSettings = function(e) {
+  e.preventDefault();
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
 };

@@ -45,6 +45,7 @@ main.trenta #chordMenu {
 
 #chordMenu button {
   height: 28.125vw;
+  padding: 0%; /* force iOS button width */
 }
 
 #chord1 {

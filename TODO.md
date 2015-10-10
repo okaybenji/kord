@@ -1,6 +1,7 @@
 #To do:
 
 ### Misc
+* set up touch/mouse event handlers to prevent default on main and waveformMenu, then restore HTML for those sections and remove Javascript to build them out
 * add touchStart=on, touchEnd=off to modifiers & chords
 * fix Safari sound distortion
 * port to Phonegap

@@ -235,7 +235,16 @@ var setWaveform = function setWaveform(newWaveform) {
       .bind('touchstart', toggleSettings)
       .appendTo(modifierMenu)
       ;
-
+    
+    // TODO: remove code duplication here
+    var settingsPanel = $('#settingsPanel');
+    $('<button/>', {
+      class: 'settings',
+      html: '&#9881;',
+      mousedown: toggleSettings })
+      .bind('touchstart', toggleSettings)
+      .appendTo(settingsPanel)
+      ;
   }());
 
   (function buildChordMenu() {
@@ -491,11 +500,14 @@ var setWaveform = function setWaveform(newWaveform) {
   (function buildWaveformMenu() {
     var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
+      var waveformInteraction = function waveformInteraction(e) {
+        e.preventDefault();
+        setWaveform(waveform);
+      };
+      
       $('<button/>', {
         id: waveform + 'Button',
-        click: function() {
-          setWaveform(waveform);
-        }
+        click: waveformInteraction
       }).appendTo(waveformMenu);
     });
     $('#sawtoothButton').click(); // default to sawtooth

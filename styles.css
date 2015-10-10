@@ -1,213 +1,213 @@
 body {
-    font-family: Helvetica, sans-serif;
-    line-height: 2vw;
+  font-family: Helvetica, sans-serif;
+  line-height: 2vw;
 }
 
 main {
-    background: hsl(302, 10%, 99%);
-    width: 100vw;
-    height: 56.25vw; /* 16:9 aspect ratio */
+  background: hsl(302, 10%, 99%);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
 }
 
 button {
-    border: none;
-    color: hsl(302, 10%, 99%);
-    border-radius: 1vw;
-    font-size: 1em;
+  border: none;
+  color: hsl(302, 10%, 99%);
+  border-radius: 1vw;
+  font-size: 1em;
 }
 
 button:active {
-    border: none;
+  border: none;
 }
 
 main #chordMenu {
-    float: right;
-    width: 85vw;
-    padding: 0;
+  float: right;
+  width: 85vw;
+  padding: 0;
 }
 
 main.tall #chordMenu {
-    font-size: 8vw;
+  font-size: 8vw;
 }
 
 main.grande #chordMenu {
-    font-size: 8vw;
+  font-size: 8vw;
 }
 
 main.venti #chordMenu {
-    font-size: 13vw;
+  font-size: 13vw;
 }
 
 main.trenta #chordMenu {
-    font-size: 15vw;
+  font-size: 15vw;
 }
 
 #chordMenu button {
-    height: 28.125vw;
+  height: 28.125vw;
 }
 
 #chord1 {
-    width: 44%;
-    background: hsl(23, 100%, 49%);
-    border-bottom-right-radius: 0;
+  width: 44%;
+  background: hsl(23, 100%, 49%);
+  border-bottom-right-radius: 0;
 }
 
 #chord1.on {
-    background: hsl(23, 100%, 39%);
+  background: hsl(23, 100%, 39%);
 }
 
 #chord2 {
-    width: 15%;
-    background: hsl(39, 100%, 49%);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  width: 15%;
+  background: hsl(39, 100%, 49%);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #chord2.on {
-    background: hsl(39, 100%, 39%);
+  background: hsl(39, 100%, 39%);
 }
 
 #chord3 {
-    width: 39%;
-    background: hsl(57, 100%, 50%);
-    border-bottom-left-radius: 0;
+  width: 39%;
+  background: hsl(57, 100%, 50%);
+  border-bottom-left-radius: 0;
 }
 
 #chord3.on {
-    background: hsl(57, 100%, 40%)
+  background: hsl(57, 100%, 40%)
 }
 
 #chord4 {
-    width: 35%;
-    background: hsl(302, 58%, 36%);
-    border-top-right-radius: 0;
+  width: 35%;
+  background: hsl(302, 58%, 36%);
+  border-top-right-radius: 0;
 }
 
 #chord4.on {
-    background: hsl(302, 58%, 26%)
+  background: hsl(302, 58%, 26%)
 }
 
 #chord5 {
-    width: 39%;
-    background: hsl(324, 100%, 46%);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  width: 39%;
+  background: hsl(324, 100%, 46%);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 #chord5.on {
-    background: hsl(324, 100%, 36%)
+  background: hsl(324, 100%, 36%)
 }
 
 #chord6 {
-    width: 24%;
-    background: hsl(340, 86%, 50%);
-    border-top-left-radius: 0;
+  width: 24%;
+  background: hsl(340, 86%, 50%);
+  border-top-left-radius: 0;
 }
 
 #chord6.on {
-    background: hsl(340, 86%, 40%)
+  background: hsl(340, 86%, 40%)
 }
 
 #modifierMenu {
-    float: left;
-    width: 15vw;
-    font-size: 5vw;
+  float: left;
+  width: 15vw;
+  font-size: 5vw;
 }
 
 #modifierMenu button {
-    width: 14.5vw;
-    height: 14.0625vw;
-    border-radius: 0;
-    border-top: .5vw solid hsl(302, 10%, 99%);
+  width: 14.5vw;
+  height: 14.0625vw;
+  border-radius: 0;
+  border-top: .5vw solid hsl(302, 10%, 99%);
 }
 
 #modifierMenu button.on, button.settings.on {
-    background: hsl(196, 100%, 47%);
-    border: none;
+  background: hsl(196, 100%, 47%);
+  border: none;
 }
 
 #modifierMenu button:active {
-    background: hsl(196, 100%, 47%);
+  background: hsl(196, 100%, 47%);
 }
 
 #modifierMenu button:active.on {
-    background: hsl(0, 0%, 75%);
+  background: hsl(0, 0%, 75%);
 }
 
 button:active.settings.on {
-    background: hsl(196, 100%, 37%);
+  background: hsl(196, 100%, 37%);
 }
 
 #special.on {
-    color: hsl(57, 100%, 50%);
+  color: hsl(57, 100%, 50%);
 }
 
 #modifierMenu button:first-child {
-    border-radius: 1vw 1vw 0 0;
-    border-top: none;
+  border-radius: 1vw 1vw 0 0;
+  border-top: none;
 }
 
 #modifierMenu button:last-child {
-    border-radius: 0 0 1vw 1vw;
+  border-radius: 0 0 1vw 1vw;
 }
 
 button.settings {
-    font-size: 8vw;
-    width: 15vw;
-    height: 15vw;
+  font-size: 8vw;
+  width: 15vw;
+  height: 15vw;
 }
 
 #waveformMenu {
-    margin: 2vw 0;
+  margin: 2vw 0;
 }
 
 #waveformMenu button {
-    width: 20vw;
-    height: 10vw;
-    border-radius: 0;
-    background-size: 8vw;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-left: .5vw solid hsl(302, 10%, 99%);
+  width: 20vw;
+  height: 10vw;
+  border-radius: 0;
+  background-size: 8vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-left: .5vw solid hsl(302, 10%, 99%);
 }
 
 #waveformMenu button.on {
-    background-color: hsl(358, 85%, 52%);
+  background-color: hsl(358, 85%, 52%);
 }
 
 #waveformMenu button:active {
-    background-color: hsl(358, 85%, 42%);
+  background-color: hsl(358, 85%, 42%);
 }
 
 #waveformMenu button:first-child {
-    border-radius: 1vw 0 0 1vw;
-    border-left: none;
+  border-radius: 1vw 0 0 1vw;
+  border-left: none;
 }
 
 #waveformMenu button:last-child {
-    border-radius: 0 1vw 1vw 0;
+  border-radius: 0 1vw 1vw 0;
 }
 
 #sineButton {
-    background-image: url('./img/sineWave.svg');
+  background-image: url('./img/sineWave.svg');
 }
 
 #squareButton {
-    background-image: url('./img/squareWave.svg');
+  background-image: url('./img/squareWave.svg');
 }
 
 #triangleButton {
-    background-image: url('./img/triangleWave.svg');
+  background-image: url('./img/triangleWave.svg');
 }
 
 #sawtoothButton {
-    background-image: url('./img/sawWave.svg');
+  background-image: url('./img/sawWave.svg');
 }
 
 #settingsPanel ul {
-    list-style-type: none;
-    display: inline-block;
-    background-color: lightGray;
+  list-style-type: none;
+  display: inline-block;
+  background-color: lightGray;
 }
 
 .hidden {

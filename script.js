@@ -210,6 +210,8 @@ var setWaveform = function setWaveform(newWaveform) {
       var root = parseInt($('#keyMenu').val(), 10);
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
+      
+      $('#chord' + chordNumber).addClass('on');
 
       var setChord = function setChord(root, quality) {
         quality = quality || 'major';
@@ -335,6 +337,7 @@ var setWaveform = function setWaveform(newWaveform) {
 
     // stop all oscillators if stop command came from last-pressed chord button
     var stop = function stop(chordNumber) {
+      $('#chord' + chordNumber).removeClass('on');
       if (chordNumber === lastChord) {
         polysynth.stop();
       }

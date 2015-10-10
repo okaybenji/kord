@@ -508,7 +508,10 @@ var setWaveform = function setWaveform(newWaveform) {
       $('<button/>', {
         id: waveform + 'Button',
         click: waveformInteraction
-      }).appendTo(waveformMenu);
+      })
+        .bind('touchend', waveformInteraction)
+        .appendTo(waveformMenu)
+      ;
     });
     $('#sawtoothButton').click(); // default to sawtooth
   }());

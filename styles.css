@@ -1,12 +1,10 @@
 body {
   font-family: Helvetica, sans-serif;
-  line-height: 2vw;
   background-color: hsl(302, 10%, 99%);
 }
 
 main {
   width: 100vw;
-  height: 56.25vw; /* 16:9 aspect ratio */
 }
 
 a {
@@ -56,7 +54,7 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 28.125vw;
+  height: 28vw;
 }
 
 #chord1 {
@@ -129,7 +127,7 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 14.0625vw;
+  height: 14vw;
   border-radius: 0;
   border-top: .5vw solid hsl(302, 10%, 99%);
 }

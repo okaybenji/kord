@@ -88,7 +88,7 @@ main.trenta #chordMenu {
 }
 
 #chord4.on {
-  background-color: hsl(302, 58%, 26%)
+  background-color: hsl(302, 58%, 26%);
 }
 
 #chord5 {
@@ -160,15 +160,32 @@ button.settings {
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='15' y='38' fill='hsl(302, 10%, 99%)' font-size='34'>&#9881;</text></svg>");
 }
 
-.sliderPanel {
-  width: 49vw;
+#ampSliders, #cutoffSliders {
+  width: 48vw;
   display: inline-block;
-  border-radius: 1vw;
+  margin: 0 0.5vw;
+}
+
+#ampSliders th, #ampSliders td, #cutoffSliders th, #cutoffSliders td {
+  width: 16vw;
+}
+
+#oscillatorSliders {
+  width: 98.5vw;
+  height: 10vw;
+  margin: 1vw 0;
+}
+
+th {
+  font-size: 3vw;
+}
+
+td {
+  font-size: 2vw;
 }
 
 th, td {
-  height: 3vw;
-  width: 16vw;
+  height: 5vw;
   font-weight: bold;
   color: hsl(302, 10%, 99%);
 }
@@ -176,11 +193,12 @@ th, td {
 .sliderPanel, th, td {
   text-align: center;
   border: hsl(0, 0%, 75%);
+  border-radius: 1vw;
   background-color: hsl(0, 0%, 75%);
 }
 
 #waveformMenu {
-  margin: 2vw 0;
+  margin: 1.5vw 0;
 }
 
 #waveformMenu button {

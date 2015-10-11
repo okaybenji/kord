@@ -80,10 +80,14 @@
             <td>&nbsp;</td>
           </tr>
         </table>
-        <h3>oscillators</h3>
-        <b>key</b><select id="keyMenu"></select>
-        <b>octave</b><input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"><span id="octaveLabel"></span>
-        <b>stereo width</b><input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
+        <table id="oscillatorSliders" class="sliderPanel">
+          <tr>
+            <th>oscillators</th>
+            <td><b>key</b> <select id="keyMenu"></select></td>
+            <td><b>octave </b><input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"> <span id="octaveLabel"></span></td>
+            <td><b>stereo width </b><input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"> <span id="widthLabel"></span></td>
+          </tr>
+        </table>
         <div id="waveformMenu">
           <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings"></button>
         </div>

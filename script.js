@@ -205,6 +205,18 @@ var setWaveform = function setWaveform(newWaveform) {
   $('button').on('touchstart mousedown', function(e) {
     e.preventDefault();
   });
+  
+  // force landscape
+  $('window').on('orientationchange', function(e) {
+    switch (window.orientation) {
+      case 0:
+        window.orientation = 90;
+        break;
+      case 180:
+        window.orientation = -90;
+        break
+    }
+  });
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button

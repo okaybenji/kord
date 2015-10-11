@@ -2,11 +2,7 @@
 
 ### Misc
 * ensure touching any # of modifiers highlights them blue and special button gets highlighted with yellow font
-* determine how to disable scrolling on iOS Safari
-* consider forcing horizontal orientation
-* shrink main interface just a bit vertically to fit better on iPhone screen
 * configure initial synth settings to match screenshot from yesterday
-* fix Safari sound distortion
 * port to Phonegap
 
 ### Settings panel
@@ -18,6 +14,10 @@
 * change key selector to ul and style a la Bootstrap
 
 ### Eventually... (maybe)
+* fix Safari sound distortion (if it still exists?)
+* shrink main interface just a bit vertically to fit better on iPhone screen
+* determine how to disable scrolling on iOS Safari
+* consider forcing horizontal orientation
 * make settings panel swipe up from bottom
 * replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly
 * add option to show chord letters instead of numbers

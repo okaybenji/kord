@@ -223,7 +223,7 @@ select {
 #waveformMenu button:first-child {
   border-radius: 0 0 0 1vw;
   border-left: none;
-  margin-right: -0.5vw;
+  margin-right: -0.5vw; /* TODO: figure out why you had to use a negative margin */
 }
 
 #waveformMenu button:last-child {

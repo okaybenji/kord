@@ -1,6 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
-var octave = 0;
+var octave = -1; // default to low octave
 
 // toggles
 var invertMode = false;
@@ -182,9 +182,27 @@ var setWaveform = function setWaveform(newWaveform) {
     audioCtx = new webkitAudioContext();
   }
 
-  polysynth = new Polysynth(audioCtx, { numVoices: 5 });
+  var synthCfg = {
+    numVoices: 5,
+    stereoWidth: 1,
+    attack: 0.28,
+    decay: 0,
+    sustain: 1,
+    release: 0.28,
+    cutoff: {
+      maxFrequency: 1800,
+      attack: 0.1,
+      decay: 2.5,
+      sustain: 0.2
+    }
+  };
+  
+  polysynth = new Polysynth(audioCtx, synthCfg);
 
   // update controls to display initial synth values
+  $('#octaveSlider').val(octave);
+  $('#widthSlider').val(polysynth.width());
+  
   var voice = polysynth.voices[0];
   $('#volumeSlider').val(voice.maxGain);
   $('#attackSlider').val(voice.attack);

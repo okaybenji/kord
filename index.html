@@ -12,7 +12,7 @@
           <button id="Mm" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">Mm</button>
           <button id="x6" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">x<sup>6</sup></button>
           <button id="special" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">&#9733;</button>
-          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings" >&#9881;</button>
+          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings" ></button>
         </div>
         <div id="chordMenu">
         </div>
@@ -38,8 +38,8 @@
         octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"><span id="octaveLabel"></span>
         stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
         <div id="waveformMenu">
+          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings"></button>
         </div>
-        <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings">&#9881;</button>
       </div>
     </main>
   </body>

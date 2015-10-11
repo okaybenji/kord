@@ -78,7 +78,7 @@ main.trenta #chordMenu {
 }
 
 #chord3.on {
-  background-color: hsl(57, 100%, 40%)
+  background-color: hsl(57, 100%, 40%);
 }
 
 #chord4 {
@@ -99,7 +99,7 @@ main.trenta #chordMenu {
 }
 
 #chord5.on {
-  background-color: hsl(324, 100%, 36%)
+  background-color: hsl(324, 100%, 36%);
 }
 
 #chord6 {
@@ -109,7 +109,7 @@ main.trenta #chordMenu {
 }
 
 #chord6.on {
-  background-color: hsl(340, 86%, 40%)
+  background-color: hsl(340, 86%, 40%);
 }
 
 #modifierMenu {
@@ -125,7 +125,7 @@ main.trenta #chordMenu {
   border-top: .5vw solid hsl(302, 10%, 99%);
 }
 
-#modifierMenu button.on, button.settings.on {
+button.on {
   background-color: hsl(196, 100%, 47%);
   border: none;
 }
@@ -138,7 +138,7 @@ main.trenta #chordMenu {
   background-color: hsl(0, 0%, 75%);
 }
 
-button:active.settings.on {
+button:active {
   background-color: hsl(196, 100%, 37%);
 }
 
@@ -160,6 +160,18 @@ button.settings {
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='15' y='38' fill='hsl(302, 10%, 99%)' font-size='34'>&#9881;</text></svg>");
 }
 
+#ampSliders, #ampSliders th, #ampSliders td {
+  background-color: hsl(302, 58%, 36%);
+}
+
+#cutoffSliders, #cutoffSliders th, #cutoffSliders td {
+  background-color: hsl(340, 86%, 50%);
+}
+
+#oscSliders, #oscSliders th, #oscSliders td {
+  background-color: hsl(324, 100%, 46%);
+}
+
 #ampSliders, #cutoffSliders {
   width: 48vw;
   display: inline-block;
@@ -170,7 +182,7 @@ button.settings {
   width: 16vw;
 }
 
-#oscillatorSliders {
+#oscSliders {
   width: 98.5vw;
   height: 10vw;
   margin: 1vw 0;
@@ -197,6 +209,10 @@ th, td {
   background-color: hsl(0, 0%, 75%);
 }
 
+select {
+  font-size: 2vw;
+}
+
 #waveformMenu {
   margin: 1.5vw 0;
 }
@@ -206,14 +222,6 @@ th, td {
   height: 10vw;
   border-radius: 0;
   border-left: .5vw solid hsl(302, 10%, 99%);
-}
-
-#waveformMenu button.on {
-  background-color: hsl(358, 85%, 52%);
-}
-
-#waveformMenu button:active {
-  background-color: hsl(358, 85%, 42%);
 }
 
 #waveformMenu button:first-child {

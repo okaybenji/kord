@@ -160,12 +160,22 @@ button.settings {
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='15' y='38' fill='hsl(302, 10%, 99%)' font-size='34'>&#9881;</text></svg>");
 }
 
+#sliderPanels {
+  width: 98vw;
+}
+
+#sliderPanels, th, td {
+  text-align: center;
+  border: hsl(0, 0%, 75%);
+  background-color: hsl(0, 0%, 75%);
+}
+
 #waveformMenu {
   margin: 2vw 0;
 }
 
 #waveformMenu button {
-  width: 19vw;
+  width: 19.6vw;
   height: 10vw;
   border-radius: 0;
   border-left: .5vw solid hsl(302, 10%, 99%);
@@ -202,12 +212,6 @@ button.settings {
 
 #sawtoothButton {
   background-image: url('./img/sawWave.svg');
-}
-
-#settingsPanel ul {
-  list-style-type: none;
-  display: inline-block;
-  background-color: lightGray;
 }
 
 .hidden {

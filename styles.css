@@ -155,7 +155,7 @@ button:active {
 
 button.settings {
   /* gear background image from text */
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='15' y='38' fill='hsl(302, 10%, 99%)' font-size='34'>&#9881;</text></svg>");
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='12' y='38' fill='hsl(302, 10%, 99%)' font-size='42'>&#9881;</text></svg>");
 }
 
 #ampSliders, #ampSliders th, #ampSliders td {

@@ -18,25 +18,76 @@
         </div>
       </div>
       <div id="settingsPanel" class="hidden">
-        <ul id="ampSliders">
-          <h3>amp</h3>
-          <li>volume <input id="volumeSlider" type="range" min="0" max="1" step=".01" onchange="setVolume(this.value)"/><span id="volumeLabel"></span></li>
-          <li>attack<input id="attackSlider" type="range" min="0" max="5" step=".001" onchange="setAttack(this.value)"/><span id="attackLabel"></span></li>
-          <li>decay<input id="decaySlider" type="range" min="0" max="5" step=".001" onchange="setDecay(this.value)"/><span id="decayLabel"></span></li>
-          <li>sustain<input id="sustainSlider" type="range" min="0" max="1" step=".005" onchange="setSustain(this.value)"/><span id="sustainLabel"></span></li>
-          <li>release<input id="releaseSlider" type="range" min="0" max="5" step=".001" onchange="setRelease(this.value)"/><span id="releaseLabel"></span></li>
-        </ul>
-        <ul id="cutoffSliders">
-          <h3>cutoff</h3>
-          <li>frequency<input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" onchange="cutoff.setMaxFrequency(this.value)"/><span id="cutoffMaxFrequencyLabel"></span></li>
-          <li>attack<input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setAttack(this.value)"/><span id="cutoffAttackLabel"></span></li>
-          <li>decay<input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setDecay(this.value)"/><span id="cutoffDecayLabel"></span></li>
-          <li>sustain<input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" onchange="cutoff.setSustain(this.value)"/><span id="cutoffSustainLabel"></span></li>  
-        </ul>
-        <h3>oscillators</h3>
-        key<select id="keyMenu"></select>
-        octave<input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"><span id="octaveLabel"></span>
-        stereo width<input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"><span id="widthLabel"></span>
+        <table id="ampSliders" class="sliderPanel">
+          <tr>
+            <th></th>
+            <th>amp</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>volume</td>
+            <td><input id="volumeSlider" type="range" min="0" max="1" step=".01" onchange="setVolume(this.value)"/></td>
+            <td id="volumeLabel"></td>
+          </tr>
+          <tr>
+            <td>attack</td>
+            <td><input id="attackSlider" type="range" min="0" max="5" step=".001" onchange="setAttack(this.value)"/></td>
+            <td id="attackLabel"></td>
+          </tr>
+          <tr>
+            <td>decay</td>
+            <td><input id="decaySlider" type="range" min="0" max="5" step=".001" onchange="setDecay(this.value)"/></td>
+            <td id="decayLabel"></td>
+          </tr>
+          <tr>
+            <td>sustain</td>
+            <td><input id="sustainSlider" type="range" min="0" max="1" step=".005" onchange="setSustain(this.value)"/></td>
+            <td id="sustainLabel"></td>
+          </tr>
+          <tr>
+            <td>release</td>
+            <td><input id="releaseSlider" type="range" min="0" max="5" step=".001" onchange="setRelease(this.value)"/></td>
+            <td id="releaseLabel"></td>
+          </tr>
+        </table>
+        <table id="cutoffSliders" class="sliderPanel">
+          <tr>
+            <th></th>
+            <th>cutoff</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>frequency</td>
+            <td><input id="cutoffFrequencySlider" type="range" min="20" max="20000" step="1" onchange="cutoff.setMaxFrequency(this.value)"/></td>
+            <td id="cutoffMaxFrequencyLabel"></td>
+          </tr>
+          <tr>
+            <td>attack</td>
+            <td><input id="cutoffAttackSlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setAttack(this.value)"/></td>
+            <td id="cutoffAttackLabel"></td>
+          </tr>
+          <tr>
+            <td>decay</td>
+            <td><input id="cutoffDecaySlider" type="range" min="0" max="5" step=".001" onchange="cutoff.setDecay(this.value)"/></td>
+            <td id="cutoffDecayLabel"></td>
+          </tr>
+          <tr>
+            <td>sustain</td>
+            <td><input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" onchange="cutoff.setSustain(this.value)"/></td>
+            <td id="cutoffSustainLabel"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <table id="oscSliders" class="sliderPanel">
+          <tr>
+            <th>oscillators</th>
+            <td><b>key</b> <select id="keyMenu"></select></td>
+            <td><b>octave </b><input id="octaveSlider" type="range" min="-2" max="2" step="1" onchange="setOctave(this.value)"> <span id="octaveLabel"></span></td>
+            <td><b>stereo width </b><input id="widthSlider" type="range" min="0" max="1" step=".01" onchange="setWidth(this.value)"> <span id="widthLabel"></span></td>
+          </tr>
+        </table>
         <div id="waveformMenu">
           <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings"></button>
         </div>

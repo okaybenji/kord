@@ -352,10 +352,16 @@ var setWaveform = function setWaveform(newWaveform) {
     labels.forEach(function(chord) {
       var chordMenu = $('#chordMenu');
       var startChord = function startChord(e) {
+        if (e.handled) {
+          return; // if click already handled this event, prevent touch (and vice versa)
+        }
         start(chord.number);
       };
 
       var stopChord = function stopChord(e) {
+        if (e.handled) {
+          return; // if click already handled this event, prevent touch (and vice versa)
+        }
         if (isFirstInteraction) {
           // let there be sound (on iOS)
           // create & play empty buffer

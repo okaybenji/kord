@@ -6,6 +6,7 @@
 * port to Phonegap
 
 ### Settings panel
+* fix ugliness on iOS in portrait mode
 * make sliders easy to use
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate

@@ -353,11 +353,6 @@ var setWaveform = function setWaveform(newWaveform) {
       var chordMenu = $('#chordMenu');
       var startChord = function startChord(e) {
         e.preventDefault();
-        start(chord.number);
-      };
-
-      var stopChord = function stopChord(e) {
-        e.preventDefault();
         if (isFirstInteraction) {
           // let there be sound (on iOS)
           // create & play empty buffer
@@ -370,7 +365,11 @@ var setWaveform = function setWaveform(newWaveform) {
           }
           isFirstInteraction = false;
         }
+        start(chord.number);
+      };
 
+      var stopChord = function stopChord(e) {
+        e.preventDefault();
         stop(chord.number);
       };
 

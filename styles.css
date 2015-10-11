@@ -1,19 +1,14 @@
-body {
+body, html {
   font-family: Helvetica, sans-serif;
   background-color: hsl(302, 10%, 99%);
+  height: 100%; /* prevent scrolling */
+  overflow: hidden; /* remove scrollbar */
 }
 
 main {
   width: 100vw;
-}
-
-a {
-  color: background-color: hsl(302, 10%, 99%);
-  text-decoration: none;
-}
-
-small {
-  font-size: 1.2vw;
+  height: 100%; /* prevent scrolling */
+  overflow: hidden; /* prevent scrolling */
 }
 
 button {
@@ -192,7 +187,7 @@ button.settings {
 
 #oscSliders {
   width: 98.5vw;
-  height: 12vw;
+  height: 10vw;
   margin: 1vw 0 0.5vw 0;
 }
 

@@ -6,6 +6,7 @@
 * prevent zoom if possible (iPhone automatically zooms in on key selector)
 * consider forcing horizontal orientation
 * shrink main interface just a bit vertically to fit better on iPhone screen
+* configure initial synth settings to match screenshot from yesterday
 * fix Safari sound distortion
 * port to Phonegap
 

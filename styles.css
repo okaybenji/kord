@@ -128,7 +128,7 @@ main.trenta #chordMenu {
 }
 
 #modifierMenu button.on {
-  background-color: hsl(196, 100%, 47%);
+  background-color: hsl(196, 100%, 47%) !important;
 }
 
 button.on {

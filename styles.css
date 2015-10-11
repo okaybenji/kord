@@ -160,11 +160,20 @@ button.settings {
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='15' y='38' fill='hsl(302, 10%, 99%)' font-size='34'>&#9881;</text></svg>");
 }
 
-#sliderPanels {
-  width: 98vw;
+.sliderPanel {
+  width: 49vw;
+  display: inline-block;
+  border-radius: 1vw;
 }
 
-#sliderPanels, th, td {
+th, td {
+  height: 3vw;
+  width: 16vw;
+  font-weight: bold;
+  color: hsl(302, 10%, 99%);
+}
+
+.sliderPanel, th, td {
   text-align: center;
   border: hsl(0, 0%, 75%);
   background-color: hsl(0, 0%, 75%);

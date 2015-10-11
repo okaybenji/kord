@@ -355,18 +355,15 @@ var setWaveform = function setWaveform(newWaveform) {
         e.preventDefault();
         if (isFirstInteraction) {
           // let there be sound (on iOS)
+          // create & play empty buffer
+          var buffer = audioCtx.createBuffer(1, 1, 22050);
+          var source = audioCtx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(audioCtx.destination);
+          if (source.noteOn) { // keep this from breaking in chrome
+            source.noteOn(0);
+          }
           isFirstInteraction = false;
-          setTimeout(function() {
-            // create & play empty buffer
-            var buffer = audioCtx.createBuffer(1, 1, 22050);
-            var source = audioCtx.createBufferSource();
-            source.buffer = buffer;
-            source.connect(audioCtx.destination);
-            if (source.noteOn) { // keep this from breaking in chrome
-              source.noteOn(0);
-            }
-            start(chord.number);
-          }, 10);
         }
         start(chord.number);
       };

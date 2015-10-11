@@ -137,7 +137,7 @@ button.on {
 }
 
 #modifierMenu button.on {
-  background-color: hsl(196, 100%, 47%) !important;
+  background-color: hsl(196, 100%, 47%) !important; /* TODO: remove this !important */
 }
 
 button:active {

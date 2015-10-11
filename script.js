@@ -351,9 +351,16 @@ var setWaveform = function setWaveform(newWaveform) {
     var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
       var chordMenu = $('#chordMenu');
+
       var startChord = function startChord(e) {
         e.preventDefault();
+        start(chord.number);
+      };
+
+      var stopChord = function stopChord(e) {
+        e.preventDefault();
         if (isFirstInteraction) {
+          isFirstInteraction = false;
           // let there be sound (on iOS)
           // create & play empty buffer
           var buffer = audioCtx.createBuffer(1, 1, 22050);
@@ -363,13 +370,7 @@ var setWaveform = function setWaveform(newWaveform) {
           if (source.noteOn) { // keep this from breaking in chrome
             source.noteOn(0);
           }
-          isFirstInteraction = false;
         }
-        start(chord.number);
-      };
-
-      var stopChord = function stopChord(e) {
-        e.preventDefault();
         stop(chord.number);
       };
 

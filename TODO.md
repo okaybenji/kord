@@ -1,8 +1,11 @@
 #To do:
 
 ### Misc
-* set up touch/mouse event handlers to prevent default on main and waveformMenu, then restore HTML for those sections and remove Javascript to build them out
-* add touchStart=on, touchEnd=off to modifiers & chords
+* set up touch/mouse event handlers to prevent default on main and waveformMenu (actually, try just on all buttons!), then restore HTML for those sections and remove Javascript to build them out
+* fix touching 2+ modifiers only highlights last-touched as 'on'
+* prevent zoom if possible (iPhone automatically zooms in on key selector)
+* consider forcing horizontal orientation
+* shrink main interface just a bit vertically to fit better on iPhone screen
 * fix Safari sound distortion
 * port to Phonegap
 

@@ -462,6 +462,7 @@ var setWaveform = function setWaveform(newWaveform) {
     var waveformMenu = $('#waveformMenu');  
     waveforms.forEach(function(waveform) {
       var selectWaveform = function selectWaveform(e) {
+        e.preventDefault();
         setWaveform(waveform);
       };
       

@@ -9,6 +9,15 @@ main {
   height: 56.25vw; /* 16:9 aspect ratio */
 }
 
+a {
+  color: background-color: hsl(302, 10%, 99%);
+  text-decoration: none;
+}
+
+small {
+  font-size: 1.2vw;
+}
+
 button {
   border: none;
   color: hsl(302, 10%, 99%);
@@ -170,6 +179,7 @@ button.settings {
 
 #oscSliders, #oscSliders th, #oscSliders td {
   background-color: hsl(324, 100%, 46%);
+  border-radius: 1vw 1vw 0 0;
 }
 
 #ampSliders, #cutoffSliders {
@@ -184,8 +194,15 @@ button.settings {
 
 #oscSliders {
   width: 98.5vw;
-  height: 10vw;
-  margin: 1vw 0;
+  height: 12vw;
+  margin: 1vw 0 0.5vw 0;
+}
+
+.sliderPanel, th, td {
+  text-align: center;
+  border: hsl(0, 0%, 75%);
+  border-radius: 1vw;
+  background-color: hsl(0, 0%, 75%);
 }
 
 th {
@@ -202,35 +219,26 @@ th, td {
   color: hsl(302, 10%, 99%);
 }
 
-.sliderPanel, th, td {
-  text-align: center;
-  border: hsl(0, 0%, 75%);
-  border-radius: 1vw;
-  background-color: hsl(0, 0%, 75%);
-}
 
 select {
   font-size: 2vw;
 }
 
-#waveformMenu {
-  margin: 1.5vw 0;
-}
-
 #waveformMenu button {
-  width: 19.6vw;
+  width: 19.7vw;
   height: 10vw;
   border-radius: 0;
   border-left: .5vw solid hsl(302, 10%, 99%);
 }
 
 #waveformMenu button:first-child {
-  border-radius: 1vw 0 0 1vw;
+  border-radius: 0 0 0 1vw;
   border-left: none;
+  margin-right: -0.5vw;
 }
 
 #waveformMenu button:last-child {
-  border-radius: 0 1vw 1vw 0;
+  border-radius: 0 0 1vw 0;
 }
 
 #sineButton {

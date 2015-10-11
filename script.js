@@ -205,21 +205,6 @@ var setWaveform = function setWaveform(newWaveform) {
   $('button').on('touchstart mousedown', function(e) {
     e.preventDefault();
   });
-  
-  var forceLandscape = function forceLandscape() {
-    var main = $('main');
-    switch (window.orientation) {
-      case 0:
-      case 180:
-        console.log('changing to -90');
-        main.addClass('rotate');
-        break;
-      default:
-        main.removeClass('rotate');
-    }
-  };
-  
-  $(window).on('orientationchange', forceLandscape);
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button

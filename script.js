@@ -207,12 +207,16 @@ var setWaveform = function setWaveform(newWaveform) {
   });
   
   // force landscape
-  $('window').on('orientationchange', function(e) {
+  window.orientation = 90;
+  $(window).on('orientationchange', function(e) {
+    console.log('orientation is:', window.orientation);
     switch (window.orientation) {
       case 0:
+        console.log('changing to 90');
         window.orientation = 90;
         break;
       case 180:
+        console.log('changing to -90);
         window.orientation = -90;
         break
     }

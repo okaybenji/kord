@@ -7,6 +7,12 @@ main {
   width: 100vw;
 }
 
+/* use to force landscape orientation*/
+.rotate {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
 button {
   border: none;
   color: hsl(302, 10%, 99%);

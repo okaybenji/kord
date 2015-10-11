@@ -206,21 +206,20 @@ var setWaveform = function setWaveform(newWaveform) {
     e.preventDefault();
   });
   
-  // force landscape
-  window.orientation = 90;
-  $(window).on('orientationchange', function(e) {
-    console.log('orientation is:', window.orientation);
+  var forceLandscape = function forceLandscape() {
+    var main = $('main');
     switch (window.orientation) {
       case 0:
-        console.log('changing to 90');
-        window.orientation = 90;
-        break;
       case 180:
         console.log('changing to -90');
-        window.orientation = -90;
-        break
+        main.addClass('rotate');
+        break;
+      default:
+        main.removeClass('rotate');
     }
-  });
+  };
+  
+  $(window).on('orientationchange', forceLandscape);
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button

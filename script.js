@@ -1,6 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
-var octave = 0;
+var octave = -1; // default to low octave
 
 // toggles
 var invertMode = false;
@@ -28,11 +28,6 @@ var labels = (function() {
 var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // ui handlers
-var toggleSettings = function() {
-  $('#settingsPanel').toggleClass('hidden');
-  $('#instrument').toggleClass('hidden');
-};
-
 var updateModifier = function updateModifier(modifier) {
   var INV = '\u2076';
 
@@ -98,6 +93,11 @@ var updateModifier = function updateModifier(modifier) {
   }());
 
   $('main').attr('class', newClass);
+};
+
+var toggleSettings = function() {
+  $('#settingsPanel').toggleClass('hidden');
+  $('#instrument').toggleClass('hidden');
 };
 
 var setVolume = function setVolume(newVolume) {
@@ -182,9 +182,27 @@ var setWaveform = function setWaveform(newWaveform) {
     audioCtx = new webkitAudioContext();
   }
 
-  polysynth = new Polysynth(audioCtx, { numVoices: 5 });
+  var synthCfg = {
+    numVoices: 5,
+    stereoWidth: 1,
+    attack: 0.28,
+    decay: 0,
+    sustain: 1,
+    release: 0.28,
+    cutoff: {
+      maxFrequency: 1800,
+      attack: 0.1,
+      decay: 2.5,
+      sustain: 0.2
+    }
+  };
+  
+  polysynth = new Polysynth(audioCtx, synthCfg);
 
   // update controls to display initial synth values
+  $('#octaveSlider').val(octave);
+  $('#widthSlider').val(polysynth.width());
+  
   var voice = polysynth.voices[0];
   $('#volumeSlider').val(voice.maxGain);
   $('#attackSlider').val(voice.attack);
@@ -200,6 +218,11 @@ var setWaveform = function setWaveform(newWaveform) {
   // update labels to display initial synth values
   $('#settingsPanel input').change();
   $('#settingsPanel select').change();
+  
+  // prevent browser default behavior on touch/click of buttons
+  $('button').on('touchstart mousedown', function(e) {
+    e.preventDefault();
+  });
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button
@@ -207,10 +230,10 @@ var setWaveform = function setWaveform(newWaveform) {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = parseInt($('#keyMenu').val(), 10);
+      var root = parseInt($('#keyMenu').val(), 10); // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
-      
+
       $('#chord' + chordNumber).addClass('on');
 
       var setChord = function setChord(root, quality) {
@@ -343,18 +366,41 @@ var setWaveform = function setWaveform(newWaveform) {
       }
     };
 
-    var chordMenu = $('#chordMenu');
+    var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
+      var chordMenu = $('#chordMenu');
+
+      var startChord = function startChord(e) {
+        e.preventDefault();
+        start(chord.number);
+      };
+
+      var stopChord = function stopChord(e) {
+        e.preventDefault();
+        if (isFirstInteraction) {
+          isFirstInteraction = false;
+          // let there be sound (on iOS)
+          // create & play empty buffer
+          var buffer = audioCtx.createBuffer(1, 1, 22050);
+          var source = audioCtx.createBufferSource();
+          source.buffer = buffer;
+          source.connect(audioCtx.destination);
+          if (source.noteOn) { // keep this from breaking in chrome
+            source.noteOn(0);
+          }
+        }
+        stop(chord.number);
+      };
+
       $('<button/>', {
         id: 'chord' + chord.number,
         text: chord.basic,
-        mousedown: function() {
-          start(chord.number);
-        },
-        mouseup: function() {
-          stop(chord.number);
-        }
-      }).appendTo(chordMenu);
+        mousedown: startChord,
+        mouseup: stopChord })
+        .bind('touchstart', startChord)
+        .bind('touchend', stopChord)
+        .appendTo(chordMenu)
+      ;
     });
 
     (function setUpKeyboardListeners() {
@@ -433,12 +479,18 @@ var setWaveform = function setWaveform(newWaveform) {
   (function buildWaveformMenu() {
     var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
+      var selectWaveform = function selectWaveform(e) {
+        e.preventDefault();
+        setWaveform(waveform);
+      };
+      
       $('<button/>', {
         id: waveform + 'Button',
-        click: function() {
-          setWaveform(waveform);
-        }
-      }).appendTo(waveformMenu);
+        click: selectWaveform
+      })
+        .bind('touchend', selectWaveform)
+        .appendTo(waveformMenu)
+      ;
     });
     $('#sawtoothButton').click(); // default to sawtooth
   }());

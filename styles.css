@@ -1,20 +1,26 @@
+html {
+  transform: scale(0.95);
+}
+
 body {
   font-family: Helvetica, sans-serif;
-  line-height: 2vw;
-  background: hsl(302, 10%, 99%);
+  background-color: hsl(302, 10%, 99%);
 }
 
 main {
   width: 100vw;
-  height: 56.25vw; /* 16:9 aspect ratio */
 }
 
 button {
   border: none;
   color: hsl(302, 10%, 99%);
-  background: hsl(0, 0%, 75%);
+  background-color: hsl(0, 0%, 75%);
   border-radius: 1vw;
   font-size: 1em;
+  background-size: 8vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0%; /* force iOS button width */
 }
 
 button:active {
@@ -24,7 +30,6 @@ button:active {
 main #chordMenu {
   float: right;
   width: 85vw;
-  padding: 0;
 }
 
 main.tall #chordMenu {
@@ -44,69 +49,69 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 28.125vw;
+  height: 28vw;
 }
 
 #chord1 {
   width: 44%;
-  background: hsl(23, 100%, 49%);
+  background-color: hsl(23, 100%, 49%);
   border-bottom-right-radius: 0;
 }
 
 #chord1.on {
-  background: hsl(23, 100%, 39%);
+  background-color: hsl(23, 100%, 39%);
 }
 
 #chord2 {
   width: 15%;
-  background: hsl(39, 100%, 49%);
+  background-color: hsl(39, 100%, 49%);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 #chord2.on {
-  background: hsl(39, 100%, 39%);
+  background-color: hsl(39, 100%, 39%);
 }
 
 #chord3 {
   width: 39%;
-  background: hsl(57, 100%, 50%);
+  background-color: hsl(57, 100%, 50%);
   border-bottom-left-radius: 0;
 }
 
 #chord3.on {
-  background: hsl(57, 100%, 40%)
+  background-color: hsl(57, 100%, 40%);
 }
 
 #chord4 {
   width: 35%;
-  background: hsl(302, 58%, 36%);
+  background-color: hsl(302, 58%, 36%);
   border-top-right-radius: 0;
 }
 
 #chord4.on {
-  background: hsl(302, 58%, 26%)
+  background-color: hsl(302, 58%, 26%);
 }
 
 #chord5 {
   width: 39%;
-  background: hsl(324, 100%, 46%);
+  background-color: hsl(324, 100%, 46%);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 #chord5.on {
-  background: hsl(324, 100%, 36%)
+  background-color: hsl(324, 100%, 36%);
 }
 
 #chord6 {
   width: 24%;
-  background: hsl(340, 86%, 50%);
+  background-color: hsl(340, 86%, 50%);
   border-top-left-radius: 0;
 }
 
 #chord6.on {
-  background: hsl(340, 86%, 40%)
+  background-color: hsl(340, 86%, 40%);
 }
 
 #modifierMenu {
@@ -117,26 +122,26 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 14.0625vw;
+  height: 14vw;
   border-radius: 0;
   border-top: .5vw solid hsl(302, 10%, 99%);
 }
 
-#modifierMenu button.on, button.settings.on {
-  background: hsl(196, 100%, 47%);
+button.on {
+  background-color: hsl(196, 100%, 47%);
   border: none;
 }
 
 #modifierMenu button:active {
-  background: hsl(196, 100%, 47%);
+  background-color: hsl(196, 100%, 47%);
 }
 
-#modifierMenu button:active.on {
-  background: hsl(0, 0%, 75%);
+#modifierMenu button.on {
+  background-color: hsl(196, 100%, 47%);
 }
 
-button:active.settings.on {
-  background: hsl(196, 100%, 37%);
+button:active {
+  background-color: hsl(196, 100%, 37%);
 }
 
 #special.on {
@@ -152,41 +157,80 @@ button:active.settings.on {
   border-radius: 0 0 1vw 1vw;
 }
 
-button.settings {
-  font-size: 8vw;
-  width: 14.5vw;
-  height: 14.0625vw;
+#ampSliders, #ampSliders th, #ampSliders td {
+  background-color: hsl(302, 58%, 36%);
 }
 
-#waveformMenu {
-  margin: 2vw 0;
+#cutoffSliders, #cutoffSliders th, #cutoffSliders td {
+  background-color: hsl(340, 86%, 50%);
+}
+
+#oscSliders, #oscSliders th, #oscSliders td {
+  background-color: hsl(324, 100%, 46%);
+  border-radius: 1vw 1vw 0 0;
+}
+
+#ampSliders, #cutoffSliders {
+  width: 49vw;
+  display: inline-block;
+}
+
+#ampSliders th, #ampSliders td, #cutoffSliders th, #cutoffSliders td {
+  width: 16vw;
+}
+
+#oscSliders {
+  width: 98.5vw;
+  height: 10vw;
+  margin: 1vw 0 0.5vw 0;
+}
+
+.sliderPanel, th, td {
+  text-align: center;
+  border: hsl(0, 0%, 75%);
+  border-radius: 1vw;
+  background-color: hsl(0, 0%, 75%);
+}
+
+th {
+  font-size: 3vw;
+}
+
+td {
+  font-size: 2vw;
+}
+
+th, td {
+  height: 5vw;
+  font-weight: bold;
+  color: hsl(302, 10%, 99%);
+}
+
+
+select {
+  font-size: 2vw;
 }
 
 #waveformMenu button {
-  width: 20vw;
+  width: 19.7vw;
   height: 10vw;
   border-radius: 0;
-  background-size: 8vw;
-  background-position: center;
-  background-repeat: no-repeat;
   border-left: .5vw solid hsl(302, 10%, 99%);
 }
 
-#waveformMenu button.on {
-  background-color: hsl(358, 85%, 52%);
-}
-
-#waveformMenu button:active {
-  background-color: hsl(358, 85%, 42%);
-}
-
 #waveformMenu button:first-child {
-  border-radius: 1vw 0 0 1vw;
+  border-radius: 0 0 0 1vw;
   border-left: none;
+  border-right: none;
+  margin-right: -0.5vw; /* TODO: figure out why you had to use a negative margin */
 }
 
 #waveformMenu button:last-child {
-  border-radius: 0 1vw 1vw 0;
+  border-radius: 0 0 1vw 0;
+}
+
+button.settings {
+  background-image:url('./img/gear.svg');
 }
 
 #sineButton {
@@ -203,12 +247,6 @@ button.settings {
 
 #sawtoothButton {
   background-image: url('./img/sawWave.svg');
-}
-
-#settingsPanel ul {
-  list-style-type: none;
-  display: inline-block;
-  background-color: lightGray;
 }
 
 .hidden {

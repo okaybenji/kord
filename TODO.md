@@ -1,19 +1,16 @@
 #To do:
 
 ### Misc
-* ensure touching any # of modifiers highlights them blue and special button gets highlighted with yellow font
-* shrink main interface just a bit vertically to fit better on iPhone screen
 * port to Phonegap
 
 ### Settings panel
 * fix ugliness on iOS in portrait mode
-* make sliders easy to use
+* make sliders pretty & easy to use on iOS
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
 * visualize amp's adsr * vol and cutoff's ads * freq
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions
 * change key selector to ul and style a la Bootstrap
-* either make settings button gear work as plain text, or make a gear SVG and use that for the BG
 
 ### Eventually... (maybe)
 * add transition when opening settings (fade in/out)

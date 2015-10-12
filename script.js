@@ -95,7 +95,7 @@ var updateModifier = function updateModifier(modifier) {
   $('main').attr('class', newClass);
 };
 
-var toggleSettings = function(e) {
+var toggleSettings = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
 };
@@ -477,7 +477,7 @@ var setWaveform = function setWaveform(newWaveform) {
   }());
 
   (function buildWaveformMenu() {
-    var waveformMenu = $('#waveformMenu');  
+    var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
       var selectWaveform = function selectWaveform(e) {
         e.preventDefault();

@@ -137,7 +137,7 @@ button.on {
 }
 
 #modifierMenu button.on {
-  background-color: hsl(196, 100%, 47%) !important; /* TODO: remove this !important */
+  background-color: hsl(196, 100%, 47%);
 }
 
 button:active {
@@ -157,11 +157,6 @@ button:active {
   border-radius: 0 0 1vw 1vw;
 }
 
-button.settings {
-  /* gear background image from text */
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='50px'><text x='12' y='38' fill='hsl(302, 10%, 99%)' font-size='42'>&#9881;</text></svg>");
-}
-
 #ampSliders, #ampSliders th, #ampSliders td {
   background-color: hsl(302, 58%, 36%);
 }
@@ -176,9 +171,8 @@ button.settings {
 }
 
 #ampSliders, #cutoffSliders {
-  width: 48vw;
+  width: 49vw;
   display: inline-block;
-  margin: 0 0.5vw;
 }
 
 #ampSliders th, #ampSliders td, #cutoffSliders th, #cutoffSliders td {
@@ -227,11 +221,16 @@ select {
 #waveformMenu button:first-child {
   border-radius: 0 0 0 1vw;
   border-left: none;
+  border-right: none;
   margin-right: -0.5vw; /* TODO: figure out why you had to use a negative margin */
 }
 
 #waveformMenu button:last-child {
   border-radius: 0 0 1vw 0;
+}
+
+button.settings {
+  background-image:url('./img/gear.svg');
 }
 
 #sineButton {

@@ -1,6 +1,7 @@
 #To do:
 
 ### Misc
+* add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
 * port to Phonegap
 
 ### Settings panel

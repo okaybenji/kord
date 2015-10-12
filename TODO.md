@@ -4,6 +4,7 @@
 * port to Phonegap
 
 ### Settings panel
+* fix preventDefault on waveform menu
 * fix ugliness on iOS in portrait mode
 * make sliders pretty & easy to use on iOS
 * make volume & sustain sliders logarithmic

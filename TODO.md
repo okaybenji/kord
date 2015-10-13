@@ -15,6 +15,7 @@
 * change key selector to ul and style a la Bootstrap
 
 ### Eventually... (maybe)
+* allow user to define and arrange custom chords
 * add transition when opening settings (fade in/out)
 * re-style settings panel
 * fix Safari sound distortion (if it still exists?)

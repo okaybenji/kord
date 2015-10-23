@@ -212,7 +212,7 @@ select {
 }
 
 #waveformMenu button {
-  width: 19.7vw;
+  width: 19.75vw;
   height: 10vw;
   border-radius: 0;
   border-left: .5vw solid hsl(302, 10%, 99%);

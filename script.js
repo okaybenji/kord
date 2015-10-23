@@ -477,17 +477,22 @@ var setWaveform = function setWaveform(newWaveform) {
   }());
 
   (function buildWaveformMenu() {
-    var waveformMenu = $('#waveformMenu');
     waveforms.forEach(function(waveform) {
+      var waveformMenu = $('#waveformMenu');
       var selectWaveform = function selectWaveform(e) {
         e.preventDefault();
         setWaveform(waveform);
       };
+      var preventDefault = function preventDefault(e) {
+        e.preventDefault();
+      };
       
       $('<button/>', {
         id: waveform + 'Button',
-        click: selectWaveform
+        mousedown: preventDefault,
+        mouseup: selectWaveform
       })
+        .bind('touchstart', preventDefault)
         .bind('touchend', selectWaveform)
         .appendTo(waveformMenu)
       ;

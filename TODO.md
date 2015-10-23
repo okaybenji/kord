@@ -2,20 +2,18 @@
 
 ### Misc
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
-* port to Phonegap
 
 ### Settings panel
-* fix preventDefault on waveform menu
 * fix ugliness on iOS in portrait mode
 * make sliders pretty & easy to use on iOS
 * make waveform menu render at correct width on any size viewport
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
-* visualize amp's adsr * vol and cutoff's ads * freq
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions
 * change key selector to ul and style a la Bootstrap
 
 ### Eventually... (maybe)
+* visualize amp's adsr * vol and cutoff's ads * freq
 * allow user to define and arrange custom chords
 * add transition when opening settings (fade in/out)
 * re-style settings panel

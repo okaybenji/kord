@@ -490,7 +490,7 @@ var setWaveform = function setWaveform(newWaveform) {
       $('<button/>', {
         id: waveform + 'Button',
         mousedown: preventDefault,
-        mouseup: selectWaveform
+        click: selectWaveform
       })
         .bind('touchstart', preventDefault)
         .bind('touchend', selectWaveform)

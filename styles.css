@@ -1,5 +1,7 @@
 html {
   transform: scale(0.95);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
 }
 
 body {

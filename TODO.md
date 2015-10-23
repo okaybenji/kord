@@ -8,6 +8,7 @@
 * fix preventDefault on waveform menu
 * fix ugliness on iOS in portrait mode
 * make sliders pretty & easy to use on iOS
+* make waveform menu render at correct width on any size viewport
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
 * visualize amp's adsr * vol and cutoff's ads * freq

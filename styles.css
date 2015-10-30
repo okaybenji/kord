@@ -224,10 +224,13 @@ input:focus {
 th, td {
   font-size: 3vw;
   height: 5vw;
-  font-weight: bold;
+  font-weight: normal;
   color: hsl(302, 10%, 99%);
 }
 
+.gray {
+  color: hsl(0, 0%, 75%);
+}
 
 select {
   font-size: 2vw;

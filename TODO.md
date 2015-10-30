@@ -7,6 +7,7 @@
 * fix ugliness on iOS in portrait mode
 * customize look of key selector
 * prevent slider values from changing width of their cells when their length changes
+* fix spacing between amp/cutoff and oscillator divs (should match spacing between amp and cutoff)
 * make waveform menu render at correct width on any size viewport
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate

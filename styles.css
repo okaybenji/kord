@@ -159,6 +159,26 @@ button:active {
   border-radius: 0 0 1vw 1vw;
 }
 
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: hsl(0, 0%, 75%);;
+    width: 20vw;
+    height: 2.2vw;
+    border-radius: 1vw;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: hsl(302, 10%, 99%);
+    border-radius: 1vw;
+    width: 2vw;
+    height: 2vw;
+}
+
+input:focus {
+  outline: none;
+}
+
 #ampSliders, #ampSliders th, #ampSliders td {
   background-color: hsl(302, 58%, 36%);
 }

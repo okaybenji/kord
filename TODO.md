@@ -4,11 +4,11 @@
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
 
 ### Settings panel
-* fix ugliness on iOS in portrait mode
 * customize look of key selector
 * prevent slider values from changing width of their cells when their length changes
-* fix spacing between amp/cutoff and oscillator divs (should match spacing between amp and cutoff)
 * make waveform menu render at correct width on any size viewport
+* fix spacing between settings button and other waveform buttons
+* remove faint gray lines next to waveform buttons
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions

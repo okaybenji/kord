@@ -11,6 +11,7 @@ body {
 
 main {
   width: 100vw;
+  height: 56.25vw; /* 16:9 */
 }
 
 button {
@@ -180,6 +181,18 @@ input:focus {
   outline: none;
 }
 
+.name {
+  width: 10vw;
+  text-align: right;
+  padding-right: 1vw;
+}
+
+.value {
+  width: 10vw;
+  text-align: left;
+  padding-left: 1vw;
+}
+
 #ampSliders, #ampSliders th, #ampSliders td {
   background-color: hsl(302, 58%, 36%);
 }
@@ -192,26 +205,19 @@ input:focus {
   background-color: hsl(324, 100%, 46%);
 }
 
-/* TODO: find a cleaner way to position these values closer to their sliders
-         while still centering slider names over just the sliders */
-#oscSliders span {
-  position: relative;
-  left: -4vw;
-}
-
 #ampSliders, #cutoffSliders {
-  width: 49vw;
+  width: 48.75vw;
   display: inline-block;
 }
 
-#ampSliders th, #ampSliders td, #cutoffSliders th, #cutoffSliders td {
-  width: 16vw;
+#cutoffSliders {
+  margin-left: 0.5vw;
 }
 
 #oscSliders {
   width: 98.5vw;
   height: 10vw;
-  margin: 1vw 0 0.5vw 0;
+  margin: 0.5vw 0;
 }
 
 .sliderPanel, th, td {

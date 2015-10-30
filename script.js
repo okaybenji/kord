@@ -181,6 +181,9 @@ var setWaveform = function setWaveform(newWaveform) {
   } else {
     audioCtx = new webkitAudioContext();
   }
+  
+  var sampleRate = audioCtx.sampleRate;
+  console.log('sample rate:', audioCtx.sampleRate);
 
   var synthCfg = {
     numVoices: 5,
@@ -371,6 +374,13 @@ var setWaveform = function setWaveform(newWaveform) {
       var chordMenu = $('#chordMenu');
 
       var startChord = function startChord(e) {
+
+        // if the sample rate has changed, refresh the window
+        if (audioCtx.sampleRate !== sampleRate) {
+          console.log('current sample rate:', audioCtx.sampleRate);
+          window.reload();
+        }
+
         e.preventDefault();
         start(chord.number);
       };

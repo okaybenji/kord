@@ -108,13 +108,13 @@ var setVolume = function setVolume(newVolume) {
 
 var setAttack = function setAttack(newAttack) {
   polysynth.attack(newAttack);
-  var attackText = newAttack * 1000;
+  var attackText = (newAttack * 1000).toFixed(0);
   $('#attackLabel').text(attackText);
 };
 
 var setDecay = function setDecay(newDecay) {
   polysynth.decay(newDecay);
-  var decayText = newDecay * 1000;
+  var decayText = (newDecay * 1000).toFixed(0);
   $('#decayLabel').text(decayText);
 };
 
@@ -126,7 +126,7 @@ var setSustain = function setSustain(newSustain) {
 
 var setRelease = function setRelease(newRelease) {
   polysynth.release(newRelease);
-  var releaseText = newRelease * 1000;
+  var releaseText = (newRelease * 1000).toFixed(0);
   $('#releaseLabel').text(releaseText);
 };
 
@@ -138,12 +138,12 @@ var cutoff = {
   },
   setAttack: function setAttack(newAttack) {
     polysynth.cutoff.attack(newAttack);
-    var attackText = newAttack * 1000;
+    var attackText = (newAttack * 1000).toFixed(0);
     $('#cutoffAttackLabel').text(attackText);
   },
   setDecay: function setDecay(newDecay) {
     polysynth.cutoff.decay(newDecay);
-    var decayText = newDecay * 1000;
+    var decayText = (newDecay * 1000).toFixed(0);
     $('#cutoffDecayLabel').text(decayText);
   },
   setSustain: function setSustain(newSustain) {

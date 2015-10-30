@@ -170,9 +170,10 @@ input[type=range] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     background-color: hsl(302, 10%, 99%);
-    border-radius: 1vw;
-    width: 2vw;
-    height: 2vw;
+    border: none;
+    border-radius: 2vw;
+    width: 4vw;
+    height: 4vw;
 }
 
 input:focus {

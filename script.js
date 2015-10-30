@@ -216,7 +216,7 @@ var setWaveform = function setWaveform(newWaveform) {
   $('#waveformSelect').val(voice.waveform());
 
   // update labels to display initial synth values
-  $('#settingsPanel input').change();
+  $('#settingsPanel input').trigger('input');
   $('#settingsPanel select').change();
   
   // prevent browser default behavior on touch/click of buttons

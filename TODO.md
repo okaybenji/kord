@@ -5,7 +5,8 @@
 
 ### Settings panel
 * fix ugliness on iOS in portrait mode
-* make sliders pretty & easy to use on iOS
+* customize look of key selector
+* prevent slider values from changing width of their cells when their length changes
 * make waveform menu render at correct width on any size viewport
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate

@@ -190,7 +190,13 @@ input:focus {
 
 #oscSliders, #oscSliders th, #oscSliders td {
   background-color: hsl(324, 100%, 46%);
-  border-radius: 1vw 1vw 0 0;
+}
+
+/* TODO: find a cleaner way to position these values closer to their sliders
+         while still centering slider names over just the sliders */
+#oscSliders span {
+  position: relative;
+  left: -4vw;
 }
 
 #ampSliders, #cutoffSliders {
@@ -215,15 +221,8 @@ input:focus {
   background-color: hsl(0, 0%, 75%);
 }
 
-th {
-  font-size: 3vw;
-}
-
-td {
-  font-size: 2vw;
-}
-
 th, td {
+  font-size: 3vw;
   height: 5vw;
   font-weight: bold;
   color: hsl(302, 10%, 99%);

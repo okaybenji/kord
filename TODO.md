@@ -5,7 +5,6 @@
 
 ### Settings panel
 * customize look of key selector
-* prevent slider values from changing width of their cells when their length changes
 * make waveform menu render at correct width on any size viewport
 * fix spacing between settings button and other waveform buttons
 * remove faint gray lines next to waveform buttons

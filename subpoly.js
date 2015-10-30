@@ -1,8 +1,7 @@
-/*!
- *  subpoly - a Web Audio subtractive polyphonic synthesizer
- *  (c) 2015 Benji Kay
- *  MIT License
- */
+// npm support
+if (typeof require !== 'undefined') {
+  var Monosynth = require('submono');
+}
 
 var Polysynth = function Polysynth(audioCtx, config) {
   var synth;
@@ -14,11 +13,12 @@ var Polysynth = function Polysynth(audioCtx, config) {
     config = config || {};
     config.cutoff = config.cutoff || {};
 
+
     for (var i = 0, ii = config.numVoices || 16; i < ii; i++) {
       synth.voices.push(new Monosynth(audioCtx, config));
     }
 
-    synth.stereoWidth = config.stereoWidth  || 0.5; // out of 1
+    synth.stereoWidth = config.stereoWidth || 0.5; // out of 1
     synth.width(synth.stereoWidth);
 
     return synth;
@@ -90,3 +90,8 @@ var Polysynth = function Polysynth(audioCtx, config) {
 
   return new Synth;
 };
+
+// npm support
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = Polysynth;
+}

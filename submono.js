@@ -1,9 +1,3 @@
-/*!
- *  submono - a Web Audio subtractive, monophonic synthesizer
- *  (c) 2015 Benji Kay
- *  MIT License
- */
-
 var Monosynth = function Monosynth(audioCtx, config) {
   var synth;
   var Synth = function Synth() {
@@ -23,7 +17,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.sustain  = config.sustain  || 1.0, // out of 1
     synth.release  = config.release  || 0.8, // in seconds
 
-    //low-pass filter
+    // low-pass filter
     synth.cutoff              = synth.filter.frequency;
     synth.cutoff.maxFrequency = config.cutoff.maxFrequency || 7500; // in hertz
     synth.cutoff.attack       = config.cutoff.attack       || 0.1; // in seconds
@@ -68,7 +62,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     return synth.osc.type;
   };
 
-  //apply attack, decay, sustain envelope
+  // apply attack, decay, sustain envelope
   Synth.prototype.start = function startSynth() {
     var atk  = parseFloat(synth.attack);
     var dec  = parseFloat(synth.decay);
@@ -83,7 +77,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
   };
 
-  //apply release envelope
+  // apply release envelope
   Synth.prototype.stop = function stopSynth() {
     var rel = parseFloat(synth.release);
     var now = getNow();
@@ -92,3 +86,8 @@ var Monosynth = function Monosynth(audioCtx, config) {
 
   return new Synth();
 };
+
+// npm support
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = Monosynth;
+}

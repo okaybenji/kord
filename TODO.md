@@ -7,6 +7,7 @@
 ### Misc
 * fix iOS audio issues (sample rate intermittently 48kHz instead of 44.1, sound dropping out or getting distorted on launch or after switching between tabs/tabs)
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
+* fix gap between chords at some resolutions when x6 and special are both activated.
 
 ### Settings panel
 * test improving slider ease of use by increasing touchable region without increasing visible size

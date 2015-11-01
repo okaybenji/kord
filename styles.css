@@ -1,18 +1,18 @@
 /* control left margin */
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-  /*transform: scale(0.95);*/
+  /*transform: scale(.95);*/
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
 
 body {
-  margin: 0.5vw;
+  margin: .5vw;
   background-color: hsl(302, 10%, 99%);
   font-family: Helvetica, sans-serif;
   font-size: 3vw;
@@ -167,6 +167,10 @@ button:active {
   border-bottom: none;
 }
 
+#settingsPanel {
+  /* for brackets debugging */
+}
+
 #ampSliders {
   background-color: hsl(302, 58%, 36%);
   border-bottom-right-radius: 0;
@@ -176,19 +180,21 @@ button:active {
 #cutoffSliders {
   background-color: hsl(340, 86%, 50%);
   border-bottom-left-radius: 0;
+  /*float: right;*/
 }
 
-#oscSliders {
+#etcSliders {
   background-color: hsl(324, 100%, 46%);
-  width: 100vw;
-  height: 10vw;
+  width: 99vw;
+  height: 12vw;
 }
 
-#ampSliders, #cutoffSliders {
-  width: 46vw;
-  height: 30vw;
+.sliderPanel {
+  width: 49.5vw;
+  height: 34vw;
   display: inline-block;
   padding: 2vw;
+  border-radius: 1vw;
 }
 
 .sliderPanel > div {
@@ -196,8 +202,8 @@ button:active {
   display: inline-block;
 }
 
-.sliderPanel {
-  border-radius: 1vw;
+#etcSliders > div {
+  height: 11vw;
 }
 
 input[type=range] {
@@ -240,20 +246,19 @@ input:focus {
 }
 
 #waveformMenu button {
-  width: 19.5vw;
+  width: 19.4vw;
   height: 10vw;
   border-radius: 0;
-  margin-left: .5vw;
+  margin: .5vw 0 0 .5vw;
 }
 
 #waveformMenu button:first-child {
-  border-radius: 0 0 0 1vw;
+  border-radius: 1vw 0 0 1vw;
   margin-left: 0;
-  margin-right: -.8vw; /* TODO: why this negative margin? */
 }
 
 #waveformMenu button:last-child {
-  border-radius: 0 0 1vw 0;
+  border-radius: 0 1vw 1vw 0;
 }
 
 button.settings {

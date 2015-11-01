@@ -50,7 +50,7 @@
         </div>
         <div id="cutoffSliders" class="sliderPanel">
           <div>
-            <span class="name">cutoff</span>
+            <span class="name">cut</span>
           </div>
           <div>
             <span class="name gray">freq</span>
@@ -73,23 +73,31 @@
             <span class="value"><span id="cutoffSustainLabel"></span><span class="gray">x</span></span>
           </div>
         </div>
-        <div id="oscSliders" class="sliderPanel">
+        <div id="etcSliders" class="sliderPanel">
           <div>
-            <span>oscillators</span>
-            <span class="gray">key</span>
-            <span class="gray">octave</span>
-            <span class="gray">stereo width</span>
+            <div><span>etc</span></div>
+            <div>&nbsp;</div>
           </div>
           <div>
-            <select id="keyMenu"></select>
-            <input id="octaveSlider" type="range" min="-2" max="2" step="1" oninput="setOctave(this.value)">
-            <span class="value"><span id="octaveLabel"></span></span>
-            <input id="widthSlider" type="range" min="0" max="1" step=".01" oninput="setWidth(this.value)">
-            <span class="value"><span id="widthLabel"></span><span class="gray">%</span></span>
+            <div><span class="gray">key</span></div>
+            <div><select id="keyMenu"></select></div>
+          </div>
+          <div>
+            <div><span class="gray">oct</span></div>
+            <div>
+              <input id="octaveSlider" type="range" min="-2" max="2" step="1" oninput="setOctave(this.value)">
+              <span class="value"><span id="octaveLabel"></span></span>
+            </div>
+          </div>
+          <div>
+            <div><span class="gray">img</span></div>
+            <div>
+              <input id="widthSlider" type="range" min="0" max="1" step=".01" oninput="setWidth(this.value)">
+              <span class="value"><span id="widthLabel"></span><span class="gray">%</span></span>
+            </div>
           </div>
         </div>
         <div id="waveformMenu">
-          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings"></button>
         </div>
       </div>
     </main>

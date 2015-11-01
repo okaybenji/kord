@@ -173,13 +173,6 @@ button:active {
   /* for brackets debugging */
 }
 
-.sliderPanel {
-  width: 49vw;
-  height: 32vw;
-  padding: 1.5vw;
-  border-radius: 1vw;
-}
-
 #ampSliders {
   background-color: hsl(302, 58%, 36%);
   border-bottom-right-radius: 0;
@@ -187,42 +180,33 @@ button:active {
 }
 
 #cutoffSliders {
-  background-color: hsl(340, 86%, 50%);
-  border-bottom-left-radius: 0;
-  /*float: right;*/
-}
-
-#ampSliders, #cutoffSliders {
-  display: inline-block;
-}
-
-#ampSliders > div, #cutoffSliders > div {
-  height: 5vw;
+  background-color: hsl(324, 100%, 46%);
+  border-radius: 1vw 1vw 0 0;
 }
 
 #etcSliders {
-  background-color: hsl(324, 100%, 46%);
-  width: 98vw;
-  height: 11.75vw;
+  background-color: hsl(340, 86%, 50%);
+  border-bottom-left-radius: 0;
+  float: right;
 }
 
-#etcSliders > div {
-  height: 3vw;
-}
-
-#etcSliders div:last-child > div {
-  width: 36vw;
+.sliderPanel {
+  width: 32.667vw;
+  height: 36.29vw;
   display: inline-block;
+  padding: 1.5vw;
+  border-radius: 1vw;
 }
 
-#etcSliders .value, #etcSliders .name {
-  float: none;
+.sliderPanel > div {
+  height: 5.5vw;
+  display: inline-block;
 }
 
 input[type=range] {
     -webkit-appearance: none;
     background-color: hsl(0, 0%, 75%);;
-    width: 20vw;
+    width: 10vw;
     height: 2.2vw;
     border-radius: 1vw;
 }
@@ -245,14 +229,14 @@ input:focus {
 }
 
 .name {
-  width: 10vw;
+  width: 6vw;
   text-align: right;
   padding-right: 1vw;
   float: left;
 }
 
 .value {
-  width: 15.5vw;
+  width:13vw;
   text-align: left;
   padding-left: 1vw;
   float: right;
@@ -260,7 +244,7 @@ input:focus {
 
 #waveformMenu button {
   width: 19.2vw;
-  height: 10vw;
+  height: 17.46vw;
   border-radius: 0;
   margin: .5vw 0 0 .5vw;
 }

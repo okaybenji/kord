@@ -19,9 +19,10 @@ body {
   color: hsl(302, 10%, 99%);
 }
 
+/* 16:9 */
 main {
   width: 99vw; /* 100 - (body margin * 2) */
-  height: 56.25vw; /* 16:9 */
+  height: 55.25vw; /* 56.25 - (body margin * 2) */
 }
 
 button {
@@ -58,7 +59,7 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 28.125vw;
+  height: 27.625vw; /* 55.25 / 2 */
 }
 
 #chord1 {
@@ -131,7 +132,9 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 13.72vw; /* TODO: not perfect, but looks like accuracy is two decimal places; also, shouldn't this be (56.25 - 0.5 * 3) / 4? */
+  /* (55.25 - 0.5 * 3) / 4
+  TODO:  not perfect, but looks like accuracy is limited to two decimal places */
+  height: 13.4375vw; 
   border-radius: 0;
   margin-top: .5vw;
 }
@@ -186,12 +189,12 @@ button:active {
 #etcSliders {
   background-color: hsl(324, 100%, 46%);
   width: 99vw;
-  height: 12vw;
+  height: 11.75vw;
 }
 
 .sliderPanel {
   width: 49.5vw;
-  height: 34vw;
+  height: 33vw;
   display: inline-block;
   padding: 2vw;
   border-radius: 1vw;
@@ -200,10 +203,6 @@ button:active {
 .sliderPanel > div {
   height: 5vw;
   display: inline-block;
-}
-
-#etcSliders > div {
-  height: 11vw;
 }
 
 input[type=range] {

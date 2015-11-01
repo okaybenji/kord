@@ -1,5 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
+var key = 40; // default to key of C
 var octave = -1; // default to low octave
 
 // toggles
@@ -153,6 +154,36 @@ var cutoff = {
   }
 };
 
+var setKey = function setKey(newKey) {
+  key = newKey;
+  
+  function getKeyLabel() {  
+    var keys = [
+      { label: 'G', value: 35 },
+      { label: 'G#', value: 36 },
+      { label: 'A', value: 37 },
+      { label: 'A#', value: 38 },
+      { label: 'B', value: 39 },
+      { label: 'C', value: 40 },
+      { label: 'C#', value: 41 },
+      { label: 'D', value: 42 },
+      { label: 'D#', value: 43 },
+      { label: 'E', value: 44 },
+      { label: 'F', value: 45 },
+      { label: 'F#', value: 46 }
+    ];
+    
+    for (var i=0, ii=keys.length; i<ii; i++) {
+      if (keys[i].value === key) {
+        return keys[i].label;
+      }
+    }
+  }
+  
+  var keyText = getKeyLabel();
+  $('#keyLabel').text(keyText);
+};
+
 var setOctave = function setOctave(newOctave) {
   octave = newOctave;
   var octaveText = octave > 0 ? '+' + octave : octave;
@@ -200,6 +231,7 @@ var setWaveform = function setWaveform(newWaveform) {
   polysynth = new Polysynth(audioCtx, synthCfg);
 
   // update controls to display initial synth values
+  $('keySlider').val(key);
   $('#octaveSlider').val(octave);
   $('#widthSlider').val(polysynth.width());
   
@@ -230,7 +262,7 @@ var setWaveform = function setWaveform(newWaveform) {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = parseInt($('#keyMenu').val(), 10); // set root based on selected key
+      var root = key; // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
 
@@ -346,12 +378,12 @@ var setWaveform = function setWaveform(newWaveform) {
       // trigger one note per oscillator
       polysynth.voices.forEach(function(voice, i) {
         // get the frequency in hertz of a given piano key
-        var getFreq = function getFreq(key) {
+        var getFreq = function getFreq(pianoKey) {
           return Math.pow(2, (key-49)/12) * 440;
         };
 
-        var key = chord[i] + (octave * 12);
-        voice.pitch(getFreq(key));
+        var pianoKey = chord[i] + (octave * 12);
+        voice.pitch(getFreq(pianoKey));
       });
 
       // apply attack gain envelope
@@ -450,30 +482,6 @@ var setWaveform = function setWaveform(newWaveform) {
       document.addEventListener('keydown', keyHandler); 
       document.addEventListener('keyup', keyHandler);
     })();
-  }());
-
-  (function buildKeyMenu() {
-    var keys = [
-      { label: 'G', value: 35 },
-      { label: 'G#', value: 36 },
-      { label: 'A', value: 37 },
-      { label: 'A#', value: 38 },
-      { label: 'B', value: 39 },
-      { label: 'C', value: 40 },
-      { label: 'C#', value: 41 },
-      { label: 'D', value: 42 },
-      { label: 'D#', value: 43 },
-      { label: 'E', value: 44 },
-      { label: 'F', value: 45 },
-      { label: 'F#', value: 46 }
-    ];
-
-    var keyMenu = $('#keyMenu');
-    keys.forEach(function(key) {
-      keyMenu.append(new Option(key.label, key.value));
-    });
-
-    keyMenu.val(40); // default to key of C
   }());
 
   (function buildWaveformMenu() {

@@ -20,7 +20,7 @@
       <div id="settingsPanel" class="hidden">
         <div id="ampSliders" class="sliderPanel">
           <div>
-            <span class="name">amp</span>
+            <span class="heading">amp</span>
           </div>
           <div>
             <span class="name gray">vol</span>
@@ -50,7 +50,7 @@
         </div>
         <div id="cutoffSliders" class="sliderPanel">
           <div>
-            <span class="name">cut</span>
+            <span class="heading">cut</span>
           </div>
           <div>
             <span class="name gray">freq</span>
@@ -75,23 +75,21 @@
         </div>
         <div id="etcSliders" class="sliderPanel">
           <div>
-            <div><span>etc</span></div>
-            <div>&nbsp;</div>
+            <span class="heading">etc</span>
           </div>
           <div>
-            <div><span class="gray">key</span></div>
-            <div><select id="keyMenu"></select></div>
-          </div>
-          <div>
-            <div><span class="gray">oct</span></div>
             <div>
+              <span class="gray">key</span>
+              <input id="keySlider" type="range" min="35" max="46" step="1" oninput="setKey(this.value)">
+              <span class="value"><span id="keyLabel"></span></span>
+            </div>
+            <div>
+              <span class="gray">oct</span>
               <input id="octaveSlider" type="range" min="-2" max="2" step="1" oninput="setOctave(this.value)">
               <span class="value"><span id="octaveLabel"></span></span>
             </div>
-          </div>
-          <div>
-            <div><span class="gray">img</span></div>
             <div>
+              <span class="gray">img</span>
               <input id="widthSlider" type="range" min="0" max="1" step=".01" oninput="setWidth(this.value)">
               <span class="value"><span id="widthLabel"></span><span class="gray">%</span></span>
             </div>

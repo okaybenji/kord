@@ -173,6 +173,13 @@ button:active {
   /* for brackets debugging */
 }
 
+.sliderPanel {
+  width: 49vw;
+  height: 32vw;
+  padding: 1.5vw;
+  border-radius: 1vw;
+}
+
 #ampSliders {
   background-color: hsl(302, 58%, 36%);
   border-bottom-right-radius: 0;
@@ -185,23 +192,31 @@ button:active {
   /*float: right;*/
 }
 
+#ampSliders, #cutoffSliders {
+  display: inline-block;
+}
+
+#ampSliders > div, #cutoffSliders > div {
+  height: 5vw;
+}
+
 #etcSliders {
   background-color: hsl(324, 100%, 46%);
   width: 98vw;
   height: 11.75vw;
 }
 
-.sliderPanel {
-  width: 49vw;
-  height: 32vw;
-  display: inline-block;
-  padding: 1.5vw;
-  border-radius: 1vw;
+#etcSliders > div {
+  height: 3vw;
 }
 
-.sliderPanel > div {
-  height: 5vw;
+#etcSliders div:last-child > div {
+  width: 36vw;
   display: inline-block;
+}
+
+#etcSliders .value, #etcSliders .name {
+  float: none;
 }
 
 input[type=range] {
@@ -237,7 +252,7 @@ input:focus {
 }
 
 .value {
-  width: 10vw;
+  width: 15.5vw;
   text-align: left;
   padding-left: 1vw;
   float: right;

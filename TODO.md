@@ -13,7 +13,7 @@
 * make key selector a slider
 * make waveform menu render at correct width on any size viewport
 * fix spacing between settings button and other waveform buttons
-* remove faint gray lines next to waveform buttons
+* remove faint gray lines next to waveform, between modifier buttons
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions

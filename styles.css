@@ -123,9 +123,9 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 14vw;
+  height: 13.65vw;
   border-radius: 0;
-  border-top: .5vw solid hsl(302, 10%, 99%);
+  margin-top: .5vw;
 }
 
 button.on {
@@ -151,11 +151,12 @@ button:active {
 
 #modifierMenu button:first-child {
   border-radius: 1vw 1vw 0 0;
-  border-top: none;
+  margin-top: 0;
 }
 
 #modifierMenu button:last-child {
   border-radius: 0 0 1vw 1vw;
+  border-bottom: none;
 }
 
 #ampSliders {
@@ -227,16 +228,16 @@ input:focus {
 }
 
 #waveformMenu button {
-  width: 19.64vw;
+  width: 19.5vw;
   height: 10vw;
   border-radius: 0;
-  border-left: .5vw solid hsl(302, 10%, 99%);
+  margin-left: .5vw;
 }
 
 #waveformMenu button:first-child {
   border-radius: 0 0 0 1vw;
-  border-left: none;
-  border-right: none;
+  margin-left: 0;
+  margin-right: -.8vw; /* TODO: why this negative margin? */
 }
 
 #waveformMenu button:last-child {

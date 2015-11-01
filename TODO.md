@@ -1,10 +1,16 @@
 #To do:
 
+### iOS native app
+* allow playing sound in other apps (Music, Soundcloud) in the background of kord
+* fix magnifier showing up with tap/hold
+
 ### Misc
+* fix iOS audio issues (sample rate intermittently 48kHz instead of 44.1, sound dropping out or getting distorted on launch or after switching between tabs/tabs)
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
 
 ### Settings panel
-* customize look of key selector
+* test improving slider ease of use by increasing touchable region without increasing visible size
+* make key selector a slider
 * make waveform menu render at correct width on any size viewport
 * fix spacing between settings button and other waveform buttons
 * remove faint gray lines next to waveform buttons

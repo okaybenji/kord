@@ -11,24 +11,17 @@
 ### Settings panel
 * test improving slider ease of use by increasing touchable region without increasing visible size
 * make key selector a slider
-* make waveform menu render at correct width on any size viewport
-* fix spacing between settings button and other waveform buttons
-* remove faint gray lines next to waveform buttons
 * make volume & sustain sliders logarithmic
 * research subjective loudness of different waveforms and auto-adjust volume to compensate
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions
-* change key selector to ul and style a la Bootstrap
 
 ### Eventually... (maybe)
 * visualize amp's adsr * vol and cutoff's ads * freq
 * allow user to define and arrange custom chords
+* change key selector to ul and style a la Bootstrap
 * add transition when opening settings (fade in/out)
-* re-style settings panel
-* fix Safari sound distortion (if it still exists?)
 * determine how to disable scrolling on iOS Safari
-* consider forcing horizontal orientation
-* make settings panel swipe up from bottom
-* replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly
+* make settings panel swipe up from bottom; replace settings button with swipable (to the right) "key slider" to allow quick & easy key changes on the fly
 * add option to show chord letters instead of numbers
 * add option for minor mode (w/ sharp 7's)
 * add support for sample instruments (piano, guitar, etc.)

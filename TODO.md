@@ -18,6 +18,7 @@
 ### Eventually... (maybe)
 * visualize amp's adsr * vol and cutoff's ads * freq
 * allow user to define and arrange custom chords
+* if support is added outside IE, color fill left-hand side of sliders with colors of pressed chords (e.g. dark purple for amp, etc.)
 * change key selector to ul and style a la Bootstrap
 * add transition when opening settings (fade in/out)
 * determine how to disable scrolling on iOS Safari

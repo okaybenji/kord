@@ -6,13 +6,12 @@
 }
 
 html {
-  /*transform: scale(.95);*/
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
 
 body {
-  margin: .5vw;
+  margin: 1vw;
   background-color: hsl(302, 10%, 99%);
   font-family: Helvetica, sans-serif;
   font-size: 3vw;
@@ -21,8 +20,8 @@ body {
 
 /* 16:9 */
 main {
-  width: 99vw; /* 100 - (body margin * 2) */
-  height: 55.25vw; /* 56.25 - (body margin * 2) */
+  width: 98vw; /* 100 - (body margin * 2) */
+  height: 54.25vw; /* 56.25 - (body margin * 2) */
 }
 
 button {
@@ -39,7 +38,7 @@ button {
 
 main #chordMenu {
   float: right;
-  width: 84vw;
+  width: 83vw;
 }
 
 main.tall #chordMenu {
@@ -59,7 +58,7 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 27.625vw; /* 55.25 / 2 */
+  height: 27.125vw; /* 54.25 / 2 */
 }
 
 #chord1 {
@@ -132,9 +131,9 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  /* (55.25 - 0.5 * 3) / 4
+  /* (54.25 - 0.5 * 3) / 4
   TODO:  not perfect, but looks like accuracy is limited to two decimal places */
-  height: 13.4375vw; 
+  height: 13.1875vw; 
   border-radius: 0;
   margin-top: .5vw;
 }
@@ -188,15 +187,15 @@ button:active {
 
 #etcSliders {
   background-color: hsl(324, 100%, 46%);
-  width: 99vw;
+  width: 98vw;
   height: 11.75vw;
 }
 
 .sliderPanel {
-  width: 49.5vw;
-  height: 33vw;
+  width: 49vw;
+  height: 32vw;
   display: inline-block;
-  padding: 2vw;
+  padding: 1.5vw;
   border-radius: 1vw;
 }
 
@@ -245,7 +244,7 @@ input:focus {
 }
 
 #waveformMenu button {
-  width: 19.4vw;
+  width: 19.2vw;
   height: 10vw;
   border-radius: 0;
   margin: .5vw 0 0 .5vw;

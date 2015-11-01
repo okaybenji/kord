@@ -182,8 +182,9 @@ button:active {
   display: inline-block;
 }
 
-.sliderPanel div {
+.sliderPanel > div {
   height: 5vw;
+  display: inline-block;
 }
 
 .sliderPanel {
@@ -219,12 +220,14 @@ input:focus {
   width: 10vw;
   text-align: right;
   padding-right: 1vw;
+  float: left;
 }
 
 .value {
   width: 10vw;
   text-align: left;
   padding-left: 1vw;
+  float: right;
 }
 
 #waveformMenu button {

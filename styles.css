@@ -58,7 +58,7 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 28vw;
+  height: 28.125vw;
 }
 
 #chord1 {
@@ -131,7 +131,7 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 13.65vw;
+  height: 13.72vw; /* TODO: not perfect, but looks like accuracy is two decimal places; also, shouldn't this be (56.25 - 0.5 * 3) / 4? */
   border-radius: 0;
   margin-top: .5vw;
 }

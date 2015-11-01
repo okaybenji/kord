@@ -11,6 +11,7 @@ body {
 
 main {
   width: 100vw;
+  height: 56.25vw; /* 16:9 */
 }
 
 button {
@@ -159,6 +160,39 @@ button:active {
   border-radius: 0 0 1vw 1vw;
 }
 
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: hsl(0, 0%, 75%);;
+    width: 20vw;
+    height: 2.2vw;
+    border-radius: 1vw;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: hsl(302, 10%, 99%);
+    border: none;
+    border-radius: 2vw;
+    width: 4vw;
+    height: 4vw;
+}
+
+input:focus {
+  outline: none;
+}
+
+.name {
+  width: 10vw;
+  text-align: right;
+  padding-right: 1vw;
+}
+
+.value {
+  width: 10vw;
+  text-align: left;
+  padding-left: 1vw;
+}
+
 #ampSliders, #ampSliders th, #ampSliders td {
   background-color: hsl(302, 58%, 36%);
 }
@@ -169,22 +203,21 @@ button:active {
 
 #oscSliders, #oscSliders th, #oscSliders td {
   background-color: hsl(324, 100%, 46%);
-  border-radius: 1vw 1vw 0 0;
 }
 
 #ampSliders, #cutoffSliders {
-  width: 49vw;
+  width: 48.75vw;
   display: inline-block;
 }
 
-#ampSliders th, #ampSliders td, #cutoffSliders th, #cutoffSliders td {
-  width: 16vw;
+#cutoffSliders {
+  margin-left: 0.5vw;
 }
 
 #oscSliders {
   width: 98.5vw;
   height: 10vw;
-  margin: 1vw 0 0.5vw 0;
+  margin: 0.5vw 0;
 }
 
 .sliderPanel, th, td {
@@ -194,20 +227,16 @@ button:active {
   background-color: hsl(0, 0%, 75%);
 }
 
-th {
-  font-size: 3vw;
-}
-
-td {
-  font-size: 2vw;
-}
-
 th, td {
+  font-size: 3vw;
   height: 5vw;
-  font-weight: bold;
+  font-weight: normal;
   color: hsl(302, 10%, 99%);
 }
 
+.gray {
+  color: hsl(0, 0%, 75%);
+}
 
 select {
   font-size: 2vw;

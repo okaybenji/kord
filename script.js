@@ -102,53 +102,53 @@ var toggleSettings = function() {
 
 var setVolume = function setVolume(newVolume) {
   polysynth.maxGain(newVolume);
-  var volumeText = (newVolume * 100).toFixed(0) + '%';
+  var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
 };
 
 var setAttack = function setAttack(newAttack) {
   polysynth.attack(newAttack);
-  var attackText = newAttack * 1000 + 'ms';
+  var attackText = (newAttack * 1000).toFixed(0);
   $('#attackLabel').text(attackText);
 };
 
 var setDecay = function setDecay(newDecay) {
   polysynth.decay(newDecay);
-  var decayText = newDecay * 1000 + 'ms';
+  var decayText = (newDecay * 1000).toFixed(0);
   $('#decayLabel').text(decayText);
 };
 
 var setSustain = function setSustain(newSustain) {
   polysynth.sustain(newSustain);
-  var sustainText = (newSustain * 1).toFixed(2) + 'x';
+  var sustainText = (newSustain * 1).toFixed(2);
   $('#sustainLabel').text(sustainText);
 };
 
 var setRelease = function setRelease(newRelease) {
   polysynth.release(newRelease);
-  var releaseText = newRelease * 1000 + 'ms';
+  var releaseText = (newRelease * 1000).toFixed(0);
   $('#releaseLabel').text(releaseText);
 };
 
 var cutoff = {
   setMaxFrequency: function setMaxFrequency(newMaxFrequency) {
     polysynth.cutoff.maxFrequency(newMaxFrequency);
-    var maxFrequencyText = newMaxFrequency + 'hz';
+    var maxFrequencyText = newMaxFrequency;
     $('#cutoffMaxFrequencyLabel').text(maxFrequencyText);
   },
   setAttack: function setAttack(newAttack) {
     polysynth.cutoff.attack(newAttack);
-    var attackText = newAttack * 1000 + 'ms';
+    var attackText = (newAttack * 1000).toFixed(0);
     $('#cutoffAttackLabel').text(attackText);
   },
   setDecay: function setDecay(newDecay) {
     polysynth.cutoff.decay(newDecay);
-    var decayText = newDecay * 1000 + 'ms';
+    var decayText = (newDecay * 1000).toFixed(0);
     $('#cutoffDecayLabel').text(decayText);
   },
   setSustain: function setSustain(newSustain) {
     polysynth.cutoff.sustain(newSustain);
-    var sustainText = (newSustain * 1).toFixed(2) + 'x';
+    var sustainText = (newSustain * 1).toFixed(2);
     $('#cutoffSustainLabel').text(sustainText);
   }
 };
@@ -161,7 +161,7 @@ var setOctave = function setOctave(newOctave) {
 
 var setWidth = function setWidth(newWidth) {
   polysynth.width(newWidth);
-  var widthText = (newWidth * 100).toFixed(0) + '%';
+  var widthText = (newWidth * 100).toFixed(0);
   $('#widthLabel').text(widthText);
 };
 
@@ -216,7 +216,7 @@ var setWaveform = function setWaveform(newWaveform) {
   $('#waveformSelect').val(voice.waveform());
 
   // update labels to display initial synth values
-  $('#settingsPanel input').change();
+  $('#settingsPanel input').trigger('input');
   $('#settingsPanel select').change();
   
   // prevent browser default behavior on touch/click of buttons

@@ -1,17 +1,27 @@
+/* control left margin */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 html {
-  transform: scale(0.95);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
 
 body {
-  font-family: Helvetica, sans-serif;
+  margin: 1vw;
   background-color: hsl(302, 10%, 99%);
+  font-family: Helvetica, sans-serif;
+  font-size: 3vw;
+  color: hsl(302, 10%, 99%);
 }
 
+/* 16:9 */
 main {
-  width: 100vw;
-  height: 56.25vw; /* 16:9 */
+  width: 98vw; /* 100 - (body margin * 2) */
+  height: 54.25vw; /* 56.25 - (body margin * 2) */
 }
 
 button {
@@ -26,13 +36,9 @@ button {
   padding: 0%; /* force iOS button width */
 }
 
-button:active {
-  border: none;
-}
-
 main #chordMenu {
   float: right;
-  width: 85vw;
+  width: 83vw;
 }
 
 main.tall #chordMenu {
@@ -52,11 +58,11 @@ main.trenta #chordMenu {
 }
 
 #chordMenu button {
-  height: 28vw;
+  height: 27.125vw; /* 54.25 / 2 */
 }
 
 #chord1 {
-  width: 44%;
+  width: 45%;
   background-color: hsl(23, 100%, 49%);
   border-bottom-right-radius: 0;
 }
@@ -66,7 +72,7 @@ main.trenta #chordMenu {
 }
 
 #chord2 {
-  width: 15%;
+  width: 20%;
   background-color: hsl(39, 100%, 49%);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -77,7 +83,7 @@ main.trenta #chordMenu {
 }
 
 #chord3 {
-  width: 39%;
+  width: 35%;
   background-color: hsl(57, 100%, 50%);
   border-bottom-left-radius: 0;
 }
@@ -97,7 +103,7 @@ main.trenta #chordMenu {
 }
 
 #chord5 {
-  width: 39%;
+  width: 40%;
   background-color: hsl(324, 100%, 46%);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -108,7 +114,7 @@ main.trenta #chordMenu {
 }
 
 #chord6 {
-  width: 24%;
+  width: 25%;
   background-color: hsl(340, 86%, 50%);
   border-top-left-radius: 0;
 }
@@ -125,9 +131,11 @@ main.trenta #chordMenu {
 
 #modifierMenu button {
   width: 14.5vw;
-  height: 14vw;
+  /* (54.25 - 0.5 * 3) / 4
+  TODO:  not perfect, but looks like accuracy is limited to two decimal places */
+  height: 13.1875vw; 
   border-radius: 0;
-  border-top: .5vw solid hsl(302, 10%, 99%);
+  margin-top: .5vw;
 }
 
 button.on {
@@ -153,11 +161,47 @@ button:active {
 
 #modifierMenu button:first-child {
   border-radius: 1vw 1vw 0 0;
-  border-top: none;
+  margin-top: 0;
 }
 
 #modifierMenu button:last-child {
   border-radius: 0 0 1vw 1vw;
+  border-bottom: none;
+}
+
+#settingsPanel {
+  /* for brackets debugging */
+}
+
+#ampSliders {
+  background-color: hsl(302, 58%, 36%);
+  border-bottom-right-radius: 0;
+  float: left;
+}
+
+#cutoffSliders {
+  background-color: hsl(340, 86%, 50%);
+  border-bottom-left-radius: 0;
+  /*float: right;*/
+}
+
+#etcSliders {
+  background-color: hsl(324, 100%, 46%);
+  width: 98vw;
+  height: 11.75vw;
+}
+
+.sliderPanel {
+  width: 49vw;
+  height: 32vw;
+  display: inline-block;
+  padding: 1.5vw;
+  border-radius: 1vw;
+}
+
+.sliderPanel > div {
+  height: 5vw;
+  display: inline-block;
 }
 
 input[type=range] {
@@ -181,83 +225,38 @@ input:focus {
   outline: none;
 }
 
+.gray {
+  color: hsl(0, 0%, 75%);
+}
+
 .name {
   width: 10vw;
   text-align: right;
   padding-right: 1vw;
+  float: left;
 }
 
 .value {
   width: 10vw;
   text-align: left;
   padding-left: 1vw;
-}
-
-#ampSliders, #ampSliders th, #ampSliders td {
-  background-color: hsl(302, 58%, 36%);
-}
-
-#cutoffSliders, #cutoffSliders th, #cutoffSliders td {
-  background-color: hsl(340, 86%, 50%);
-}
-
-#oscSliders, #oscSliders th, #oscSliders td {
-  background-color: hsl(324, 100%, 46%);
-}
-
-#ampSliders, #cutoffSliders {
-  width: 48.75vw;
-  display: inline-block;
-}
-
-#cutoffSliders {
-  margin-left: 0.5vw;
-}
-
-#oscSliders {
-  width: 98.5vw;
-  height: 10vw;
-  margin: 0.5vw 0;
-}
-
-.sliderPanel, th, td {
-  text-align: center;
-  border: hsl(0, 0%, 75%);
-  border-radius: 1vw;
-  background-color: hsl(0, 0%, 75%);
-}
-
-th, td {
-  font-size: 3vw;
-  height: 5vw;
-  font-weight: normal;
-  color: hsl(302, 10%, 99%);
-}
-
-.gray {
-  color: hsl(0, 0%, 75%);
-}
-
-select {
-  font-size: 2vw;
+  float: right;
 }
 
 #waveformMenu button {
-  width: 19.64vw;
+  width: 19.2vw;
   height: 10vw;
   border-radius: 0;
-  border-left: .5vw solid hsl(302, 10%, 99%);
+  margin: .5vw 0 0 .5vw;
 }
 
 #waveformMenu button:first-child {
-  border-radius: 0 0 0 1vw;
-  border-left: none;
-  border-right: none;
-  margin-right: -0.5vw; /* TODO: figure out why you had to use a negative margin */
+  border-radius: 1vw 0 0 1vw;
+  margin-left: 0;
 }
 
 #waveformMenu button:last-child {
-  border-radius: 0 0 1vw 0;
+  border-radius: 0 1vw 1vw 0;
 }
 
 button.settings {

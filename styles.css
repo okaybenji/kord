@@ -192,7 +192,7 @@ button:active {
 
 .sliderPanel {
   width: 32.667vw;
-  height: 36.29vw;
+  height: 40.5625vw;
   display: inline-block;
   padding: 1.5vw;
   border-radius: 1vw;
@@ -244,7 +244,8 @@ input:focus {
 
 #waveformMenu button {
   width: 19.2vw;
-  height: 17.46vw;
+  /*height: 17.46vw;*/
+  height: 13.1875vw;
   border-radius: 0;
   margin: .5vw 0 0 .5vw;
 }

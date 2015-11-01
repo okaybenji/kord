@@ -155,6 +155,7 @@ var cutoff = {
 };
 
 var setKey = function setKey(newKey) {
+  console.log('newKey:', newKey);
   key = newKey;
   
   function getKeyLabel() {  
@@ -174,7 +175,7 @@ var setKey = function setKey(newKey) {
     ];
     
     for (var i=0, ii=keys.length; i<ii; i++) {
-      if (keys[i].value === key) {
+      if (keys[i].value == key) {
         return keys[i].label;
       }
     }
@@ -262,7 +263,7 @@ var setWaveform = function setWaveform(newWaveform) {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = key; // set root based on selected key
+      var root = parseInt(key, 10); // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
 
@@ -379,7 +380,7 @@ var setWaveform = function setWaveform(newWaveform) {
       polysynth.voices.forEach(function(voice, i) {
         // get the frequency in hertz of a given piano key
         var getFreq = function getFreq(pianoKey) {
-          return Math.pow(2, (key-49)/12) * 440;
+          return Math.pow(2, (pianoKey-49)/12) * 440;
         };
 
         var pianoKey = chord[i] + (octave * 12);

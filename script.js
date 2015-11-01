@@ -478,18 +478,27 @@ var setWaveform = function setWaveform(newWaveform) {
 
   (function buildWaveformMenu() {
     var waveformMenu = $('#waveformMenu');
+    var preventDefault = function preventDefault(e) {
+      e.preventDefault();
+    };
+      
     // for some reason, adding this in code is necessary to make the settings button's margins match those of the other waveform menu buttons
-    $('<button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings"></button>').appendTo(waveformMenu);
+    $('<button/>' , {
+      class: 'settings',
+      mousedown: preventDefault,
+      click: toggleSettings,
+    })
+      .bind('touchstart', toggleSettings)
+      .bind('touchend', preventDefault)
+      .appendTo(waveformMenu)
+    ;
     
     waveforms.forEach(function(waveform) {
       var selectWaveform = function selectWaveform(e) {
         e.preventDefault();
         setWaveform(waveform);
       };
-      var preventDefault = function preventDefault(e) {
-        e.preventDefault();
-      };
-      
+
       $('<button/>', {
         id: waveform + 'Button',
         mousedown: preventDefault,

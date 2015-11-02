@@ -14,7 +14,7 @@ body {
   margin: 1vw;
   background-color: hsl(302, 10%, 99%);
   font-family: Helvetica, sans-serif;
-  font-size: 3vw;
+  font-size: 3.25vw;
   color: hsl(302, 10%, 99%);
 }
 
@@ -30,7 +30,7 @@ button {
   background-color: hsl(0, 0%, 75%);
   border-radius: 1vw;
   font-size: 1em;
-  background-size: 8vw;
+  background-size: 6vw;
   background-position: center;
   background-repeat: no-repeat;
   padding: 0%; /* force iOS button width */
@@ -123,13 +123,13 @@ main.trenta #chordMenu {
   background-color: hsl(340, 86%, 40%);
 }
 
-#modifierMenu {
+.menu {
   float: left;
   width: 15vw;
   font-size: 5vw;
 }
 
-#modifierMenu button {
+.menu button {
   width: 14.5vw;
   /* (54.25 - 0.5 * 3) / 4
   TODO:  not perfect, but looks like accuracy is limited to two decimal places */
@@ -143,15 +143,15 @@ button.on {
   border: none;
 }
 
-#modifierMenu button:active {
+.menu button:active {
   background-color: hsl(196, 100%, 47%);
 }
 
-#modifierMenu button.on {
+.menu button.on {
   background-color: hsl(196, 100%, 47%);
 }
 
-button:active {
+#modifierMenu .settings:active, #waveformMenu button:active {
   background-color: hsl(196, 100%, 37%);
 }
 
@@ -159,12 +159,12 @@ button:active {
   color: hsl(57, 100%, 50%);
 }
 
-#modifierMenu button:first-child {
+.menu button:first-child {
   border-radius: 1vw 1vw 0 0;
   margin-top: 0;
 }
 
-#modifierMenu button:last-child {
+.menu button:last-child {
   border-radius: 0 0 1vw 1vw;
   border-bottom: none;
 }
@@ -180,34 +180,36 @@ button:active {
 }
 
 #cutoffSliders {
-  background-color: hsl(340, 86%, 50%);
-  border-bottom-left-radius: 0;
-  /*float: right;*/
+  background-color: hsl(324, 100%, 46%);
+  border-radius: 1vw 1vw 0 0;
 }
 
 #etcSliders {
-  background-color: hsl(324, 100%, 46%);
-  width: 98vw;
-  height: 11.75vw;
+  background-color: hsl(340, 86%, 50%);
+  border-bottom-left-radius: 0;
+  float: right;
 }
 
 .sliderPanel {
-  width: 49vw;
-  height: 32vw;
+  width: 27.667vw;
+  height: 54.25vw;
   display: inline-block;
-  padding: 1.5vw;
+  padding: 1vw 3vw;
   border-radius: 1vw;
 }
 
 .sliderPanel > div {
+  height: 9.75vw;
+}
+
+.sliderPanel > div:first-child {
   height: 5vw;
-  display: inline-block;
 }
 
 input[type=range] {
     -webkit-appearance: none;
     background-color: hsl(0, 0%, 75%);;
-    width: 20vw;
+    width: 21.25vw;
     height: 2.2vw;
     border-radius: 1vw;
 }
@@ -230,34 +232,17 @@ input:focus {
 }
 
 .name {
-  width: 10vw;
-  text-align: right;
-  padding-right: 1vw;
   float: left;
 }
 
 .value {
-  width: 10vw;
-  text-align: left;
-  padding-left: 1vw;
   float: right;
 }
 
 #waveformMenu button {
-  width: 19.2vw;
-  height: 10vw;
-  border-radius: 0;
-  margin: .5vw 0 0 .5vw;
+  height: 10.5vw;
 }
 
-#waveformMenu button:first-child {
-  border-radius: 1vw 0 0 1vw;
-  margin-left: 0;
-}
-
-#waveformMenu button:last-child {
-  border-radius: 0 1vw 1vw 0;
-}
 
 button.settings {
   background-image:url('./img/gear.svg');

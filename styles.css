@@ -42,11 +42,11 @@ main #chordMenu {
 }
 
 main.tall #chordMenu {
-  font-size: 8vw;
+  font-size: 9vw;
 }
 
 main.grande #chordMenu {
-  font-size: 8vw;
+  font-size: 11vw;
 }
 
 main.venti #chordMenu {
@@ -55,6 +55,12 @@ main.venti #chordMenu {
 
 main.trenta #chordMenu {
   font-size: 15vw;
+}
+
+.accidental {
+  font-size: 5vw;
+  position: relative;
+  top: -2vw;
 }
 
 #chordMenu button {

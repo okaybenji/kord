@@ -486,7 +486,7 @@ var setWaveform = function setWaveform(newWaveform) {
   }());
 
   (function buildWaveformMenu() {
-    var waveformMenu = $('#waveformMenu');
+    var settingsButton = $('#waveformMenu .settings');
     var preventDefault = function preventDefault(e) {
       e.preventDefault();
     };
@@ -505,21 +505,9 @@ var setWaveform = function setWaveform(newWaveform) {
       })
         .bind('touchstart', preventDefault)
         .bind('touchend', selectWaveform)
-        .appendTo(waveformMenu)
+        .insertBefore(settingsButton)
       ;
     });
     $('#sawtoothButton').click(); // default to sawtooth
-    
-    // for some reason, adding this in code is necessary to make the settings button's margins match those of the other waveform menu buttons
-    $('<button/>' , {
-      class: 'settings',
-      html: '&nbsp;',
-      mousedown: preventDefault,
-      click: toggleSettings,
-    })
-      .bind('touchstart', toggleSettings)
-      .bind('touchend', preventDefault)
-      .appendTo(waveformMenu)
-    ;
   }());
 }());

@@ -9,13 +9,13 @@ var invertChord = false;
 var specialChord = false;
 
 var labels = (function() {
-  var FLAT = '\u266D';
-  var SHARP = '\u266F';
+  var FLAT = '<span class="accidental">\u266D</span>';
+  var SHARP = '<span class="accidental">\u266F</span>';
   var DIM = '\u00B0';
-  var INV = '\u2076';
+  var AUG = '+';
 
   var labels = [
-    { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I+' },
+    { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I' + AUG },
     { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
     { number: 3, basic: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
     { number: 4, basic: 'IV', invertMode: 'iv', specialChord: 'iv' + SHARP + DIM },
@@ -76,7 +76,7 @@ var updateModifier = function updateModifier(modifier) {
 
   // update chord labels
   labels.forEach(function(chord) {
-    $('#chord' + chord.number).text(getLabel(chord.number));
+    $('#chord' + chord.number).html(getLabel(chord.number));
   });
 
   // resize chord labels to fit inside buttons

@@ -27,3 +27,4 @@
 * add option for minor mode (w/ sharp 7's)
 * add support for sample instruments (piano, guitar, etc.)
 * allow modulation of filter cutoff and/or introduction of vibrato while chord playing with drag along x/y axes
+* fix sticky slider size on safari (to reproduce, just resize the window)

@@ -155,7 +155,6 @@ var cutoff = {
 };
 
 var setKey = function setKey(newKey) {
-  console.log('newKey:', newKey);
   key = newKey;
   
   function getKeyLabel() {  
@@ -232,7 +231,7 @@ var setWaveform = function setWaveform(newWaveform) {
   polysynth = new Polysynth(audioCtx, synthCfg);
 
   // update controls to display initial synth values
-  $('keySlider').val(key);
+  $('#keySlider').val(key);
   $('#octaveSlider').val(octave);
   $('#widthSlider').val(polysynth.width());
   

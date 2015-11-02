@@ -5,6 +5,7 @@
 * fix magnifier showing up with tap/hold
 
 ### Misc
+* fix glitchy positioning of etc panel (drops below app at some resolutions)
 * fix iOS audio issues (sample rate intermittently 48kHz instead of 44.1, sound dropping out or getting distorted on launch or after switching between tabs/tabs)
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
 

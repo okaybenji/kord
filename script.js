@@ -94,12 +94,18 @@ var updateModifier = function updateModifier(modifier, on) {
     modifiers = {
       Mm: function() {
         invertMode = false;
+        if ('#special').hasClass('on') {
+          updateModifier('special', true);
+        }
       },
       x6: function() {
         invertChord = false;
       },
       special: function() {
         specialChord = false;
+        if ('#Mm').hasClass('on') {
+          updateModifier('Mm', true);
+        }
       }
     };
     $('#' + modifier).removeClass('on');
@@ -129,7 +135,7 @@ var updateModifier = function updateModifier(modifier, on) {
 };
 
 var settingsDown = function() {
-  $('.settings').addClass('touch');
+  $('.settings').addClass('down');
 };
 
 var settingsUp = function() {

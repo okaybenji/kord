@@ -129,13 +129,13 @@ main.trenta #chordMenu {
   background-color: hsl(340, 86%, 40%);
 }
 
-.menu {
+.sidebar {
   float: left;
   width: 15vw;
   font-size: 5vw;
 }
 
-.menu button {
+.sidebar button {
   width: 14.5vw;
   /* (54.25 - 0.5 * 3) / 4
   TODO:  not perfect, but looks like accuracy is limited to two decimal places */
@@ -149,11 +149,11 @@ button.on {
   border: none;
 }
 
-.menu button:active {
+.sidebar button:active {
   background-color: hsl(196, 100%, 47%);
 }
 
-.menu button.on {
+.sidebar button.on {
   background-color: hsl(196, 100%, 47%);
 }
 
@@ -165,12 +165,12 @@ button.on {
   color: hsl(57, 100%, 50%);
 }
 
-.menu button:first-child {
+.sidebar button:first-child {
   border-radius: 1vw 1vw 0 0;
   margin-top: 0;
 }
 
-.menu button:last-child {
+.sidebar button:last-child {
   border-radius: 0 0 1vw 1vw;
   border-bottom: none;
 }

@@ -94,7 +94,7 @@ var updateModifier = function updateModifier(modifier, on) {
     modifiers = {
       Mm: function() {
         invertMode = false;
-        if ('#special').hasClass('on') {
+        if ($('#special').hasClass('on')) {
           updateModifier('special', true);
         }
       },
@@ -103,7 +103,7 @@ var updateModifier = function updateModifier(modifier, on) {
       },
       special: function() {
         specialChord = false;
-        if ('#Mm').hasClass('on') {
+        if ($('#Mm').hasClass('on')) {
           updateModifier('Mm', true);
         }
       }

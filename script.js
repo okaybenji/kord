@@ -139,7 +139,7 @@ var settingsDown = function() {
 var settingsUp = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
-  $('.settings').removeClass('touch');
+  $('.settings').removeClass('down');
 };
 
 var setVolume = function setVolume(newVolume) {

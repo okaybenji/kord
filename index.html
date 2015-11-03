@@ -9,9 +9,9 @@
     <main class="trenta">
       <div id="instrument">
         <div id="modifierMenu" class="sidebar">
-          <button id="Mm" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">Mm</button>
-          <button id="x6" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">x<sup>6</sup></button>
-          <button id="special" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">&#9733;</button>
+          <button id="Mm" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id, true)" ontouchend="updateModifier(this.id, false)">Mm</button>
+          <button id="x6" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id, true)" ontouchend="updateModifier(this.id, false)">x<sup>6</sup></button>
+          <button id="special" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id, true)" ontouchend="updateModifier(this.id, false)">&#9733;</button>
           <button onmousedown="settingsDown()" ontouchstart="settingsDown()" onmouseup="settingsUp()" ontouchend="settingsUp()" class="settings">&nbsp;</button>
         </div>
         <div id="chordMenu">

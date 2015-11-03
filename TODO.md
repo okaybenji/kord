@@ -6,8 +6,6 @@
 ### Misc
 * fix iOS audio issues (sample rate intermittently 48kHz instead of 44.1, sound dropping out or getting distorted on launch or after switching between tabs/tabs)
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
-* fix issue where modifiers get stuck if you touch special and Mm at the same time
-* fix settings button not changing color on tap
 
 ### Settings panel
 * test improving slider ease of use by increasing touchable region without increasing visible size
@@ -20,6 +18,7 @@
 * visualize amp's adsr * vol and cutoff's ads * freq
 * allow user to define and arrange custom chords
 * allow storing patches
+* clean up modifier code
 * fix glitchy positioning of etc panel in safari (gap at some resolutions due to 2/3vw)
 * if support is added outside IE, color fill left-hand side of sliders with colors of pressed chords (e.g. dark purple for amp, etc.)
 * add transition when opening settings (fade in/out)

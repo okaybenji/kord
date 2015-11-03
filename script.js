@@ -29,7 +29,7 @@ var labels = (function() {
 var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // ui handlers
-var updateModifier = function updateModifier(modifier) {
+var updateModifier = function updateModifier(modifier, on) {
   var INV = '\u2076';
 
   // get label for the button for a given chord number
@@ -55,24 +55,60 @@ var updateModifier = function updateModifier(modifier) {
     return label;
   };
 
-  var modifiers = {
-    Mm: function() {
-      specialChord = false;
-      $('#special').removeClass('on');
-      invertMode = !invertMode;
-    },
-    x6: function() {
-      invertChord = !invertChord;
-    },
-    special: function() {
-      invertMode = false;
-      $('#Mm').removeClass('on');
-      specialChord = !specialChord;
-    }
-  };
+  var modifiers;
+  if (typeof on === 'undefined') {
+    $('#' + modifier).toggleClass('on');
+    modifiers = {
+      Mm: function() {
+        specialChord = false;
+        $('#special').removeClass('on');
+        invertMode = !invertMode;
+      },
+      x6: function() {
+        invertChord = !invertChord;
+      },
+      special: function() {
+        invertMode = false;
+        $('#Mm').removeClass('on');
+        specialChord = !specialChord;
+      }
+    };
+  } else if (on === true) {
+    modifiers = {
+      Mm: function() {
+        specialChord = false;
+        invertMode = true;
+      },
+      x6: function() {
+        invertChord = true;
+      },
+      special: function() {
+        invertMode = false;
+        specialChord = true;
+      }
+    };
+    $('#' + modifier).addClass('on');
+  } else {
+    modifiers = {
+      Mm: function() {
+        invertMode = false;
+        if ($('#special').hasClass('on')) {
+          updateModifier('special', true);
+        }
+      },
+      x6: function() {
+        invertChord = false;
+      },
+      special: function() {
+        specialChord = false;
+        if ($('#Mm').hasClass('on')) {
+          updateModifier('Mm', true);
+        }
+      }
+    };
+    $('#' + modifier).removeClass('on');
+  }
   modifiers[modifier]();
-
-  $('#' + modifier).toggleClass('on');
 
   // update chord labels
   labels.forEach(function(chord) {
@@ -97,7 +133,7 @@ var updateModifier = function updateModifier(modifier) {
 };
 
 var settingsDown = function() {
-  $('.settings').addClass('touch');
+  $('.settings').addClass('down');
 };
 
 var settingsUp = function() {
@@ -446,15 +482,36 @@ var setWaveform = function setWaveform(newWaveform) {
           switch (event.keyCode) {
             case 16: // shift
             case 81: // Q
-              updateModifier('Mm');
+              switch (event.type) {
+                case 'keydown':
+                  updateModifier('Mm', true);
+                  break;
+                case 'keyup':
+                  updateModifier('Mm', false);
+                  break;
+              }
               break;
             case 17: // control
             case 65: // A
-              updateModifier('x6');
+              switch (event.type) {
+                case 'keydown':
+                  updateModifier('x6', true);
+                  break;
+                case 'keyup':
+                  updateModifier('x6', false);
+                  break;
+              }
               break;
             case 18: // alt
             case 90: // Z
-              updateModifier('special');
+              switch (event.type) {
+                case 'keydown':
+                  updateModifier('special', true);
+                  break;
+                case 'keyup':
+                  updateModifier('special', false);
+                  break;
+              }
               break;
             case 49: // 1
             case 87: // W

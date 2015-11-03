@@ -157,7 +157,7 @@ button.on {
   background-color: hsl(196, 100%, 47%);
 }
 
-#modifierMenu .settings:active, #waveformMenu button:active, .touch {
+#modifierMenu .settings:active, #waveformMenu button:active, .down {
   background-color: hsl(196, 100%, 37%);
 }
 

@@ -12,14 +12,14 @@
           <button id="Mm" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">Mm</button>
           <button id="x6" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">x<sup>6</sup></button>
           <button id="special" onclick="updateModifier(this.id)" ontouchstart="updateModifier(this.id)" ontouchend="updateModifier(this.id)">&#9733;</button>
-          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings" ></button>
+          <button onmousedown="settingsDown()" ontouchstart="settingsDown()" onmouseup="settingsUp()" ontouchend="settingsUp()" class="settings">&nbsp;</button>
         </div>
         <div id="chordMenu">
         </div>
       </div>
       <div id="settingsPanel" class="hidden">
         <div id="waveformMenu" class="sidebar">
-          <button onclick="toggleSettings()" ontouchstart="toggleSettings()" class="settings">&nbsp;</button>
+          <button onmousedown="settingsDown()" ontouchstart="settingsDown()" onmouseup="settingsUp()" ontouchend="settingsUp()" class="settings">&nbsp;</button>
         </div>
         <div id="ampSliders" class="sliderPanel">
           <div>

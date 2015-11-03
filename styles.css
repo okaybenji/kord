@@ -157,12 +157,8 @@ button.on {
   background-color: hsl(196, 100%, 47%);
 }
 
-#modifierMenu .settings:active, #waveformMenu button:active {
+#modifierMenu .settings:active, #waveformMenu button:active, .touch {
   background-color: hsl(196, 100%, 37%);
-}
-
-#modifierMenu .settings, #waveformMenu button {
-  -webkit-tap-highlight-color: hsl(196, 100%, 37%);
 }
 
 #special.on {

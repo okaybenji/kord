@@ -96,9 +96,14 @@ var updateModifier = function updateModifier(modifier) {
   $('main').attr('class', newClass);
 };
 
-var toggleSettings = function() {
+var settingsDown = function() {
+  $('.settings').addClass('touch');
+};
+
+var settingsUp = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
+  $('.settings').removeClass('touch');
 };
 
 var setVolume = function setVolume(newVolume) {

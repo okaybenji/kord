@@ -161,6 +161,10 @@ button.on {
   background-color: hsl(196, 100%, 37%);
 }
 
+#modifierMenu .settings, #waveformMenu button {
+  -webkit-tap-highlight-color: hsl(196, 100%, 37%);
+}
+
 #special.on {
   color: hsl(57, 100%, 50%);
 }

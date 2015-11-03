@@ -77,7 +77,6 @@ var updateModifier = function updateModifier(modifier, on) {
     modifiers = {
       Mm: function() {
         specialChord = false;
-        $('#special').removeClass('on');
         invertMode = true;
       },
       x6: function() {
@@ -85,7 +84,6 @@ var updateModifier = function updateModifier(modifier, on) {
       },
       special: function() {
         invertMode = false;
-        $('#Mm').removeClass('on');
         specialChord = true;
       }
     };

@@ -280,7 +280,7 @@ var setWaveform = function setWaveform(newWaveform) {
     numVoices: 5,
     stereoWidth: 1,
     attack: 0.28,
-    decay: 0,
+    decay: 0.28,
     sustain: 1,
     release: 0.28,
     cutoff: {

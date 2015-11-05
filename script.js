@@ -158,6 +158,7 @@ var setVolume = function setVolume(newVolume) {
       gain *= 0.95;
       break;
     case 'triangle':
+    default:
       gain *= 1;
       break;
   }

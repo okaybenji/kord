@@ -11,8 +11,6 @@
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
 
 ### Settings panel
-* make volume & sustain sliders logarithmic
-* research subjective loudness of different waveforms and auto-adjust volume to compensate
 * persist user settings
 * due, i think, to sequential linearRamps, dcy=0 causes atk to only get as loud as sustain value; investigate solutions
 
@@ -20,6 +18,7 @@
 * visualize amp's adsr * vol and cutoff's ads * freq
 * allow user to define and arrange custom chords
 * allow storing patches
+* allow user to add custom waveforms
 * clean up modifier code
 * in cases where Mm and special modifiers are both 'on', consider making the inactive button gray
 * test improving slider ease of use by increasing touchable region without increasing visible size

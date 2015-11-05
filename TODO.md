@@ -1,11 +1,5 @@
 #To do:
 
-### iOS native app
-* allow playing sound in other apps (Music, Soundcloud) in the background of kord
-
-### Android native app
-* build and test Web Audio on Android; may need to `ionic add browser crosswalk`
-
 ### Misc
 * diagnose and fix iOS audio issues: on load, after switching between tabs or apps, or after inserting or removing headphones/cables into or from audio jack, audio may become heavily distorted (caused by audioContext sample rate of 48k instead of 44.1), become heavily distorted *and* change pitch, or cease to function altogether
 * add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
@@ -14,6 +8,7 @@
 * persist user settings
 
 ### Eventually... (maybe)
+* build Android app and test Web Audio; may need to `ionic add browser crosswalk`
 * visualize amp's adsr \* vol and cutoff's ads \* freq
 * allow user to define and arrange custom chords
 * allow storing patches

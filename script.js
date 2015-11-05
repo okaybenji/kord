@@ -143,7 +143,8 @@ var settingsUp = function() {
 };
 
 var setVolume = function setVolume(newVolume) {
-  polysynth.maxGain(newVolume);
+  var gain = Math.pow(newVolume, 2);
+  polysynth.maxGain(gain);
   var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
 };
@@ -161,7 +162,8 @@ var setDecay = function setDecay(newDecay) {
 };
 
 var setSustain = function setSustain(newSustain) {
-  polysynth.sustain(newSustain);
+  var adjustedSustain = Math.pow(newSustain, 2);
+  polysynth.sustain(adjustedSustain);
   var sustainText = (newSustain * 1).toFixed(2);
   $('#sustainLabel').text(sustainText);
 };

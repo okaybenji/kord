@@ -143,7 +143,25 @@ var settingsUp = function() {
 };
 
 var setVolume = function setVolume(newVolume) {
+  // adjust gain for human logarithmic hearing
   var gain = Math.pow(newVolume, 2);
+  // adjust gain for perceived loudness of different waveforms
+  var waveform = polysynth.voices[0].waveform();
+  switch (waveform) {
+    case 'square':
+      gain *= 0.65;
+      break;
+    case 'sawtooth':
+      gain *= 0.85;
+      break;
+    case 'sine':
+      gain *= 0.95;
+      break;
+    case 'triangle':
+      gain *= 1;
+      break;
+  }
+  
   polysynth.maxGain(gain);
   var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
@@ -241,6 +259,7 @@ var setWidth = function setWidth(newWidth) {
 
 var setWaveform = function setWaveform(newWaveform) {
   polysynth.waveform(newWaveform);
+  setVolume($('#volumeSlider').val()); // adjust for perceived loudness of waveform
   waveforms.forEach(function(waveform) {
     $('#' + waveform + 'Button').removeClass('on');
   });

@@ -1,7 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
-var key = 40; // default to key of C
-var octave = -1; // default to low octave
+var settings;
 
 // toggles
 var invertMode = false;
@@ -138,7 +137,15 @@ var toggleSettings = function() {
   $('.settings').toggleClass('on');
 };
 
+var saveSettings = function saveSettings(newSettings) {
+  // TODO: since this is called on input, debounce to limit number of times we access storage
+  var settings = JSON.parse(localStorage.getItem('settings'));
+  Object.assign(settings, newSettings);
+  localStorage.setItem('settings', JSON.stringify(settings));
+};
+
 var setVolume = function setVolume(newVolume) {
+  newVolume = Number(newVolume);
   // adjust gain for human logarithmic hearing
   var gain = Math.pow(newVolume, 2);
   // adjust gain for perceived loudness of different waveforms
@@ -162,58 +169,75 @@ var setVolume = function setVolume(newVolume) {
   polysynth.maxGain(gain);
   var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
+  saveSettings({volume: newVolume});
 };
 
 var setAttack = function setAttack(newAttack) {
+  newAttack = Number(newAttack);
   polysynth.attack(newAttack);
   var attackText = (newAttack * 1000).toFixed(0);
   $('#attackLabel').text(attackText);
+  saveSettings({attack: newAttack});
 };
 
 var setDecay = function setDecay(newDecay) {
+  newDecay = Number(newDecay);
   polysynth.decay(newDecay);
   var decayText = (newDecay * 1000).toFixed(0);
   $('#decayLabel').text(decayText);
+  saveSettings({decay: newDecay});
 };
 
 var setSustain = function setSustain(newSustain) {
+  newSustain = Number(newSustain);
   var adjustedSustain = Math.pow(newSustain, 2);
   polysynth.sustain(adjustedSustain);
   var sustainText = (newSustain * 1).toFixed(2);
   $('#sustainLabel').text(sustainText);
+  saveSettings({sustain: newSustain});
 };
 
 var setRelease = function setRelease(newRelease) {
+  newRelease = Number(newRelease);
   polysynth.release(newRelease);
   var releaseText = (newRelease * 1000).toFixed(0);
   $('#releaseLabel').text(releaseText);
+  saveSettings({release: newRelease});
 };
 
 var cutoff = {
   setMaxFrequency: function setMaxFrequency(newMaxFrequency) {
+    newMaxFrequency = Number(newMaxFrequency);
     polysynth.cutoff.maxFrequency(newMaxFrequency);
     var maxFrequencyText = newMaxFrequency;
     $('#cutoffMaxFrequencyLabel').text(maxFrequencyText);
+    saveSettings({cutoff: {maxFrequency: newMaxFrequency}});
   },
   setAttack: function setAttack(newAttack) {
+    newAttack = Number(newAttack);
     polysynth.cutoff.attack(newAttack);
     var attackText = (newAttack * 1000).toFixed(0);
     $('#cutoffAttackLabel').text(attackText);
+    saveSettings({cutoff: {attack: newAttack}});
   },
   setDecay: function setDecay(newDecay) {
+    newDecay = Number(newDecay);
     polysynth.cutoff.decay(newDecay);
     var decayText = (newDecay * 1000).toFixed(0);
     $('#cutoffDecayLabel').text(decayText);
+    saveSettings({cutoff: {decay: newDecay}});
   },
   setSustain: function setSustain(newSustain) {
+    newSustain = Number(newSustain);
     polysynth.cutoff.sustain(newSustain);
     var sustainText = (newSustain * 1).toFixed(2);
     $('#cutoffSustainLabel').text(sustainText);
+    saveSettings({cutoff: {sustain: newSustain}});
   }
 };
 
 var setKey = function setKey(newKey) {
-  key = newKey;
+  settings.key = newKey = Number(newKey);
   
   function getKeyLabel() {  
     var keys = [
@@ -232,7 +256,7 @@ var setKey = function setKey(newKey) {
     ];
     
     for (var i=0, ii=keys.length; i<ii; i++) {
-      if (keys[i].value == key) {
+      if (keys[i].value === newKey) {
         return keys[i].label;
       }
     }
@@ -240,18 +264,22 @@ var setKey = function setKey(newKey) {
   
   var keyText = getKeyLabel();
   $('#keyLabel').text(keyText);
+  saveSettings({key: newKey});
 };
 
 var setOctave = function setOctave(newOctave) {
-  octave = newOctave;
-  var octaveText = octave > 0 ? '+' + octave : octave;
+  settings.octave = newOctave = Number(newOctave);
+  var octaveText = newOctave > 0 ? '+' + newOctave : newOctave;
   $('#octaveLabel').text(octaveText);
+  saveSettings({octave: newOctave});
 };
 
 var setWidth = function setWidth(newWidth) {
+  newWidth = Number(newWidth);
   polysynth.width(newWidth);
   var widthText = (newWidth * 100).toFixed(0);
   $('#widthLabel').text(widthText);
+  saveSettings({stereoWidth: newWidth});
 };
 
 var setWaveform = function setWaveform(newWaveform) {
@@ -261,6 +289,7 @@ var setWaveform = function setWaveform(newWaveform) {
     $('#' + waveform + 'Button').removeClass('on');
   });
   $('#' + newWaveform + 'Button').addClass('on');
+  saveSettings({waveform: newWaveform});
 };
 
 var panic = function panic() {
@@ -276,30 +305,44 @@ var panic = function panic() {
     audioCtx = new webkitAudioContext();
   }
 
-  var synthCfg = {
-    numVoices: 5,
-    stereoWidth: 1,
-    attack: 0.28,
-    decay: 0.28,
-    sustain: 1,
-    release: 0.28,
-    cutoff: {
-      maxFrequency: 1800,
-      attack: 0.1,
-      decay: 2.5,
-      sustain: 0.2
+  var getSettings = function getSettings() {
+    var settings = JSON.parse(localStorage.getItem('settings'));
+    // var settings = null; // debugging
+    if (!settings) {
+      // load and save defaults
+      settings = {
+        key: 40, // C
+        octave: -1,
+        waveform: 'sawtooth',
+        volume: 0.9,
+        numVoices: 5,
+        stereoWidth: 1,
+        attack: 0.28,
+        decay: 0.28,
+        sustain: 1,
+        release: 0.28,
+        cutoff: {
+          maxFrequency: 1800,
+          attack: 0.1,
+          decay: 2.5,
+          sustain: 0.2
+        }
+      };
+      localStorage.setItem('settings', JSON.stringify(settings));
     }
+    return settings;
   };
   
-  polysynth = new Polysynth(audioCtx, synthCfg);
+  settings = getSettings();
+  polysynth = new Polysynth(audioCtx, settings);
 
   // update controls to display initial synth values
-  $('#keySlider').val(key);
-  $('#octaveSlider').val(octave);
+  $('#keySlider').val(settings.key); // not a subpoly or submono property
+  $('#octaveSlider').val(settings.octave); // not a subpoly or submono property
   $('#widthSlider').val(polysynth.width());
   
   var voice = polysynth.voices[0];
-  $('#volumeSlider').val(voice.maxGain);
+  $('#volumeSlider').val(settings.volume); // volume != gain
   $('#attackSlider').val(voice.attack);
   $('#decaySlider').val(voice.decay);
   $('#sustainSlider').val(voice.sustain);
@@ -325,7 +368,7 @@ var panic = function panic() {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = parseInt(key, 10); // set root based on selected key
+      var root = settings.key; // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
 
@@ -445,7 +488,7 @@ var panic = function panic() {
           return Math.pow(2, (pianoKey-49)/12) * 440;
         };
 
-        var pianoKey = chord[i] + (octave * 12);
+        var pianoKey = chord[i] + (settings.octave * 12);
         voice.pitch(getFreq(pianoKey));
       });
 
@@ -591,6 +634,6 @@ var panic = function panic() {
         .insertBefore(settingsButton)
       ;
     });
-    $('#sawtoothButton').click(); // default to sawtooth
+    $('#' + settings.waveform + 'Button').click();
   }());
 }());

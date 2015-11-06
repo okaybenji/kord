@@ -534,13 +534,11 @@ var panic = function panic() {
       };
       
       var moveOnChord = function moveOnChord(e) {
-        console.log('moving...');
         e.preventDefault();
         updateTouchForce(e);
       };
       
       var updateTouchForce = function updateTouchForce(e) {
-        console.log('updateForceTouch called');
         if (!e.touches) {
           return;
         }
@@ -558,7 +556,7 @@ var panic = function panic() {
           console.log('force:', force);
         };
         
-        setTimeout(refreshForceValue.bind(touch), refreshInterval);
+        setTimeout(refreshForce.bind(touch), refreshInterval);
       };
 
       $('<button/>', {

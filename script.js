@@ -512,7 +512,6 @@ var panic = function panic() {
       var startChord = function startChord(e) {
         e.preventDefault();
         start(chord.number);
-        updateTouchForce(e);
       };
 
       var stopChord = function stopChord(e) {
@@ -533,12 +532,8 @@ var panic = function panic() {
         touch = null;
       };
       
-      var moveOnChord = function moveOnChord(e) {
-        e.preventDefault();
-        updateTouchForce(e);
-      };
-      
       var updateTouchForce = function updateTouchForce(e) {
+        e.preventDefault();
         var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
         if (!touches) {
           console.log('no touches');
@@ -548,19 +543,6 @@ var panic = function panic() {
         touch = touches[0];
         var force = touch.force || 0;
         console.log('force:', force);
-        /*var refreshInterval = 1000;
-        
-        var refreshForce = function refreshForce() {
-          var force = 0;
-          if (this) {
-            force = this.force || 0;
-            setTimeout(refreshForce.bind(this), refreshInterval);
-          }
-          
-          console.log('force:', force);
-        };
-        
-        refreshForce.bind(touch)();*/
       };
 
       $('<button/>', {
@@ -570,7 +552,7 @@ var panic = function panic() {
         mouseup: stopChord })
         .bind('touchstart', startChord)
         .bind('touchend', stopChord)
-        .bind('touchmove', moveOnChord)
+        .bind('touchmove', updateTouchForce)
         .appendTo(chordMenu)
       ;
     });

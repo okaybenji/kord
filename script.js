@@ -135,6 +135,7 @@ var updateModifier = function updateModifier(modifier, on) {
 var toggleSettings = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
+  $('.settings').toggleClass('on');
 };
 
 var setVolume = function setVolume(newVolume) {

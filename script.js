@@ -132,14 +132,9 @@ var updateModifier = function updateModifier(modifier, on) {
   $('main').attr('class', newClass);
 };
 
-var settingsDown = function() {
-  $('.settings').addClass('down');
-};
-
-var settingsUp = function() {
+var toggleSettings = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
-  $('.settings').removeClass('down');
 };
 
 var setVolume = function setVolume(newVolume) {

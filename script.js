@@ -267,6 +267,10 @@ var setWaveform = function setWaveform(newWaveform) {
   $('#' + newWaveform + 'Button').addClass('on');
 };
 
+var panic = function panic() {
+  location.reload();
+};
+
 // initialize synth, controls and control panel
 (function init() {
   var audioCtx;

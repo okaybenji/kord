@@ -308,7 +308,6 @@ var panic = function panic() {
   var getSettings = function getSettings() {
     var settings = JSON.parse(localStorage.getItem('settings'));
     // var settings = null; // debugging
-    console.log('settings:', settings);
     if (!settings) {
       // load and save defaults
       settings = {

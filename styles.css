@@ -137,28 +137,22 @@ main.trenta #chordMenu {
 
 .sidebar button {
   width: 14.5vw;
-  /* (54.25 - 0.5 * 3) / 4
-  TODO:  not perfect, but looks like accuracy is limited to two decimal places */
-  height: 13.1875vw; 
+  height: 13.1875vw; /* (54.25 - 0.5 * 3) / 4 */
   border-radius: 0;
   margin-top: .5vw;
 }
 
 button.on {
   background-color: hsl(196, 100%, 47%);
-  border: none;
 }
 
-.sidebar button:active {
-  background-color: hsl(196, 100%, 47%);
-}
-
-.sidebar button.on {
-  background-color: hsl(196, 100%, 47%);
-}
-
-#modifierMenu .settings:active, #waveformMenu button:active, .down {
+button:active {
   background-color: hsl(196, 100%, 37%);
+}
+
+
+#Mm:active, #x6:active, #special:active {
+  background-color: hsl(196, 100%, 47%);
 }
 
 #special.on {

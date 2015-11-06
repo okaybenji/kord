@@ -1,7 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
 var settings;
-var touch; // for tracking 3d touch force
 
 // toggles
 var invertMode = false;
@@ -365,6 +364,7 @@ var panic = function panic() {
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button
+    var touchForce = 0; // track 3d touch force
 
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
@@ -536,12 +536,9 @@ var panic = function panic() {
         e.preventDefault();
         var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
         if (!touches) {
-          console.log('no touches');
           return;
         }
-        
-        touch = touches[0];
-        var force = touch.force || 0;
+        touchForce = touches[0].force || 0;
         console.log('force:', force);
       };
 

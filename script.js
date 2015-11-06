@@ -540,7 +540,7 @@ var panic = function panic() {
       
       var updateTouchForce = function updateTouchForce(e) {
         var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
-        if (touches) {
+        if (!touches) {
           console.log('no touches');
           return;
         }

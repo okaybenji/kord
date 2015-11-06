@@ -364,7 +364,6 @@ var panic = function panic() {
 
   (function buildChordMenu() {
     var lastChord = 1; // track last-pressed chord button
-    var touchForce = 0; // track 3d touch force
 
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
@@ -507,6 +506,7 @@ var panic = function panic() {
 
     var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
+      var touchForce = 0; // track 3d touch force
       var chordMenu = $('#chordMenu');
 
       var startChord = function startChord(e) {
@@ -529,7 +529,7 @@ var panic = function panic() {
           }
         }
         stop(chord.number);
-        touch = null;
+        touchForce = 0;
       };
       
       var updateTouchForce = function updateTouchForce(e) {

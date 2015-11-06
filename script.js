@@ -1,6 +1,7 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
 var settings;
+var touch; // for tracking 3d touch force
 
 // toggles
 var invertMode = false;
@@ -511,6 +512,7 @@ var panic = function panic() {
       var startChord = function startChord(e) {
         e.preventDefault();
         start(chord.number);
+        updateTouchForce(e);
       };
 
       var stopChord = function stopChord(e) {
@@ -528,6 +530,33 @@ var panic = function panic() {
           }
         }
         stop(chord.number);
+        touch = null;
+      };
+      
+      var moveOnChord = function moveOnChord(e) {
+        e.preventDefault();
+        updateTouchForce(e);
+      };
+      
+      var updateTouchForce = function updateTouchForce(e) {
+        if (!e.touches) {
+          return;
+        }
+        
+        touch = e.touches[0];
+        var refreshInterval = 100;
+        
+        var refreshForce = function refreshForce() {
+          var force = 0;
+          if (this) {
+            force = this.force || 0;
+            setTimeout(refreshForce.bind(this), refreshInterval);
+          }
+          
+          console.log('force:', force);
+        };
+        
+        setTimeout(refreshForceValue.bind(touch), refreshInterval);
       };
 
       $('<button/>', {
@@ -537,6 +566,7 @@ var panic = function panic() {
         mouseup: stopChord })
         .bind('touchstart', startChord)
         .bind('touchend', stopChord)
+        .bind('touchmove', moveOnChord)
         .appendTo(chordMenu)
       ;
     });

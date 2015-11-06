@@ -169,7 +169,7 @@ var setVolume = function setVolume(newVolume) {
   polysynth.maxGain(gain);
   var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
-  saveSettings({volume: newVolume}); // TODO: load this volume on start
+  saveSettings({volume: newVolume});
 };
 
 var setAttack = function setAttack(newAttack) {

@@ -540,6 +540,7 @@ var panic = function panic() {
       };
       
       var updateTouchForce = function updateTouchForce(e) {
+        console.log('updateForceTouch called');
         if (!e.touches) {
           return;
         }

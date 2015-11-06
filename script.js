@@ -546,7 +546,7 @@ var panic = function panic() {
         }
         
         touch = touches[0];
-        var refreshInterval = 100;
+        var refreshInterval = 1000;
         
         var refreshForce = function refreshForce() {
           var force = 0;

@@ -1,8 +1,6 @@
 var $ = $; // get linter to shut up about '$'
 var polysynth;
-// track the following values in kord memory because they are not polysynth properties
-var key;
-var octave;
+var settings;
 
 // toggles
 var invertMode = false;
@@ -239,7 +237,7 @@ var cutoff = {
 };
 
 var setKey = function setKey(newKey) {
-  key = newKey = Number(newKey);
+  settings.key = newKey = Number(newKey);
   
   function getKeyLabel() {  
     var keys = [
@@ -258,7 +256,7 @@ var setKey = function setKey(newKey) {
     ];
     
     for (var i=0, ii=keys.length; i<ii; i++) {
-      if (keys[i].value === key) {
+      if (keys[i].value === newKey) {
         return keys[i].label;
       }
     }
@@ -270,8 +268,8 @@ var setKey = function setKey(newKey) {
 };
 
 var setOctave = function setOctave(newOctave) {
-  octave = newOctave = Number(newOctave);
-  var octaveText = octave > 0 ? '+' + octave : octave;
+  settings.octave = newOctave = Number(newOctave);
+  var octaveText = newOctave > 0 ? '+' + newOctave : newOctave;
   $('#octaveLabel').text(octaveText);
   saveSettings({octave: newOctave});
 };
@@ -336,18 +334,16 @@ var panic = function panic() {
     return settings;
   };
   
-  var settings = getSettings();
+  settings = getSettings();
   polysynth = new Polysynth(audioCtx, settings);
-  key = settings.key;
-  octave = settings.octave;
 
   // update controls to display initial synth values
-  $('#keySlider').val(key);
-  $('#octaveSlider').val(octave);
+  $('#keySlider').val(settings.key); // not a subpoly or submono property
+  $('#octaveSlider').val(settings.octave); // not a subpoly or submono property
   $('#widthSlider').val(polysynth.width());
   
   var voice = polysynth.voices[0];
-  $('#volumeSlider').val(voice.maxGain);
+  $('#volumeSlider').val(settings.volume); // volume != gain
   $('#attackSlider').val(voice.attack);
   $('#decaySlider').val(voice.decay);
   $('#sustainSlider').val(voice.sustain);
@@ -373,7 +369,7 @@ var panic = function panic() {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = parseInt(key, 10); // set root based on selected key
+      var root = parseInt(settings.key, 10); // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
 
@@ -493,7 +489,7 @@ var panic = function panic() {
           return Math.pow(2, (pianoKey-49)/12) * 440;
         };
 
-        var pianoKey = chord[i] + (octave * 12);
+        var pianoKey = chord[i] + (settings.octave * 12);
         voice.pitch(getFreq(pianoKey));
       });
 

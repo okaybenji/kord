@@ -534,6 +534,7 @@ var panic = function panic() {
       };
       
       var moveOnChord = function moveOnChord(e) {
+        console.log('moving...');
         e.preventDefault();
         updateTouchForce(e);
       };

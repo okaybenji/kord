@@ -132,14 +132,9 @@ var updateModifier = function updateModifier(modifier, on) {
   $('main').attr('class', newClass);
 };
 
-var settingsDown = function() {
-  $('.settings').addClass('down');
-};
-
-var settingsUp = function() {
+var toggleSettings = function() {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
-  $('.settings').removeClass('down');
 };
 
 var setVolume = function setVolume(newVolume) {
@@ -265,6 +260,10 @@ var setWaveform = function setWaveform(newWaveform) {
     $('#' + waveform + 'Button').removeClass('on');
   });
   $('#' + newWaveform + 'Button').addClass('on');
+};
+
+var panic = function panic() {
+  window.location = window.location; // reload page w/o POST
 };
 
 // initialize synth, controls and control panel

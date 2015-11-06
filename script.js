@@ -268,7 +268,7 @@ var setWaveform = function setWaveform(newWaveform) {
 };
 
 var panic = function panic() {
-  location.reload();
+  window.location = window.location; // reload page w/o POST
 };
 
 // initialize synth, controls and control panel

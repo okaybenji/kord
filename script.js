@@ -546,7 +546,9 @@ var panic = function panic() {
         }
         
         touch = touches[0];
-        var refreshInterval = 1000;
+        var force = touch.force || 0;
+        console.log('force:', force);
+        /*var refreshInterval = 1000;
         
         var refreshForce = function refreshForce() {
           var force = 0;
@@ -558,7 +560,7 @@ var panic = function panic() {
           console.log('force:', force);
         };
         
-        refreshForce.bind(touch)();
+        refreshForce.bind(touch)();*/
       };
 
       $('<button/>', {

@@ -368,7 +368,7 @@ var panic = function panic() {
     // determine chord to play and start playing it
     var start = function start(chordNumber) {
 
-      var root = parseInt(settings.key, 10); // set root based on selected key
+      var root = settings.key; // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
       var chord = [];
 

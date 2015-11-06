@@ -539,7 +539,7 @@ var panic = function panic() {
           return;
         }
         touchForce = touches[0].force || 0;
-        console.log('force:', force);
+        console.log('force:', touchForce);
       };
 
       $('<button/>', {

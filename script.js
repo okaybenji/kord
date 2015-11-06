@@ -558,7 +558,7 @@ var panic = function panic() {
           console.log('force:', force);
         };
         
-        setTimeout(refreshForce.bind(touch), refreshInterval);
+        refreshForce.bind(touch)();
       };
 
       $('<button/>', {

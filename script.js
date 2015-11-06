@@ -539,12 +539,13 @@ var panic = function panic() {
       };
       
       var updateTouchForce = function updateTouchForce(e) {
-        if (!e.touches) {
+        var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
+        if (touches) {
           console.log('no touches');
           return;
         }
         
-        touch = e.touches[0];
+        touch = touches[0];
         var refreshInterval = 100;
         
         var refreshForce = function refreshForce() {

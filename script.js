@@ -511,6 +511,7 @@ var panic = function panic() {
 
       var startChord = function startChord(e) {
         e.preventDefault();
+        polysynth.lfo.depth(0); // reset lfo depth
         start(chord.number);
       };
 
@@ -529,8 +530,6 @@ var panic = function panic() {
           }
         }
         stop(chord.number);
-        touchForce = 0;
-        polysynth.lfo.depth(touchForce);
       };
       
       var updateTouchForce = function updateTouchForce(e) {

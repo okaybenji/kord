@@ -529,7 +529,8 @@ var panic = function panic() {
           }
         }
         stop(chord.number);
-        polysynth.lfo.depth = touchForce = 0;
+        touchForce = 0;
+        polysynth.lfo.depth(touchForce);
       };
       
       var updateTouchForce = function updateTouchForce(e) {

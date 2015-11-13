@@ -509,11 +509,11 @@ var panic = function panic() {
       var chordMenu = $('#chordMenu');
 
       var refreshForce; // will hold timeout tracking force changes
+      var forceUpdateInterval = 10;
 
       var startChord = function startChord(e) {
         e.preventDefault();
         polysynth.lfo.depth(0); // reset lfo depth
-        var forceUpdateInterval = 10;
         refreshForce = setTimeout(updateLfo.bind(e), forceUpdateInterval);
         start(chord.number);
       };
@@ -539,6 +539,7 @@ var panic = function panic() {
       // set lfo depth based on touch pressure
       var updateLfo = function updateLfo(e) {
         e.preventDefault();
+        refreshForce = setTimeout(updateLfo.bind(e), forceUpdateInterval);
         var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
         if (!touches) {
           return;

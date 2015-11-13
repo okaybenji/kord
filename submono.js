@@ -60,10 +60,9 @@ var Monosynth = function Monosynth(audioCtx, config) {
 
   Synth.prototype.lfo = {
     depth: function lfoDepth(newDepth) {
-      if (newDepth) {
+      if (typeof newDepth !== 'undefined') {
         var now = synth.audioCtx.currentTime;
-        //synth.lfo.amp.gain.setValueAtTime(newDepth * synth.lfo.depthMultiplier, now);
-        synth.lfo.amp.gain.value = newDepth * synth.lfo.depthMultiplier;
+        synth.lfo.amp.gain.setValueAtTime(newDepth * synth.lfo.depthMultiplier, now);
         return newDepth;
       }
       return synth.lfo.amp.gain.value / synth.lfo.depthMultiplier;
@@ -71,7 +70,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
   };
   
   Synth.prototype.pitch = function pitch(newPitch) {
-    if (newPitch) {
+    if (typeof newPitch !== 'undefined') {
       var now = synth.audioCtx.currentTime;
       synth.osc.frequency.setValueAtTime(newPitch, now);
       return newPitch;

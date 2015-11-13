@@ -539,7 +539,8 @@ var panic = function panic() {
           return;
         }
         var touchForce = touches[0].force || 0;
-        polysynth.lfo.depth(touchForce);
+        var forceMultiplier = 10; // what to multiply force by to get appropriate lfo depth
+        polysynth.lfo.depth(touchForce * forceMultiplier);
       };
 
       $('<button/>', {

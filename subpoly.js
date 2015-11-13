@@ -54,16 +54,10 @@ var Polysynth = function Polysynth(audioCtx, config) {
   };
 
   // convenience methods for changing values of all Monosynths' properties at once
-  Synth.prototype.lfo = {};
-  Synth.prototype.lfo.depth = function lfoDepth(newDepth) {
-    synth.voices.forEach(function setLfoDepth(voice) {
-      voice.lfo.depth(newDepth);
-    });
-  };
-
   (function createSetters() {
     var monosynthProperties = ['maxGain', 'attack', 'decay', 'sustain', 'release'];
     var monosynthCutoffProperties = ['maxFrequency', 'attack', 'decay', 'sustain'];
+    var monosynthLfoProperties = ['depth', 'frequency'];
 
     monosynthProperties.forEach(function createSetter(property) {
       Synth.prototype[property] = function setValues(newValue) {
@@ -78,6 +72,15 @@ var Polysynth = function Polysynth(audioCtx, config) {
       Synth.prototype.cutoff[property] = function setValues(newValue) {
         synth.voices.forEach(function setValue(voice) {
           voice.cutoff[property] = newValue;
+        });
+      };
+    });
+
+    Synth.prototype.lfo = {};
+    monosynthLfoProperties.forEach(function createSetter(property) {
+      Synth.prototype.lfo[property] = function setValues(newValue) {
+        synth.voices.forEach(function setValue(voice) {
+          voice.lfo[property](newValue);
         });
       };
     });

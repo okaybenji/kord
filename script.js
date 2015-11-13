@@ -539,7 +539,7 @@ var panic = function panic() {
           return;
         }
         touchForce = touches[0].force || 0;
-        console.log('force:', touchForce);
+        polysynth.lfo.depth(touchForce);
       };
 
       $('<button/>', {

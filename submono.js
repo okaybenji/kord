@@ -2,8 +2,9 @@ var Monosynth = function Monosynth(audioCtx, config) {
   var synth;
   var Synth = function Synth() {
     synth = this;
-    config = config || {};
+    config        = config || {};
     config.cutoff = config.cutoff || {};
+    config.lfo    = config.lfo || {};
 
     synth.audioCtx = audioCtx,
     synth.amp      = audioCtx.createGain(),
@@ -24,6 +25,16 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.cutoff.decay        = config.cutoff.decay        || 2.5; // in seconds
     synth.cutoff.sustain      = config.cutoff.sustain      || 0.2; // out of 1
     
+    // low frequency oscillator
+    synth.lfo.depthMultiplier = config.lfo.depthMultiplier || 10; // unitless multiplier
+    synth.lfo.osc = audioCtx.createOscillator();
+    synth.lfo.amp = audioCtx.createGain();
+    synth.lfo.amp.gain.value = 0; // depth of the effect TODO: allow setting any value
+    synth.lfo.osc.frequency.setValueAtTime(5, synth.audioCtx.currentTime); // duration of the effect TODO: allow setting any value
+    synth.lfo.osc.connect(synth.lfo.amp);
+    synth.lfo.amp.connect(synth.osc.frequency); // TODO: allow routing to any destination (for now, hard-coded as pitch vibrato)
+    synth.lfo.osc.start();
+
     synth.amp.gain.value = 0;
     synth.filter.type = 'lowpass';
     synth.filter.connect(synth.amp);
@@ -32,7 +43,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.pan.setPosition(0, 0, 1); // start with stereo image centered
     synth.osc.connect(synth.pan);
     synth.pan.connect(synth.filter);
-    synth.osc.start(0);
+    synth.osc.start();
     
     synth.waveform(config.waveform || 'sine');
     synth.pitch(config.pitch || 440);
@@ -45,6 +56,16 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.amp.gain.cancelScheduledValues(now);
     synth.amp.gain.setValueAtTime(synth.amp.gain.value, now);
     return now;
+  }
+
+  Synth.prototype.lfo = {
+    depth: function lfoDepth(newDepth) {
+      if (newDepth) {
+        var now = synth.audioCtx.currentTime;
+        synth.lfo.amp.gain.setValueAtTime (newDepth * synth.lfo.depthMultiplier, now);
+      }
+      return synth.lfo.amp.gain.value;
+    }
   };
   
   Synth.prototype.pitch = function pitch(newPitch) {

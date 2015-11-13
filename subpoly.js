@@ -54,6 +54,13 @@ var Polysynth = function Polysynth(audioCtx, config) {
   };
 
   // convenience methods for changing values of all Monosynths' properties at once
+  Synth.prototype.lfo = {};
+  Synth.prototype.lfo.depth = function lfoDepth(newDepth) {
+    synth.voices.forEach(function setLfoDepth(voice) {
+      voice.lfo.depth(newDepth);
+    });
+  };
+
   (function createSetters() {
     var monosynthProperties = ['maxGain', 'attack', 'decay', 'sustain', 'release'];
     var monosynthCutoffProperties = ['maxFrequency', 'attack', 'decay', 'sustain'];

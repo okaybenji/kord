@@ -539,7 +539,10 @@ var panic = function panic() {
           return;
         }
         touchForce = touches[0].force || 0;
-        polysynth.lfo.depth(touchForce);
+        var threshold = 0.25;
+        if (touchForce > threshold) {
+          polysynth.lfo.depth(touchForce);
+        }
       };
 
       $('<button/>', {

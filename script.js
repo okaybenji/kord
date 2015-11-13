@@ -506,7 +506,6 @@ var panic = function panic() {
 
     var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
-      var touchForce = 0; // track 3d touch force
       var chordMenu = $('#chordMenu');
 
       var startChord = function startChord(e) {
@@ -532,13 +531,14 @@ var panic = function panic() {
         stop(chord.number);
       };
       
-      var updateTouchForce = function updateTouchForce(e) {
+      // set lfo depth based on touch pressure
+      var updateLfo = function updateLfo(e) {
         e.preventDefault();
         var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
         if (!touches) {
           return;
         }
-        touchForce = touches[0].force || 0;
+        var touchForce = touches[0].force || 0;
         var threshold = 0.25;
         if (touchForce > threshold) {
           polysynth.lfo.depth(touchForce);
@@ -554,7 +554,7 @@ var panic = function panic() {
         mouseup: stopChord })
         .bind('touchstart', startChord)
         .bind('touchend', stopChord)
-        .bind('touchmove', updateTouchForce)
+        .bind('touchmove', updateLfo)
         .appendTo(chordMenu)
       ;
     });

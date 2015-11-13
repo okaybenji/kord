@@ -30,7 +30,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.lfo.osc = audioCtx.createOscillator();
     synth.lfo.amp = audioCtx.createGain();
     synth.lfo.amp.gain.value = 0; // depth of the effect TODO: allow setting any value
-    synth.lfo.osc.frequency.setValueAtTime(6, synth.audioCtx.currentTime); // duration of the effect TODO: allow setting any value
+    synth.lfo.osc.frequency.value = 6; // duration of the effect TODO: allow setting any value
     synth.lfo.osc.connect(synth.lfo.amp);
     synth.lfo.amp.connect(synth.osc.frequency); // TODO: allow routing to any destination (for now, hard-coded as pitch vibrato)
     synth.lfo.osc.start();

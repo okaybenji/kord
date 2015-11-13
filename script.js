@@ -508,14 +508,19 @@ var panic = function panic() {
     labels.forEach(function(chord) {
       var chordMenu = $('#chordMenu');
 
+      var refreshForce; // will hold timeout tracking force changes
+
       var startChord = function startChord(e) {
         e.preventDefault();
         polysynth.lfo.depth(0); // reset lfo depth
+        var forceUpdateInterval = 10;
+        refreshForce = setTimeout(updateLfo.bind(e), forceUpdateInterval);
         start(chord.number);
       };
 
       var stopChord = function stopChord(e) {
         e.preventDefault();
+        clearTimeout(refreshForce); // stop tracking force changes
         if (isFirstInteraction) {
           isFirstInteraction = false;
           // let there be sound (on iOS)

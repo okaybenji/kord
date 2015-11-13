@@ -79,7 +79,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
   };
 
   Synth.prototype.waveform = function waveform(newWaveform) {
-    if (newWaveform) {
+    if (typeof newWaveform !== 'undefined') {
       synth.osc.type = newWaveform;
     }
     return synth.osc.type;

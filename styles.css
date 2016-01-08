@@ -208,7 +208,7 @@ button:active {
 
 input[type=range] {
     -webkit-appearance: none;
-    background-color: hsl(0, 0%, 75%);;
+    background-color: hsl(0, 0%, 75%);
     width: 21.25vw;
     height: 2.2vw;
     border-radius: 1vw;

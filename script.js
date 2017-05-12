@@ -299,11 +299,45 @@ var panic = function panic() {
 // initialize synth, controls and control panel
 (function init() {
   var audioCtx;
-  if (typeof AudioContext !== "undefined") {
-    audioCtx = new AudioContext();
-  } else {
-    audioCtx = new webkitAudioContext();
-  }
+
+  var setUpAudioContext = function() {
+    if (typeof AudioContext !== "undefined") {
+      audioCtx = new AudioContext();
+    } else {
+      audioCtx = new webkitAudioContext();
+    }
+  };
+
+  setUpAudioContext();
+
+  // enable sound on mobile systems like iOS; code from Howler.js
+  (function enableMobileAudio() {
+    if (audioCtx !== 44100) {
+      audioCtx.close();
+      setUpAudioContext();
+    }
+
+    var scratchBuffer = audioCtx.createBuffer(1, 1, 22050);
+
+    var unlock = function() {
+      var source = audioCtx.createBufferSource();
+      source.buffer = scratchBuffer;
+      source.connect(audioCtx.destination);
+
+      if (typeof source.start === 'undefined') {
+        source.noteOn(0);
+      } else {
+        source.start(0);
+      }
+
+      source.onended = function() {
+        source.disconnect(0);
+        document.removeEventListener('touchend', unlock, true);
+      };
+    };
+
+    document.addEventListener('touchend', unlock, true);
+  }());
 
   var getSettings = function getSettings() {
     var settings = JSON.parse(localStorage.getItem('settings'));
@@ -504,7 +538,6 @@ var panic = function panic() {
       }
     };
 
-    var isFirstInteraction = true; // for enabling iOS sound
     labels.forEach(function(chord) {
       var chordMenu = $('#chordMenu');
 
@@ -515,18 +548,6 @@ var panic = function panic() {
 
       var stopChord = function stopChord(e) {
         e.preventDefault();
-        if (isFirstInteraction) {
-          isFirstInteraction = false;
-          // let there be sound (on iOS)
-          // create & play empty buffer
-          var buffer = audioCtx.createBuffer(1, 1, 22050);
-          var source = audioCtx.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioCtx.destination);
-          if (source.noteOn) { // keep this from breaking in chrome
-            source.noteOn(0);
-          }
-        }
         stop(chord.number);
       };
 

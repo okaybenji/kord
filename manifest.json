@@ -24,6 +24,7 @@
     }],
   "start_url": "/index.html",
   "display": "standalone",
+  "orientation": "landscape",
   "background_color": "hsl(302, 10%, 99%)",
   "theme_color": "hsl(324, 100%, 46%)"
 }

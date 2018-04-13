@@ -165,7 +165,7 @@ var setVolume = function setVolume(newVolume) {
       gain *= 1;
       break;
   }
-  
+
   polysynth.maxGain(gain);
   var volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
@@ -238,8 +238,8 @@ var cutoff = {
 
 var setKey = function setKey(newKey) {
   settings.key = newKey = Number(newKey);
-  
-  function getKeyLabel() {  
+
+  function getKeyLabel() {
     var keys = [
       { label: 'G', value: 35 },
       { label: 'G#', value: 36 },
@@ -254,14 +254,14 @@ var setKey = function setKey(newKey) {
       { label: 'F', value: 45 },
       { label: 'F#', value: 46 }
     ];
-    
+
     for (var i=0, ii=keys.length; i<ii; i++) {
       if (keys[i].value === newKey) {
         return keys[i].label;
       }
     }
   }
-  
+
   var keyText = getKeyLabel();
   $('#keyLabel').text(keyText);
   saveSettings({key: newKey});
@@ -366,7 +366,7 @@ var panic = function panic() {
     }
     return settings;
   };
-  
+
   settings = getSettings();
   polysynth = new Polysynth(audioCtx, settings);
 
@@ -374,7 +374,7 @@ var panic = function panic() {
   $('#keySlider').val(settings.key); // not a subpoly or submono property
   $('#octaveSlider').val(settings.octave); // not a subpoly or submono property
   $('#widthSlider').val(polysynth.width());
-  
+
   var voice = polysynth.voices[0];
   $('#volumeSlider').val(settings.volume); // volume != gain
   $('#attackSlider').val(voice.attack);
@@ -390,7 +390,7 @@ var panic = function panic() {
   // update labels to display initial synth values
   $('#settingsPanel input').trigger('input');
   $('#settingsPanel select').change();
-  
+
   // prevent browser default behavior on touch/click of buttons
   $('button').on('touchstart mousedown', function(e) {
     e.preventDefault();
@@ -627,7 +627,7 @@ var panic = function panic() {
         }
       };
 
-      document.addEventListener('keydown', keyHandler); 
+      document.addEventListener('keydown', keyHandler);
       document.addEventListener('keyup', keyHandler);
     })();
   }());
@@ -637,7 +637,7 @@ var panic = function panic() {
     var preventDefault = function preventDefault(e) {
       e.preventDefault();
     };
-    
+
     waveforms.forEach(function(waveform) {
       var selectWaveform = function selectWaveform(e) {
         e.preventDefault();
@@ -657,4 +657,12 @@ var panic = function panic() {
     });
     $('#' + settings.waveform + 'Button').click();
   }());
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('./serviceWorker.js')
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
 }());

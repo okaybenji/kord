@@ -299,7 +299,7 @@ const panic = () => {
   })();
 
   const getSettings = () => {
-    const settings = JSON.parse(localStorage.getItem('settings'));
+    let settings = JSON.parse(localStorage.getItem('settings'));
     if (!settings) {
       // load and save defaults
       settings = {

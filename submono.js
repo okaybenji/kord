@@ -23,8 +23,8 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.cutoff.attack       = config.cutoff.attack       || 0.1; // in seconds
     synth.cutoff.decay        = config.cutoff.decay        || 2.5; // in seconds
     synth.cutoff.sustain      = config.cutoff.sustain      || 0.2; // out of 1
-    
-    synth.amp.gain.value = 0;
+
+    synth.amp.gain.setValueAtTime(0, 0);
     synth.filter.type = 'lowpass';
     synth.filter.connect(synth.amp);
     synth.amp.connect(audioCtx.destination);
@@ -33,7 +33,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.osc.connect(synth.pan);
     synth.pan.connect(synth.filter);
     synth.osc.start(0);
-    
+
     synth.waveform(config.waveform || 'sine');
     synth.pitch(config.pitch || 440);
 
@@ -46,7 +46,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.amp.gain.setValueAtTime(synth.amp.gain.value, now);
     return now;
   };
-  
+
   Synth.prototype.pitch = function pitch(newPitch) {
     if (newPitch) {
       var now = synth.audioCtx.currentTime;

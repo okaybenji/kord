@@ -268,6 +268,9 @@ const panic = () => {
 
 // initialize synth, controls and control panel
 (() => {
+  // Click anywhere in the page to enable sound.
+  document.onclick = () => audioCtx.resume();
+
   const getAudioContext = () =>
     typeof AudioContext === 'undefined' ? new webkitAudioContext() : new AudioContext();
 
@@ -507,7 +510,7 @@ const panic = () => {
         e.preventDefault();
         stop(chord.number);
       };
-      
+
       // set lfo depth based on touch pressure
       var updateLfo = function updateLfo(e) {
         e.preventDefault();

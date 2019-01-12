@@ -296,13 +296,14 @@ const panic = () => {
   navigator.requestMIDIAccess()
     .then((midi) => {
       const handleMsg = (msg) => {
-        const [cmd] = msg.data;
+        const [cmd, , val] = msg.data;
         const round = val => val.toFixed(2);
         const frequency = note => Math.pow(2, (note - 69) / 12) * 440;
         const normalize = val => val / 127;
         // command range represents 16 channels
         const command =
           cmd >= 128 && cmd < 144 ? 'off'
+          : cmd >= 144 && cmd < 160 && val === 0 ? 'off'
           : cmd >= 144 && cmd < 160 ? 'on'
           : cmd >= 224 && cmd < 240 ? 'pitch'
           : cmd >= 176 && cmd < 192 ? 'ctrl'

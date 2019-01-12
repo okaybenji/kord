@@ -57,6 +57,7 @@ var Polysynth = function Polysynth(audioCtx, config) {
   (function createSetters() {
     var monosynthProperties = ['maxGain', 'attack', 'decay', 'sustain', 'release'];
     var monosynthCutoffProperties = ['maxFrequency', 'attack', 'decay', 'sustain'];
+    var monosynthLfoProperties = ['depth', 'frequency'];
 
     monosynthProperties.forEach(function createSetter(property) {
       Synth.prototype[property] = function setValues(newValue) {
@@ -71,6 +72,15 @@ var Polysynth = function Polysynth(audioCtx, config) {
       Synth.prototype.cutoff[property] = function setValues(newValue) {
         synth.voices.forEach(function setValue(voice) {
           voice.cutoff[property] = newValue;
+        });
+      };
+    });
+
+    Synth.prototype.lfo = {};
+    monosynthLfoProperties.forEach(function createSetter(property) {
+      Synth.prototype.lfo[property] = function setValues(newValue) {
+        synth.voices.forEach(function setValue(voice) {
+          voice.lfo[property](newValue);
         });
       };
     });

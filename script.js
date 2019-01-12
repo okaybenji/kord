@@ -499,12 +499,25 @@ const panic = () => {
 
       const startChord = (e) => {
         e.preventDefault();
+        polysynth.lfo.depth(0); // reset lfo depth
         start(chord.number);
       };
 
       const stopChord = (e) => {
         e.preventDefault();
         stop(chord.number);
+      };
+      
+      // set lfo depth based on touch pressure
+      var updateLfo = function updateLfo(e) {
+        e.preventDefault();
+        var touches = e.touches || e.originalEvent.touches || e.originalEvent.changedTouches;
+        if (!touches) {
+          return;
+        }
+        var touchForce = touches[0].force || 0;
+        var forceMultiplier = 10; // what to multiply force by to get appropriate lfo depth
+        polysynth.lfo.depth(touchForce * forceMultiplier);
       };
 
       $('<button/>', {
@@ -514,6 +527,7 @@ const panic = () => {
         mouseup: stopChord })
         .bind('touchstart', startChord)
         .bind('touchend', stopChord)
+        .bind('touchmove', updateLfo)
         .appendTo(chordMenu)
       ;
     });

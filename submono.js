@@ -2,8 +2,9 @@ var Monosynth = function Monosynth(audioCtx, config) {
   var synth;
   var Synth = function Synth() {
     synth = this;
-    config = config || {};
+    config        = config || {};
     config.cutoff = config.cutoff || {};
+    config.lfo    = config.lfo || {};
 
     synth.audioCtx = audioCtx,
     synth.amp      = audioCtx.createGain(),
@@ -24,6 +25,16 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.cutoff.decay        = config.cutoff.decay        || 2.5; // in seconds
     synth.cutoff.sustain      = config.cutoff.sustain      || 0.2; // out of 1
 
+    // low frequency oscillator
+    synth.lfo.osc = audioCtx.createOscillator();
+    synth.lfo.amp = audioCtx.createGain();
+    synth.lfo.osc.connect(synth.lfo.amp);
+    synth.lfo.amp.connect(synth.osc.frequency); // TODO: allow routing to any destination (for now, hard-coded as pitch vibrato)
+    synth.lfo.osc.start();
+    synth.lfo.depth(config.lfo.depth || 0);
+    synth.lfo.frequency(config.lfo.frequency || 6);
+
+    // primary oscillator
     synth.amp.gain.setValueAtTime(0, 0);
     synth.filter.type = 'lowpass';
     synth.filter.connect(synth.amp);
@@ -32,8 +43,7 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.pan.setPosition(0, 0, 1); // start with stereo image centered
     synth.osc.connect(synth.pan);
     synth.pan.connect(synth.filter);
-    synth.osc.start(0);
-
+    synth.osc.start();
     synth.waveform(config.waveform || 'sine');
     synth.pitch(config.pitch || 440);
 
@@ -45,43 +55,66 @@ var Monosynth = function Monosynth(audioCtx, config) {
     synth.amp.gain.cancelScheduledValues(now);
     synth.amp.gain.setValueAtTime(synth.amp.gain.value, now);
     return now;
-  };
+  }
 
-  Synth.prototype.pitch = function pitch(newPitch) {
-    if (newPitch) {
-      var now = synth.audioCtx.currentTime;
-      synth.osc.frequency.setValueAtTime(newPitch, now);
+  Synth.prototype = {
+    pitch: function pitch(newPitch) {
+      if (typeof newPitch !== 'undefined') {
+        var now = synth.audioCtx.currentTime;
+        synth.osc.frequency.setValueAtTime(newPitch, now);
+        return newPitch;
+      }
+      return synth.osc.frequency.value;
+    },
+
+    waveform: function waveform(newWaveform) {
+      if (typeof newWaveform !== 'undefined') {
+        synth.osc.type = newWaveform;
+      }
+      return synth.osc.type;
+    },
+
+    // apply attack, decay, sustain envelope
+    start: function startSynth() {
+      var atk  = parseFloat(synth.attack);
+      var dec  = parseFloat(synth.decay);
+      var cAtk = parseFloat(synth.cutoff.attack);
+      var cDec = parseFloat(synth.cutoff.decay);
+      var now  = getNow();
+      synth.cutoff.cancelScheduledValues(now);
+      synth.cutoff.linearRampToValueAtTime(synth.cutoff.value, now);
+      synth.cutoff.linearRampToValueAtTime(synth.cutoff.maxFrequency, now + cAtk);
+      synth.cutoff.linearRampToValueAtTime(synth.cutoff.sustain * synth.cutoff.maxFrequency, now + cAtk + cDec);
+      synth.amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
+      synth.amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
+    },
+
+    // apply release envelope
+    stop: function stopSynth() {
+      var rel = parseFloat(synth.release);
+      var now = getNow();
+      synth.amp.gain.linearRampToValueAtTime(0, now + rel);
+    },
+
+    lfo: {
+      depth: function lfoDepth(newDepth) {
+        if (typeof newDepth !== 'undefined') {
+          var now = synth.audioCtx.currentTime;
+          synth.lfo.amp.gain.setValueAtTime(newDepth, now);
+          return newDepth;
+        }
+        return synth.lfo.amp.gain.value;
+      },
+
+      frequency: function lfoFrequency(newFrequency) {
+        if (typeof newFrequency !== 'undefined') {
+          var now = synth.audioCtx.currentTime;
+          synth.lfo.osc.frequency.setValueAtTime(newFrequency, now);
+          return newFrequency;
+        }
+        return synth.lfo.frequency.value;
+      },
     }
-    return synth.osc.frequency.value;
-  };
-
-  Synth.prototype.waveform = function waveform(newWaveform) {
-    if (newWaveform) {
-      synth.osc.type = newWaveform;
-    }
-    return synth.osc.type;
-  };
-
-  // apply attack, decay, sustain envelope
-  Synth.prototype.start = function startSynth() {
-    var atk  = parseFloat(synth.attack);
-    var dec  = parseFloat(synth.decay);
-    var cAtk = parseFloat(synth.cutoff.attack);
-    var cDec = parseFloat(synth.cutoff.decay);
-    var now  = getNow();
-    synth.cutoff.cancelScheduledValues(now);
-    synth.cutoff.linearRampToValueAtTime(synth.cutoff.value, now);
-    synth.cutoff.linearRampToValueAtTime(synth.cutoff.maxFrequency, now + cAtk);
-    synth.cutoff.linearRampToValueAtTime(synth.cutoff.sustain * synth.cutoff.maxFrequency, now + cAtk + cDec);
-    synth.amp.gain.linearRampToValueAtTime(synth.maxGain, now + atk);
-    synth.amp.gain.linearRampToValueAtTime(synth.sustain * synth.maxGain, now + atk + dec);
-  };
-
-  // apply release envelope
-  Synth.prototype.stop = function stopSynth() {
-    var rel = parseFloat(synth.release);
-    var now = getNow();
-    synth.amp.gain.linearRampToValueAtTime(0, now + rel);
   };
 
   return new Synth();

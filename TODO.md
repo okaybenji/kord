@@ -2,7 +2,7 @@
 
 ### Misc
 * diagnose and fix iOS audio issues: on load, after switching between tabs or apps, or after inserting or removing headphones/cables into or from audio jack, audio may become heavily distorted (caused by audioContext sample rate of 48k instead of 44.1), become heavily distorted *and* change pitch, or cease to function altogether
-* add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick in settings menu.
+* add 3D touch -- multiply vibrato, volume, or cutoff freq * force (see http://freinbichler.me/apps/3dtouch/). let user pick (or disable) in settings menu.
 
 ### Eventually... (maybe)
 * build Android app and test Web Audio; may need to `ionic add browser crosswalk`
@@ -11,7 +11,7 @@
 * allow storing patches
 * allow user to add custom waveforms
 * clean up modifier code
-* in cases where Mm and special modifiers are both 'on', consider making the inactive button gray
+* in cases where Mm and special modifiers are both 'on', consider making the inactive button gray or dark blue
 * test improving slider ease of use by increasing touchable region without increasing visible size
 * fix glitchy positioning of etc panel in safari (gap at some resolutions due to 2/3vw)
 * if support is added outside IE, color fill left-hand side of sliders with colors of pressed chords (e.g. dark purple for amp, etc.)

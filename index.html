@@ -1,11 +1,30 @@
 <!doctype html>
 <html>
   <head>
-    <title>Kord</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--prevent zoom-->
+
+    <title>Kord</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kord">
+    <link rel="apple-touch-icon" href="img/icons/152.png">
+    <!-- Windows -->
+    <meta name="msapplication-TileImage" content="img/icons/144.png">
+    <meta name="msapplication-TileColor" content="#ED125B">
+
+    <link rel="icon"
+         type="image/png"
+         href="img/icons/144.png">
   </head>
   <body>
+
     <main class="trenta">
       <div id="instrument">
         <div id="modifierMenu" class="sidebar">
@@ -101,6 +120,7 @@
         </div>
       </div>
     </main>
+
   </body>
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="submono.js"></script>

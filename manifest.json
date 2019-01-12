@@ -1,0 +1,30 @@
+{
+  "name": "Kord",
+  "short_name": "Kord",
+  "icons": [{
+    "src": "img/icons/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }, {
+      "src": "img/icons/144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "img/icons/152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }, {
+      "src": "img/icons/192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, {
+      "src": "img/icons/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }],
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "hsl(302, 10%, 99%)",
+  "theme_color": "hsl(324, 100%, 46%)"
+}

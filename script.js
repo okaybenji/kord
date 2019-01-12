@@ -1,19 +1,18 @@
-var $ = $; // get linter to shut up about '$'
-var polysynth;
-var settings;
+let polysynth;
+let settings;
 
 // toggles
-var invertMode = false;
-var invertChord = false;
-var specialChord = false;
+let invertMode = false;
+let invertChord = false;
+let specialChord = false;
 
-var labels = (function() {
-  var FLAT = '<span class="accidental">\u266D</span>';
-  var SHARP = '<span class="accidental">\u266F</span>';
-  var DIM = '\u00B0';
-  var AUG = '+';
+const labels = (() => {
+  const FLAT = '<span class="accidental">\u266D</span>';
+  const SHARP = '<span class="accidental">\u266F</span>';
+  const DIM = '\u00B0';
+  const AUG = '+';
 
-  var labels = [
+  const labels = [
     { number: 1, basic: 'I', invertMode: 'i', specialChord: 'I' + AUG },
     { number: 2, basic: 'ii', invertMode: 'II', specialChord: 'ii' + DIM },
     { number: 3, basic: 'iii', invertMode: 'III', specialChord: 'VI' + FLAT },
@@ -23,29 +22,20 @@ var labels = (function() {
   ];
 
   return labels;
-}());
+})();
 
-var waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
+const waveforms = ['sine', 'square', 'triangle', 'sawtooth'];
 
 // ui handlers
-var updateModifier = function updateModifier(modifier, on) {
-  var INV = '\u2076';
+const updateModifier = function updateModifier(modifier, on) {
+  const INV = '\u2076';
 
   // get label for the button for a given chord number
-  var getLabel = function getLabel(chordNumber) {
-    var chordLabels = labels[chordNumber - 1];
-    var label = '';
-
-    switch (true) {
-      case invertMode:
-        label = chordLabels.invertMode;
-        break;
-      case specialChord:
-        label = chordLabels.specialChord;
-        break;
-      default:
-        label = chordLabels.basic;
-    }
+  const getLabel = (chordNumber) => {
+    const chordLabels = labels[chordNumber - 1];
+    let label = invertMode ? chordLabels.invertMode
+    : specialChord ? chordLabels.specialChord
+    : chordLabels.basic;
 
     if (invertChord) {
       label += INV; // add 6 as superscript
@@ -54,19 +44,19 @@ var updateModifier = function updateModifier(modifier, on) {
     return label;
   };
 
-  var modifiers;
+  let modifiers;
   if (typeof on === 'undefined') {
     $('#' + modifier).toggleClass('on');
     modifiers = {
-      Mm: function() {
+      Mm() {
         specialChord = false;
         $('#special').removeClass('on');
         invertMode = !invertMode;
       },
-      x6: function() {
+      x6() {
         invertChord = !invertChord;
       },
-      special: function() {
+      special() {
         invertMode = false;
         $('#Mm').removeClass('on');
         specialChord = !specialChord;
@@ -74,14 +64,14 @@ var updateModifier = function updateModifier(modifier, on) {
     };
   } else if (on === true) {
     modifiers = {
-      Mm: function() {
+      Mm() {
         specialChord = false;
         invertMode = true;
       },
-      x6: function() {
+      x6() {
         invertChord = true;
       },
-      special: function() {
+      special() {
         invertMode = false;
         specialChord = true;
       }
@@ -89,16 +79,16 @@ var updateModifier = function updateModifier(modifier, on) {
     $('#' + modifier).addClass('on');
   } else {
     modifiers = {
-      Mm: function() {
+      Mm() {
         invertMode = false;
         if ($('#special').hasClass('on')) {
           updateModifier('special', true);
         }
       },
-      x6: function() {
+      x6() {
         invertChord = false;
       },
-      special: function() {
+      special() {
         specialChord = false;
         if ($('#Mm').hasClass('on')) {
           updateModifier('Mm', true);
@@ -110,137 +100,119 @@ var updateModifier = function updateModifier(modifier, on) {
   modifiers[modifier]();
 
   // update chord labels
-  labels.forEach(function(chord) {
+  labels.forEach((chord) => {
     $('#chord' + chord.number).html(getLabel(chord.number));
   });
 
   // resize chord labels to fit inside buttons
-  var newClass = (function getNewClass() {
-    switch (true) {
-      case !specialChord && !invertChord:
-        return 'trenta';
-      case invertChord && !specialChord:
-        return 'venti';
-      case specialChord && !invertChord:
-        return 'grande';
-      case specialChord && invertChord:
-        return 'tall';
-    }
-  }());
+  const newClass =
+    !specialChord && !invertChord ? 'trenta'
+    : invertChord && !specialChord ? 'venti'
+    : specialChord && !invertChord ? 'grande'
+    : 'tall';
 
   $('main').attr('class', newClass);
 };
 
-var toggleSettings = function() {
+const toggleSettings = () => {
   $('#settingsPanel').toggleClass('hidden');
   $('#instrument').toggleClass('hidden');
   $('.settings').toggleClass('on');
 };
 
-var saveSettings = function saveSettings(newSettings) {
+const saveSettings = (newSettings) => {
   // TODO: since this is called on input, debounce to limit number of times we access storage
-  var settings = JSON.parse(localStorage.getItem('settings'));
+  const settings = JSON.parse(localStorage.getItem('settings'));
   Object.assign(settings, newSettings);
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
-var setVolume = function setVolume(newVolume) {
+const setVolume = (newVolume) => {
   newVolume = Number(newVolume);
   // adjust gain for human logarithmic hearing
-  var gain = Math.pow(newVolume, 2);
+  let gain = Math.pow(newVolume, 2);
   // adjust gain for perceived loudness of different waveforms
-  var waveform = polysynth.voices[0].waveform();
-  switch (waveform) {
-    case 'square':
-      gain *= 0.65;
-      break;
-    case 'sawtooth':
-      gain *= 0.85;
-      break;
-    case 'sine':
-      gain *= 0.95;
-      break;
-    case 'triangle':
-    default:
-      gain *= 1;
-      break;
-  }
-  
+  const waveform = polysynth.voices[0].waveform();
+  waveform === 'square' ? gain *= 0.65
+  : waveform === 'sawtooth' ? gain *= 0.85
+  : waveform === 'sine' ? gain *= 0.95
+  : gain *= 1;
+
   polysynth.maxGain(gain);
-  var volumeText = (newVolume * 100).toFixed(0);
+  const volumeText = (newVolume * 100).toFixed(0);
   $('#volumeLabel').text(volumeText);
   saveSettings({volume: newVolume});
 };
 
-var setAttack = function setAttack(newAttack) {
+const setAttack = (newAttack) => {
   newAttack = Number(newAttack);
   polysynth.attack(newAttack);
-  var attackText = (newAttack * 1000).toFixed(0);
+  const attackText = (newAttack * 1000).toFixed(0);
   $('#attackLabel').text(attackText);
   saveSettings({attack: newAttack});
 };
 
-var setDecay = function setDecay(newDecay) {
+const setDecay = (newDecay) => {
   newDecay = Number(newDecay);
   polysynth.decay(newDecay);
-  var decayText = (newDecay * 1000).toFixed(0);
+  const decayText = (newDecay * 1000).toFixed(0);
   $('#decayLabel').text(decayText);
   saveSettings({decay: newDecay});
 };
 
-var setSustain = function setSustain(newSustain) {
+const setSustain = (newSustain) => {
   newSustain = Number(newSustain);
-  var adjustedSustain = Math.pow(newSustain, 2);
+  const adjustedSustain = Math.pow(newSustain, 2);
   polysynth.sustain(adjustedSustain);
-  var sustainText = (newSustain * 1).toFixed(2);
+  const sustainText = (newSustain * 1).toFixed(2);
   $('#sustainLabel').text(sustainText);
   saveSettings({sustain: newSustain});
 };
 
-var setRelease = function setRelease(newRelease) {
+const setRelease = (newRelease) => {
   newRelease = Number(newRelease);
   polysynth.release(newRelease);
-  var releaseText = (newRelease * 1000).toFixed(0);
+  const releaseText = (newRelease * 1000).toFixed(0);
   $('#releaseLabel').text(releaseText);
   saveSettings({release: newRelease});
 };
 
-var cutoff = {
-  setMaxFrequency: function setMaxFrequency(newMaxFrequency) {
+const cutoff = {
+  setMaxFrequency(newMaxFrequency) {
     newMaxFrequency = Number(newMaxFrequency);
     polysynth.cutoff.maxFrequency(newMaxFrequency);
-    var maxFrequencyText = newMaxFrequency;
+    const maxFrequencyText = newMaxFrequency;
     $('#cutoffMaxFrequencyLabel').text(maxFrequencyText);
     saveSettings({cutoff: {maxFrequency: newMaxFrequency}});
   },
-  setAttack: function setAttack(newAttack) {
+  setAttack(newAttack) {
     newAttack = Number(newAttack);
     polysynth.cutoff.attack(newAttack);
-    var attackText = (newAttack * 1000).toFixed(0);
+    const attackText = (newAttack * 1000).toFixed(0);
     $('#cutoffAttackLabel').text(attackText);
     saveSettings({cutoff: {attack: newAttack}});
   },
-  setDecay: function setDecay(newDecay) {
+  setDecay(newDecay) {
     newDecay = Number(newDecay);
     polysynth.cutoff.decay(newDecay);
-    var decayText = (newDecay * 1000).toFixed(0);
+    const decayText = (newDecay * 1000).toFixed(0);
     $('#cutoffDecayLabel').text(decayText);
     saveSettings({cutoff: {decay: newDecay}});
   },
-  setSustain: function setSustain(newSustain) {
+  setSustain(newSustain) {
     newSustain = Number(newSustain);
     polysynth.cutoff.sustain(newSustain);
-    var sustainText = (newSustain * 1).toFixed(2);
+    const sustainText = (newSustain * 1).toFixed(2);
     $('#cutoffSustainLabel').text(sustainText);
     saveSettings({cutoff: {sustain: newSustain}});
   }
 };
 
-var setKey = function setKey(newKey) {
+const setKey = (newKey) => {
   settings.key = newKey = Number(newKey);
-  
-  function getKeyLabel() {  
-    var keys = [
+
+  const getKeyLabel = () => {
+    const keys = [
       { label: 'G', value: 35 },
       { label: 'G#', value: 36 },
       { label: 'A', value: 37 },
@@ -254,35 +226,32 @@ var setKey = function setKey(newKey) {
       { label: 'F', value: 45 },
       { label: 'F#', value: 46 }
     ];
-    
-    for (var i=0, ii=keys.length; i<ii; i++) {
-      if (keys[i].value === newKey) {
-        return keys[i].label;
-      }
-    }
-  }
-  
-  var keyText = getKeyLabel();
+    const key = keys.find(k => k.value === newKey);
+
+    return key.label;
+  };
+
+  const keyText = getKeyLabel();
   $('#keyLabel').text(keyText);
   saveSettings({key: newKey});
 };
 
-var setOctave = function setOctave(newOctave) {
+const setOctave = (newOctave) => {
   settings.octave = newOctave = Number(newOctave);
-  var octaveText = newOctave > 0 ? '+' + newOctave : newOctave;
+  const octaveText = newOctave > 0 ? '+' + newOctave : newOctave;
   $('#octaveLabel').text(octaveText);
   saveSettings({octave: newOctave});
 };
 
-var setWidth = function setWidth(newWidth) {
+const setWidth = (newWidth) => {
   newWidth = Number(newWidth);
   polysynth.width(newWidth);
-  var widthText = (newWidth * 100).toFixed(0);
+  const widthText = (newWidth * 100).toFixed(0);
   $('#widthLabel').text(widthText);
   saveSettings({stereoWidth: newWidth});
 };
 
-var setWaveform = function setWaveform(newWaveform) {
+const setWaveform = (newWaveform) => {
   polysynth.waveform(newWaveform);
   setVolume($('#volumeSlider').val()); // adjust for perceived loudness of waveform
   waveforms.forEach(function(waveform) {
@@ -292,22 +261,45 @@ var setWaveform = function setWaveform(newWaveform) {
   saveSettings({waveform: newWaveform});
 };
 
-var panic = function panic() {
-  window.location = window.location; // reload page w/o POST
+// reload page w/o POST
+const panic = () => {
+  window.location = window.location;
 };
 
 // initialize synth, controls and control panel
-(function init() {
-  var audioCtx;
-  if (typeof AudioContext !== "undefined") {
-    audioCtx = new AudioContext();
-  } else {
-    audioCtx = new webkitAudioContext();
-  }
+(() => {
+  const getAudioContext = () =>
+    typeof AudioContext === 'undefined' ? new webkitAudioContext() : new AudioContext();
 
-  var getSettings = function getSettings() {
-    var settings = JSON.parse(localStorage.getItem('settings'));
-    // var settings = null; // debugging
+  let audioCtx = getAudioContext();
+
+  // enable sound on mobile systems like iOS; code from Howler.js
+  (() => {
+    if (audioCtx !== 44100) {
+      audioCtx.close();
+      audioCtx = getAudioContext();
+    }
+
+    const scratchBuffer = audioCtx.createBuffer(1, 1, 22050);
+
+    const unlock = () => {
+      const source = audioCtx.createBufferSource();
+      source.buffer = scratchBuffer;
+      source.connect(audioCtx.destination);
+
+      source.start === 'undefined' ? source.noteOn(0) : source.start(0);
+
+      source.onended = () => {
+        source.disconnect(0);
+        document.removeEventListener('touchend', unlock, true);
+      };
+    };
+
+    document.addEventListener('touchend', unlock, true);
+  })();
+
+  const getSettings = () => {
+    let settings = JSON.parse(localStorage.getItem('settings'));
     if (!settings) {
       // load and save defaults
       settings = {
@@ -332,7 +324,7 @@ var panic = function panic() {
     }
     return settings;
   };
-  
+
   settings = getSettings();
   polysynth = new Polysynth(audioCtx, settings);
 
@@ -340,8 +332,8 @@ var panic = function panic() {
   $('#keySlider').val(settings.key); // not a subpoly or submono property
   $('#octaveSlider').val(settings.octave); // not a subpoly or submono property
   $('#widthSlider').val(polysynth.width());
-  
-  var voice = polysynth.voices[0];
+
+  const voice = polysynth.voices[0];
   $('#volumeSlider').val(settings.volume); // volume != gain
   $('#attackSlider').val(voice.attack);
   $('#decaySlider').val(voice.decay);
@@ -356,45 +348,44 @@ var panic = function panic() {
   // update labels to display initial synth values
   $('#settingsPanel input').trigger('input');
   $('#settingsPanel select').change();
-  
+
   // prevent browser default behavior on touch/click of buttons
-  $('button').on('touchstart mousedown', function(e) {
+  $('button').on('touchstart mousedown', (e) => {
     e.preventDefault();
   });
 
-  (function buildChordMenu() {
-    var lastChord = 1; // track last-pressed chord button
+  // build chord menu
+  (() => {
+    let lastChord = 1; // track last-pressed chord button
 
     // determine chord to play and start playing it
-    var start = function start(chordNumber) {
+    const start = (chordNumber) => {
 
-      var root = settings.key; // set root based on selected key
+      let root = settings.key; // set root based on selected key
       lastChord = chordNumber; // capture last-pressed chord number
-      var chord = [];
+      const chord = [];
 
       $('#chord' + chordNumber).addClass('on');
 
-      var setChord = function setChord(root, quality) {
-        quality = quality || 'major';
-
+      const setChord = (root, quality = 'major') => {
         chord[0] = root - 24;
         chord[1] = root - 12;
         chord[2] = root;
 
-        var applyQuality = {
-          major: function() {
+        const applyQuality = {
+          major() {
             chord[3] = root + 4;
             chord[4] = root + 7;
           },
-          minor: function() {
+          minor() {
             chord[3] = root + 3;
             chord[4] = root + 7;
           },
-          diminished: function() {
+          diminished() {
             chord[3] = root + 3;
             chord[4] = root + 6;
           },
-          augmented: function() {
+          augmented() {
             chord[3] = root + 4;
             chord[4] = root + 8;
           }
@@ -404,7 +395,7 @@ var panic = function panic() {
       };
 
       // shift all notes to first inversion
-      var invert = function invert(chord) {
+      const invert = (chord) => {
         chord[2] = chord[3];
         chord[3] = chord[4];
         chord[4] = chord[1] + 24;
@@ -412,8 +403,8 @@ var panic = function panic() {
         chord[1] = chord[2] - 12;
       };
 
-      switch(chordNumber) {
-        case 1:
+      const chordNumbers = {
+        1() {
           if (specialChord) {
             setChord(root, 'augmented');
           } else if (invertMode) {
@@ -421,8 +412,8 @@ var panic = function panic() {
           } else {
             setChord(root);
           }
-          break;
-        case 2:
+        },
+        2() {
           root += 2;
           if (specialChord) {
             setChord(root, 'diminished');
@@ -431,18 +422,18 @@ var panic = function panic() {
           } else {
             setChord(root);
           }
-          break;
-        case 3:
+        },
+        3() {
           root += 4;
           if (specialChord) {
-            setChord(root+4); // VI flat; weird, i know, but this chord is just more useful
+            setChord(root + 4); // VI flat; weird, i know, but this chord is just more useful
           } else if (!invertMode) {
             setChord(root, 'minor');
           } else {
             setChord(root);
           }
-          break;
-        case 4:
+        },
+        4() {
           root += 5;
           if (specialChord) {
             root += 1;
@@ -452,8 +443,8 @@ var panic = function panic() {
           } else {
             setChord(root);
           }
-          break;
-        case 5:
+        },
+        5() {
           root += 7;
           if (specialChord) {
             root += 1;
@@ -463,8 +454,8 @@ var panic = function panic() {
           } else {
             setChord(root);
           }
-          break;
-        case 6:
+        },
+        6() {
           root += 9;
           if (specialChord) {
             root += 1;
@@ -474,21 +465,20 @@ var panic = function panic() {
           } else {
             setChord(root);
           }
-          break;
-      }
+        },
+      };
+
+      chordNumbers[chordNumber]();
 
       if (invertChord) {
         invert(chord);
       }
 
       // trigger one note per oscillator
-      polysynth.voices.forEach(function(voice, i) {
+      polysynth.voices.forEach((voice, i) => {
         // get the frequency in hertz of a given piano key
-        var getFreq = function getFreq(pianoKey) {
-          return Math.pow(2, (pianoKey-49)/12) * 440;
-        };
-
-        var pianoKey = chord[i] + (settings.octave * 12);
+        const getFreq = pianoKey => Math.pow(2, (pianoKey-49)/12) * 440;
+        const pianoKey = chord[i] + (settings.octave * 12);
         voice.pitch(getFreq(pianoKey));
       });
 
@@ -497,37 +487,24 @@ var panic = function panic() {
     };
 
     // stop all oscillators if stop command came from last-pressed chord button
-    var stop = function stop(chordNumber) {
+    const stop = (chordNumber) => {
       $('#chord' + chordNumber).removeClass('on');
       if (chordNumber === lastChord) {
         polysynth.stop();
       }
     };
 
-    var isFirstInteraction = true; // for enabling iOS sound
-    labels.forEach(function(chord) {
-      var chordMenu = $('#chordMenu');
+    labels.forEach((chord) => {
+      const chordMenu = $('#chordMenu');
 
-      var startChord = function startChord(e) {
+      const startChord = (e) => {
         e.preventDefault();
         polysynth.lfo.depth(0); // reset lfo depth
         start(chord.number);
       };
 
-      var stopChord = function stopChord(e) {
+      const stopChord = (e) => {
         e.preventDefault();
-        if (isFirstInteraction) {
-          isFirstInteraction = false;
-          // let there be sound (on iOS)
-          // create & play empty buffer
-          var buffer = audioCtx.createBuffer(1, 1, 22050);
-          var source = audioCtx.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioCtx.destination);
-          if (source.noteOn) { // keep this from breaking in chrome
-            source.noteOn(0);
-          }
-        }
         stop(chord.number);
       };
       
@@ -555,8 +532,9 @@ var panic = function panic() {
       ;
     });
 
-    (function setUpKeyboardListeners() {
-      var keyHandler = function keyHandler(event) {
+    // set up keyboard listeners
+    (() => {
+      const keyHandler = (event) => {
         if (!event.repeat) { // ignore repeat keystrokes when holding down keys
           switch (event.keyCode) {
             case 16: // shift
@@ -620,19 +598,20 @@ var panic = function panic() {
         }
       };
 
-      document.addEventListener('keydown', keyHandler); 
+      document.addEventListener('keydown', keyHandler);
       document.addEventListener('keyup', keyHandler);
     })();
-  }());
+  })();
 
-  (function buildWaveformMenu() {
-    var settingsButton = $('#waveformMenu .settings');
-    var preventDefault = function preventDefault(e) {
+  // build waverform menu
+  (() => {
+    const settingsButton = $('#waveformMenu .settings');
+    const preventDefault = (e) => {
       e.preventDefault();
     };
-    
-    waveforms.forEach(function(waveform) {
-      var selectWaveform = function selectWaveform(e) {
+
+    waveforms.forEach((waveform) => {
+      const selectWaveform = (e) => {
         e.preventDefault();
         setWaveform(waveform);
       };
@@ -649,5 +628,13 @@ var panic = function panic() {
       ;
     });
     $('#' + settings.waveform + 'Button').click();
-  }());
-}());
+  })();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('./serviceWorker.js')
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+})();

@@ -285,72 +285,77 @@ const panic = () => {
 
   let audioCtx = getAudioContext();
 
-  // support external midi devices
-  // last-note priority with 5 voices
-  let voiceIndex = -1;
-  const nextVoice = () => {
-    voiceIndex = voiceIndex === 4 ? 0 : voiceIndex + 1;
-    return voiceIndex;
-  }
 
-  navigator.requestMIDIAccess()
-    .then((midi) => {
-      const handleMsg = (msg) => {
-        const [cmd, , val] = msg.data;
-        const round = val => val.toFixed(2);
-        const frequency = note => Math.pow(2, (note - 69) / 12) * 440;
-        const normalize = val => val / 127;
-        // command range represents 16 channels
-        const command =
-          cmd >= 128 && cmd < 144 ? 'off'
-          : cmd >= 144 && cmd < 160 && val === 0 ? 'off'
-          : cmd >= 144 && cmd < 160 ? 'on'
-          : cmd >= 224 && cmd < 240 ? 'pitch'
-          : cmd >= 176 && cmd < 192 ? 'ctrl'
-          : 'unknown';
+  if (typeof navigator.requestMIDIAccess === 'function') {
+    // support external midi devices
+    // last-note priority with 5 voices
+    let voiceIndex = -1;
+    const nextVoice = () => {
+      voiceIndex = voiceIndex === 4 ? 0 : voiceIndex + 1;
+      return voiceIndex;
+    }
 
-        const exec = {
-          off() {
-            const [, note, velocity] = msg.data;
-            polysynth.voices
-              .filter(v => v.note === note + (settings.octave * 12))
-              .forEach(v => v.stop());
-          },
-          on() {
-            const [, note, velocity] = msg.data;
-            const octave = settings.octave * 12;
-            const voiceIndex = nextVoice();
-            const voice = polysynth.voices[voiceIndex];
-            voice.pitch(frequency(note + octave));
-            voice.note = note + octave;
-            voice.start();
-          },
-          pitch() {
-            const [, , strength] = msg.data;
-            const mappedStrength = scale(strength, 0, 127, -1, 1) * settings.bendRange / 12;
-            const multiplier = Math.pow(2, mappedStrength);
+    navigator.requestMIDIAccess()
+      .then((midi) => {
+        const handleMsg = (msg) => {
+          const [cmd, , val] = msg.data;
+          const round = val => val.toFixed(2);
+          const frequency = note => Math.pow(2, (note - 69) / 12) * 440;
+          const normalize = val => val / 127;
+          // command range represents 16 channels
+          const command =
+            cmd >= 128 && cmd < 144 ? 'off'
+            : cmd >= 144 && cmd < 160 && val === 0 ? 'off'
+            : cmd >= 144 && cmd < 160 ? 'on'
+            : cmd >= 224 && cmd < 240 ? 'pitch'
+            : cmd >= 176 && cmd < 192 ? 'ctrl'
+            : 'unknown';
 
-            polysynth.voices.forEach(v => v.note && v.pitch(frequency(v.note) * multiplier));
-          },
-          ctrl() {
-            // controllers such as mod wheel, aftertouch, breath add vibrato
-            const [, , strength] = msg.data;
-            polysynth.lfo.depth(normalize(strength) * 10);
-          },
-          unknown() {}
+          const exec = {
+            off() {
+              const [, note, velocity] = msg.data;
+              polysynth.voices
+                .filter(v => v.note === note + (settings.octave * 12))
+                .forEach(v => v.stop());
+            },
+            on() {
+              const [, note, velocity] = msg.data;
+              const octave = settings.octave * 12;
+              const voiceIndex = nextVoice();
+              const voice = polysynth.voices[voiceIndex];
+              voice.pitch(frequency(note + octave));
+              voice.note = note + octave;
+              voice.start();
+            },
+            pitch() {
+              const [, , strength] = msg.data;
+              const mappedStrength = scale(strength, 0, 127, -1, 1) * settings.bendRange / 12;
+              const multiplier = Math.pow(2, mappedStrength);
+
+              polysynth.voices.forEach(v => v.note && v.pitch(frequency(v.note) * multiplier));
+            },
+            ctrl() {
+              // controllers such as mod wheel, aftertouch, breath add vibrato
+              const [, , strength] = msg.data;
+              polysynth.lfo.depth(normalize(strength) * 10);
+            },
+            unknown() {}
+          };
+
+          exec[command]();
         };
 
-        exec[command]();
-      };
+        for (const input of midi.inputs.values()) {
+          input.onmidimessage = handleMsg;
+        }
 
-      for (const input of midi.inputs.values()) {
-        input.onmidimessage = handleMsg;
-      }
-
-      midi.onstatechange = () => console.log(`${midi.inputs.size} MIDI device(s) connected`);
-    }, () => {
-      console.log('Failed to access MIDI');
-    });
+        midi.onstatechange = () => console.log(`${midi.inputs.size} MIDI device(s) connected`);
+      }, () => {
+        console.log('Failed to access MIDI');
+      });
+  } else {
+    console.log('Your browser does not support the Web MIDI API');
+  }
 
   // enable sound on mobile systems like iOS; code from Howler.js
   (() => {

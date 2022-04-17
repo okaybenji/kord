@@ -184,10 +184,27 @@ button:active {
   border-radius: 1.5vw 1.5vw 0 0;
 }
 
+#auxEtc {
+  background-color: hsl(340, 86%, 50%);
+  width: 27.6667vw;
+  margin: -.5vw -3vw;
+  border-radius: 1.5vw 0 0 0;
+}
+
 #etcSliders {
   background-color: hsl(340, 86%, 50%);
   border-bottom-left-radius: 0;
   float: right;
+}
+
+#patches {
+  display: flex;
+  justify-content: center;
+  line-height: 2vw;
+}
+
+#patches span {
+  margin: .5vw;
 }
 
 .sliderPanel {
@@ -272,6 +289,6 @@ button.settings {
   position: relative;
   transform: translate(-50%, -50%);
   left: 50%;
-  top: 50%;
+  top: 45%;
   padding: 1vw;
 }

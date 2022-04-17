@@ -6,6 +6,14 @@ let invertMode = false;
 let invertChord = false;
 let specialChord = false;
 
+const debounce = (func, timeout = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(this, args), timeout);
+  };
+};
+
 const scale = (num, inMin, inMax, outMin, outMax) =>
   (num - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 
@@ -123,12 +131,11 @@ const toggleSettings = () => {
   $('.settings').toggleClass('on');
 };
 
-const saveSettings = (newSettings) => {
-  // TODO: since this is called on input, debounce to limit number of times we access storage
+const saveSettings = debounce((newSettings) => {
   const settings = JSON.parse(localStorage.getItem('settings'));
   Object.assign(settings, newSettings);
   localStorage.setItem('settings', JSON.stringify(settings));
-};
+});
 
 const setVolume = (newVolume) => {
   newVolume = Number(newVolume);

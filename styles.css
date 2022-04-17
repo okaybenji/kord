@@ -207,6 +207,15 @@ button:active {
   margin: .5vw;
 }
 
+.arrow {
+  font-size: 2vw;
+  height: 1.76vw;
+}
+
+.prev {
+  transform: rotate(180deg);
+}
+
 .sliderPanel {
   width: 27.6667vw;
   height: 54.25vw;

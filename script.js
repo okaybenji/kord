@@ -344,7 +344,7 @@ const panic = () => {
             ctrl() {
               // controllers such as mod wheel, aftertouch, breath add vibrato
               const [, , strength] = msg.data;
-              polysynth.lfo.depth(normalize(strength) * 10);
+              polysynth.lfo.depth(normalize(strength) * 20);
             },
             unknown() {}
           };

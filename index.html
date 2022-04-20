@@ -94,6 +94,18 @@
             <span class="value"><span id="cutoffSustainLabel"></span><span class="gray">x</span></span>
             <input id="cutoffSustainSlider" type="range" min="0" max="5" step=".01" oninput="cutoff.setSustain(this.value)"/>
           </div>
+          <!-- Expanding Etc into Cut to make room for patches -->
+          <div id="auxEtc" class="sliderPanel">
+            <div>
+              <span class="name gray">patch</span>
+              <br>
+              <div id="patches">
+                <span class="arrow prev" onclick="prevPatch()">►</span>
+                <span class="value"><span id="patchLabel">patch</span></span>
+                <span class="arrow" onclick="nextPatch()">►</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="etcSliders" class="sliderPanel">
           <div>

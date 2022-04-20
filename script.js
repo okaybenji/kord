@@ -1,10 +1,19 @@
 let polysynth;
 let settings;
+let patchIndex = 0;
 
 // toggles
 let invertMode = false;
 let invertChord = false;
 let specialChord = false;
+
+const debounce = (func, timeout = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(this, args), timeout);
+  };
+};
 
 const scale = (num, inMin, inMax, outMin, outMax) =>
   (num - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -123,12 +132,11 @@ const toggleSettings = () => {
   $('.settings').toggleClass('on');
 };
 
-const saveSettings = (newSettings) => {
-  // TODO: since this is called on input, debounce to limit number of times we access storage
+const saveSettings = debounce((newSettings) => {
   const settings = JSON.parse(localStorage.getItem('settings'));
   Object.assign(settings, newSettings);
   localStorage.setItem('settings', JSON.stringify(settings));
-};
+});
 
 const setVolume = (newVolume) => {
   newVolume = Number(newVolume);
@@ -270,6 +278,98 @@ const setWaveform = (newWaveform) => {
   saveSettings({waveform: newWaveform});
 };
 
+const patches = [
+  {
+    name: 'warm',
+    octave: -1,
+    bendRange: 2, // In semitones
+    waveform: 'sawtooth',
+    numVoices: 5,
+    stereoWidth: 1,
+    attack: 0.28,
+    decay: 0.28,
+    sustain: 1,
+    release: 0.28,
+    cutoff: {
+      maxFrequency: 1800,
+      attack: 0.1,
+      decay: 2.5,
+      sustain: 0.2
+    },
+  },
+  {
+    name: 'buzzy',
+    octave: -1,
+    bendRange: 2, // In semitones
+    waveform: 'sawtooth',
+    numVoices: 5,
+    stereoWidth: 1,
+    attack: 0.28,
+    decay: 0.28,
+    sustain: 1,
+    release: 0.28,
+    cutoff: {
+      maxFrequency: 7500,
+      attack: 0.1,
+      decay: 2.5,
+      sustain: 0.2
+    },
+  },
+  {
+    name: 'hollow',
+    octave: -1,
+    bendRange: 2, // In semitones
+    waveform: 'triangle',
+    numVoices: 5,
+    stereoWidth: 1,
+    attack: 0.28,
+    decay: 0.28,
+    sustain: 0.3,
+    release: 2.5,
+    cutoff: {
+      maxFrequency: 7500,
+      attack: 0.1,
+      decay: 2.5,
+      sustain: 0.2
+    },
+  },
+];
+
+const loadPatch = () => {
+  const patch = patches[patchIndex];
+
+  setOctave(patch.octave);
+  setWidth(patch.stereoWidth);
+  setBendRange(patch.bendRange);
+  setAttack(patch.attack);
+  setDecay(patch.decay);
+  setSustain(patch.sustain);
+  setRelease(patch.release);
+  cutoff.setMaxFrequency(patch.cutoff.maxFrequency);
+  cutoff.setAttack(patch.cutoff.attack);
+  cutoff.setDecay(patch.cutoff.decay);
+  cutoff.setSustain(patch.cutoff.sustain);
+  setWaveform(patch.waveform);
+
+  $('#patchLabel').text(patch.name);
+};
+
+const prevPatch = () => {
+  patchIndex--;
+  if (patchIndex < 0) {
+    patchIndex = patches.length - 1;
+  }
+  loadPatch();
+};
+
+const nextPatch = () => {
+  patchIndex++;
+  if (patchIndex > patches.length - 1) {
+    patchIndex = 0;
+  }
+  loadPatch();
+};
+
 // reload page w/o POST
 const panic = () => {
   window.location = window.location;
@@ -337,7 +437,7 @@ const panic = () => {
             ctrl() {
               // controllers such as mod wheel, aftertouch, breath add vibrato
               const [, , strength] = msg.data;
-              polysynth.lfo.depth(normalize(strength) * 10);
+              polysynth.lfo.depth(normalize(strength) * 20);
             },
             unknown() {}
           };
@@ -386,24 +486,11 @@ const panic = () => {
     let settings = JSON.parse(localStorage.getItem('settings'));
     if (!settings) {
       // load and save defaults
+      // a little torn on this, but for now key & volume are not saved to patch
       settings = {
-        key: 40, // C
-        octave: -1,
-        bendRange: 2, // In semitones
-        waveform: 'sawtooth',
+        patch: patchIndex,
+        key: 40, // C,
         volume: 0.9,
-        numVoices: 5,
-        stereoWidth: 1,
-        attack: 0.28,
-        decay: 0.28,
-        sustain: 1,
-        release: 0.28,
-        cutoff: {
-          maxFrequency: 1800,
-          attack: 0.1,
-          decay: 2.5,
-          sustain: 0.2
-        }
       };
       localStorage.setItem('settings', JSON.stringify(settings));
     }
@@ -411,7 +498,9 @@ const panic = () => {
   };
 
   settings = getSettings();
-  polysynth = new Polysynth(audioCtx, settings);
+  polysynth = new Polysynth(audioCtx, Object.assign({}, patches[settings.patch], settings));
+
+  loadPatch();
 
   // update controls to display initial synth values
   $('#keySlider').val(settings.key); // not a subpoly or submono property
